@@ -103,7 +103,7 @@ const Header = () => {
             spacing={{ base: "10px", sm: "10px", md: "20px", lg: "20px" }}
             fontSize="12px"
           >
-            <Link to="/">
+            <Link to="/compare-products">
               <Flex
                 justify="center"
                 align="center"
@@ -117,7 +117,7 @@ const Header = () => {
                 </Box>
               </Flex>
             </Link>
-            <Link to="/">
+            <Link to="/wishlist">
               <Flex justify="center" align="center" gap="5px">
                 <BiHeart fontSize="25px" />
                 <Box
@@ -143,7 +143,7 @@ const Header = () => {
                 </Text>
               </Flex>
             </Link>
-            <Link to="/">
+            <Link to="/login">
               <Flex
                 justify="center"
                 align="center"
@@ -157,7 +157,7 @@ const Header = () => {
                 </Box>
               </Flex>
             </Link>
-            <Link to="/">
+            <Link to="/cart">
               <Flex justify="center" align="center" gap="5px">
                 <BiCart fontSize="25px" color="#e3ae52" />
                 <Box>
@@ -290,7 +290,7 @@ const Header = () => {
                   <Link to="/blogs">BLOGS</Link>
                   <Link to="/contact">CONTACT</Link>
 
-                  <Link to="/">
+                  <Link to="/login">
                     <Flex justify="center" align="center" gap="5px">
                       <BiUser fontSize="25px" />
                       <Text>Log in</Text>

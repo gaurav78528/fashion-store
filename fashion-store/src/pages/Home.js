@@ -19,6 +19,7 @@ import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import "../styles/home.css";
 import SpecialProductCard from "../components/SpecialProductCard";
+import Carousel from "../components/Carousel";
 const Home = () => {
   return (
     <>
@@ -35,14 +36,16 @@ const Home = () => {
           rowSpan={2}
           colSpan={{ base: "4", sm: "4", md: "4", lg: "2" }}
         >
-          <Image
+          
+          {/* <Image
             src="https://images-eu.ssl-images-amazon.com/images/G/31/img22/Beauty/COOP/June/Desktop-Banner_Without-Super-Value_1.jpg"
             alt="img"
             borderRadius="5px"
             h="100%"
             w="100%"
             // h="auto"
-          />
+          /> */}
+          <Carousel />
         </GridItem>
         <GridItem
           display={{ base: "none", sm: "none", md: "none", lg: "block" }}

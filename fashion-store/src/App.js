@@ -7,6 +7,11 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OurStore from "./pages/OurStore";
 import Blogs from "./pages/Blogs";
+import NotFound from "./pages/NotFound";
+import CompareProducts from "./pages/CompareProducts";
+import Wishlist from "./pages/Wishlist";
+import Login from "./pages/Login";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -19,6 +24,12 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/store" element={<OurStore />} />
             <Route path="/blogs" element={<Blogs />} />
+            <Route path="/compare-products" element={<CompareProducts />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
