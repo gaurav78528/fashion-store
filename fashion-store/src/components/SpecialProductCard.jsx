@@ -14,7 +14,7 @@ import "../styles/specialProductCard.css";
 const SpecialProductCard = () => {
   return (
     <Box className="special-product-card">
-      <Flex justify="space-between">
+      <Flex justify="space-between" gap="20px">
         <Box w="50%">
           <Image
             src="https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Haircare/SBC-Hair_03._CB633798670_.jpg"
@@ -30,7 +30,7 @@ const SpecialProductCard = () => {
           <ReactStars
             count={5}
             // onChange={ratingChanged}
-            value="3"
+            value={3}
             edit={false}
             size={15}
             activeColor="#ffd700"
@@ -61,9 +61,11 @@ const SpecialProductCard = () => {
             borderRadius="5px"
             size="sm"
             // w="35%"
+            transition="0.5s"
             bgColor="black"
+            my="10px"
           >
-            OPTION
+            Add To Cart
           </Button>
         </Flex>
       </Flex>

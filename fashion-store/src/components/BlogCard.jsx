@@ -36,6 +36,7 @@ const BlogCard = () => {
             borderRadius="5px"
             size="sm"
             // w="35%"
+            transition="0.5s"
             bgColor="black"
           >
             READ MORE

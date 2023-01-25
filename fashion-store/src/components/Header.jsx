@@ -246,9 +246,9 @@ const Header = () => {
             display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
           >
             <Link to="/">HOME</Link>
-            <Link to="/">OUR STORE</Link>
-            <Link to="/">BLOGS</Link>
-            <Link to="/">CONTACT</Link>
+            <Link to="/store">OUR STORE</Link>
+            <Link to="/blogs">BLOGS</Link>
+            <Link to="/contact">CONTACT</Link>
           </Flex>
           <Drawer
             isOpen={isOpen}
@@ -259,7 +259,9 @@ const Header = () => {
             <DrawerOverlay />
             <DrawerContent bgColor="#232f3e" color="#fff">
               <DrawerCloseButton />
-              <DrawerHeader>Fashion</DrawerHeader>
+              <Link to="/">
+                <DrawerHeader>Fashion</DrawerHeader>
+              </Link>
 
               <DrawerBody>
                 <HStack pb="15px" mb="20px" borderBottom="1px solid gray">
@@ -284,9 +286,9 @@ const Header = () => {
                   fontSize="14px"
                 >
                   <Link to="/">HOME</Link>
-                  <Link to="/">OUR STORE</Link>
-                  <Link to="/">BLOGS</Link>
-                  <Link to="/">CONTACT</Link>
+                  <Link to="/store">OUR STORE</Link>
+                  <Link to="/blogs">BLOGS</Link>
+                  <Link to="/contact">CONTACT</Link>
 
                   <Link to="/">
                     <Flex justify="center" align="center" gap="5px">

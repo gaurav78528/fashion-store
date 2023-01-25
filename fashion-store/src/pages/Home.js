@@ -486,6 +486,31 @@ const Home = () => {
           </Grid>
         </Box>
 
+        {/* OUR POPULAR PRODUCTS STARTS HERE */}
+        <Box>
+          <Heading as="h2" size="lg" fontWeight={500} my="30px" border>
+            Featured Collection
+          </Heading>
+          <Flex
+            justify="center"
+            align="center"
+            // templateColumns={{
+            //   base: "repeat(1, 1fr)",
+            //   sm: "repeat(2, 1fr)",
+            //   md: "repeat(3, 1fr)",
+            //   lg: "repeat(4, 1fr)",
+            // }}
+            gap="20px"
+          >
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            {/* <ProductCard /> */}
+            {/* <ProductCard /> */}
+          </Flex>
+        </Box>
+
         <Box>
           <Heading as="h2" size="lg" fontWeight={500} my="30px" border>
             Our Latest Blogs
