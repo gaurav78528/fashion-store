@@ -16,10 +16,32 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdLocalShipping } from "react-icons/md";
+import { useParams } from "react-router-dom";
+
+// function fetchSingleProduct() {
+//   return fetch("http://localhost:8080/products");
+// }
 
 const SingleProduct = () => {
+  const [data, setData] = useState({});
+  const { image, title, price } = data;
+
+  console.log(data);
+  const { id } = useParams();
+
+  const getSingleProduct = async (id) => {
+    let res = await fetch(`http://localhost:8080/products/${id}`);
+    let productData = await res.json();
+    setData(productData);
+  };
+
+  useEffect(() => {
+    getSingleProduct(id);
+  }, [id]);
+
   return (
     <Container maxW={"7xl"}>
       <SimpleGrid
@@ -31,10 +53,8 @@ const SingleProduct = () => {
           <Image
             rounded={"md"}
             alt={"product image"}
-            src={
-              "https://images.unsplash.com/photo-1596516109370-29001ec8ec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE1MDl8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MzY2MzE&ixlib=rb-1.2.1&q=80&w=1080"
-            }
-            fit={"cover"}
+            src={image}
+            fit="contain"
             align={"center"}
             w={"100%"}
             h={{ base: "100%", sm: "400px", lg: "500px" }}
@@ -47,14 +67,14 @@ const SingleProduct = () => {
               fontWeight={600}
               fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
             >
-              Automatic Watch
+              {title}
             </Heading>
             <Text
               color={useColorModeValue("gray.900", "gray.400")}
               fontWeight={300}
               fontSize={"2xl"}
             >
-              $350.00 USD
+              ${price} USD
             </Text>
           </Box>
 
@@ -167,17 +187,12 @@ const SingleProduct = () => {
           </Stack>
 
           <Button
-            rounded={"none"}
-            w={"full"}
-            mt={8}
-            size={"lg"}
-            py={"7"}
-            bg={useColorModeValue("gray.900", "gray.50")}
-            color={useColorModeValue("white", "gray.900")}
-            textTransform={"uppercase"}
+            size="lg"
+            bg={"#000"}
+            color={"white"}
             _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
+              bg: "#e3ae52",
+              color: "#000",
             }}
           >
             Add to cart

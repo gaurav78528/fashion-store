@@ -309,6 +309,136 @@
       "fashion": "fashion-collection"
     }
   ],
+  "featured-collection": [
+    {
+      "id": 18,
+      "image": "https://cdn-images.farfetch-contents.com/19/12/41/37/19124137_41886107_480.jpg",
+      "title": "Rosantica",
+      "name": "Holli crystal-embellished tote bag",
+      "price": 2033,
+      "category": "bag",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 19,
+      "image": "https://cdn-images.farfetch-contents.com/18/90/37/16/18903716_41087054_480.jpg",
+      "title": "Dion Lee",
+      "name": "lace up bell-sleeve blouse",
+      "price": 1240,
+      "category": "clothing",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 20,
+      "image": "https://cdn-images.farfetch-contents.com/18/53/32/55/18533255_41350798_480.jpg",
+      "title": "Off-White",
+      "name": "panelled low-top sneakers",
+      "price": 1097,
+      "category": "sandal",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 21,
+      "image": "https://cdn-images.farfetch-contents.com/18/41/88/44/18418844_41474383_480.jpg",
+      "title": "Marine Serre",
+      "name": "patchwork straight-leg jeans",
+      "price": 1628,
+      "category": "clothing",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 22,
+      "image": "https://cdn-images.farfetch-contents.com/18/02/70/33/18027033_41238392_480.jpg",
+      "title": "Paris Texas",
+      "name": "holly crystal-embellished 105mm boots",
+      "price": 1610,
+      "category": "sandal",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 23,
+      "image": "https://cdn-images.farfetch-contents.com/18/08/60/67/18086067_38344306_480.jpg",
+      "title": "Jacquemus",
+      "name": "Bari cut-out tailored dress",
+      "price": 1801,
+      "category": "clothing",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 24,
+      "image": "https://cdn-images.farfetch-contents.com/17/74/66/36/17746636_37248193_480.jpg",
+      "title": "Coperni",
+      "name": "Ring Swipe leather tote bag",
+      "price": 649,
+      "category": "bag",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 25,
+      "image": "https://cdn-images.farfetch-contents.com/17/19/80/66/17198066_34926984_480.jpg",
+      "title": "Jacquemus",
+      "name": "Le Polo Neve textured jumper",
+      "price": 545,
+      "category": "clothing",
+      "fashion": "fashion-collection"
+    }
+  ],
+  "popular-products": [
+    {
+      "id": 20,
+      "image": "https://cdn-images.farfetch-contents.com/18/53/32/55/18533255_41350798_480.jpg",
+      "title": "Off-White",
+      "name": "panelled low-top sneakers",
+      "price": 1097,
+      "category": "sandal",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 21,
+      "image": "https://cdn-images.farfetch-contents.com/18/41/88/44/18418844_41474383_480.jpg",
+      "title": "Marine Serre",
+      "name": "patchwork straight-leg jeans",
+      "price": 1628,
+      "category": "clothing",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 22,
+      "image": "https://cdn-images.farfetch-contents.com/18/02/70/33/18027033_41238392_480.jpg",
+      "title": "Paris Texas",
+      "name": "holly crystal-embellished 105mm boots",
+      "price": 1610,
+      "category": "sandal",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 23,
+      "image": "https://cdn-images.farfetch-contents.com/18/08/60/67/18086067_38344306_480.jpg",
+      "title": "Jacquemus",
+      "name": "Bari cut-out tailored dress",
+      "price": 1801,
+      "category": "clothing",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 24,
+      "image": "https://cdn-images.farfetch-contents.com/17/74/66/36/17746636_37248193_480.jpg",
+      "title": "Coperni",
+      "name": "Ring Swipe leather tote bag",
+      "price": 649,
+      "category": "bag",
+      "fashion": "fashion-collection"
+    },
+    {
+      "id": 25,
+      "image": "https://cdn-images.farfetch-contents.com/17/19/80/66/17198066_34926984_480.jpg",
+      "title": "Jacquemus",
+      "name": "Le Polo Neve textured jumper",
+      "price": 545,
+      "category": "clothing",
+      "fashion": "fashion-collection"
+    }
+  ],
   "wishlist": [],
   "login": []
 }

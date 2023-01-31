@@ -40,11 +40,11 @@ import "../styles/ourStore.css";
 const OurStore = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  const products = useSelector((store) => store.products);
+  const products = useSelector((store) => store.productsReducer.products);
   const dispatch = useDispatch();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(location);
+  // console.log(location);
   useEffect(() => {
     if (location || products.length === 0) {
       const getProductParams = {
@@ -263,20 +263,12 @@ const OurStore = () => {
             {/* ===========================map data here =========================== */}
             {products.length > 0 &&
               products.map((product) => {
-                // console.log(product);
                 return (
                   <GridItem key={product.id}>
                     <ProductCard productData={product} />
                   </GridItem>
                 );
               })}
-
-            {/* <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem> */}
           </Grid>
         </VStack>
       </HStack>

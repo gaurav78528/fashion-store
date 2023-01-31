@@ -32,8 +32,8 @@ const Contact = () => {
   return (
     <Container bg="#f5f5f7" maxW="full" mt={0} centerContent overflow="hidden">
       <Box w="110%">
-        <Meta title={"Blogs"} />
-        <BreadCrumb title={"Blogs"} />
+        <Meta title={"Contact"} />
+        <BreadCrumb title={"Contact"} />
       </Box>
       <Flex>
         <Box

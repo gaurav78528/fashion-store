@@ -18,20 +18,20 @@ import "../styles/productCard.css";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ productData }) => {
-  const { image, name, price } = productData;
-  console.log(productData);
+  const { id, image, name, price } = productData;
+  // console.log(productData);
   // const image =
   //   "https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Makeup/SBC-Makeup_02._SY530_QL85_.jpg";
   // const name = "helllo wolrd";
   // const price = 23;
   return (
-    <Link to="/store/1">
+    <Link to={`/store/${id}`}>
       <Box
         className="product-card"
         // border="1px solid red"
         bgColor="#fff"
         borderRadius="5px"
-
+        w="250px"
         // _hover={{}}
       >
         <HStack justify="space-between" p="5px" align={"center"}>
@@ -51,12 +51,14 @@ const ProductCard = ({ productData }) => {
                 alt={name}
                 // h="200px"
                 h="250px"
+                w="100%"
               />
               <Image
-                src="https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Makeup/SBC-Makeup_02._SY530_QL85_.jpg"
+                src="https://cdn-images.farfetch-contents.com/18/20/20/38/18202038_38750523_480.jpg"
                 alt="product_img"
                 // h="200px"
                 h="250px"
+                w="100%"
               />
             </Box>
           </Box>

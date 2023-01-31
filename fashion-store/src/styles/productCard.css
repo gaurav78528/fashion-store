@@ -15,9 +15,9 @@
   right: -40px;
   transition: 0.3s;
 }
-.product-side-bar svg {
-  color: #fff;
-}
+/* .product-side-bar svg {
+  /* color: #000; */
+/* }  */
 
 .product-image > img:last-child {
   display: none;

@@ -17,7 +17,6 @@ const settings = {
 };
 
 const Carousel = () => {
-  
   // const [slider, setSlider] = (React.useState < Slider) | (null > null);
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "10px" });
@@ -84,6 +83,7 @@ const Carousel = () => {
           <Box
             key={index}
             height={"6xl"}
+            w="100%"
             // borderRadius="5px"
             position="relative"
             backgroundPosition="center"

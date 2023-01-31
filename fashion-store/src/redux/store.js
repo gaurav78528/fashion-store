@@ -1,11 +1,21 @@
-import { applyMiddleware, compose, legacy_createStore } from "redux";
+import {
+  applyMiddleware,
+  combineReducers,
+  compose,
+  legacy_createStore,
+} from "redux";
 import thunk from "redux-thunk";
 import { productsReducer } from "./products/reducer";
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = legacy_createStore(
+import { popularProductsReducer } from "./popularProducts/reducer";
+import { featuredProductsReducer } from "./featuredCollections/reducer";
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const rootReducer = combineReducers({
   productsReducer,
-  composeEnhancers(applyMiddleware(thunk))
-);
+  popularProductsReducer,
+  featuredProductsReducer,
+});
+const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
 
 export { store };
+
+// export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
