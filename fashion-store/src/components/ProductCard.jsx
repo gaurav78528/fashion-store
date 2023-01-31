@@ -17,9 +17,15 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import "../styles/productCard.css";
 import { Link } from "react-router-dom";
 
-const ProductCard = () => {
+const ProductCard = ({ productData }) => {
+  const { image, name, price } = productData;
+  console.log(productData);
+  // const image =
+  //   "https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Makeup/SBC-Makeup_02._SY530_QL85_.jpg";
+  // const name = "helllo wolrd";
+  // const price = 23;
   return (
-    <Link to="/">
+    <Link to="/store/1">
       <Box
         className="product-card"
         // border="1px solid red"
@@ -41,14 +47,16 @@ const ProductCard = () => {
           <Box className="product-details">
             <Box className="product-image">
               <Image
-                src="https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Makeup/SBC-Makeup_01._SY530_QL85_.jpg"
-                alt="product_img"
+                src={image}
+                alt={name}
                 // h="200px"
+                h="250px"
               />
               <Image
                 src="https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Makeup/SBC-Makeup_02._SY530_QL85_.jpg"
                 alt="product_img"
                 // h="200px"
+                h="250px"
               />
             </Box>
           </Box>
@@ -56,8 +64,7 @@ const ProductCard = () => {
             Havells
           </Heading>
           <Heading as="h6" size="xs">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi,
-            animi.
+            {name}
           </Heading>
           <ReactStars
             count={5}
@@ -67,7 +74,7 @@ const ProductCard = () => {
             size={24}
             activeColor="#ffd700"
           />
-          <Text>$10.00</Text>
+          <Text>${price}</Text>
           {/* </Flex> */}
         </Flex>
         <Flex

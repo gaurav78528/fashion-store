@@ -26,17 +26,37 @@ import {
   DrawerBody,
   DrawerFooter,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiFillFilter } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import BreadCrumb from "../components/BreadCrumb";
+import FilterPanel from "../components/FilterPanel";
 import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
-
+import { getProducts } from "../redux/products/action";
+import { useSelector, useDispatch } from "react-redux";
 import "../styles/ourStore.css";
+
 const OurStore = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  const products = useSelector((store) => store.products);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log(location);
+  useEffect(() => {
+    if (location || products.length === 0) {
+      const getProductParams = {
+        params: {
+          category: searchParams.getAll("category"),
+        },
+      };
+      dispatch(getProducts(getProductParams));
+    }
+  }, [location.search]);
+  // console.log(products);
+
   return (
     <Box bgColor="#f5f5f7">
       <Meta title={"Our Store"} />
@@ -50,122 +70,7 @@ const OurStore = () => {
         py="20px"
         px={{ base: "10px", sm: "10px", md: "50px", lg: "100px" }}
       >
-        <VStack
-          w="20%"
-          spacing="10px"
-          display={{ base: "none", sm: "none", md: "none", lg: "block" }}
-        >
-          <Flex
-            direction="column"
-            gap="40px"
-            bgColor="#fff"
-            w="100%"
-            borderRadius="5px"
-            p="10px"
-          >
-            <Heading as="h5" size="sm">
-              Shop By Categories
-            </Heading>
-
-            <Flex direction="column" gap="5px">
-              <Text>Watch</Text>
-              <Text>Tv</Text>
-              <Text>Camera</Text>
-              <Text>Laptop</Text>
-            </Flex>
-          </Flex>
-          <Flex
-            direction="column"
-            gap="40px"
-            bgColor="#fff"
-            w="100%"
-            borderRadius="5px"
-            p="10px"
-          >
-            <Heading as="h5" size="sm">
-              Filter By
-            </Heading>
-            <Flex direction="column" gap="10px">
-              <Heading as="h6" size="xs">
-                Availability
-              </Heading>
-              <Checkbox value="" id="">
-                In Stock (2)
-              </Checkbox>
-              <Checkbox value="" id="">
-                Out of stock (0)
-              </Checkbox>
-            </Flex>
-            <Flex direction="column" gap="10px">
-              <Heading as="h6" size="xs">
-                Price
-              </Heading>
-              <Flex gap="15px" align="center" justify="space-between">
-                <HStack>
-                  <Text>$</Text>
-                  <Input variant="filled" placeholder="From" />
-                </HStack>
-                <HStack>
-                  <Text>$</Text>
-                  <Input variant="filled" placeholder="To" />
-                </HStack>
-              </Flex>
-            </Flex>
-            <Flex direction="column" gap="10px">
-              <Heading as="h6" size="xs">
-                Color
-              </Heading>
-              <Box>
-                <ul className="colors">
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                </ul>
-              </Box>
-            </Flex>
-            <Flex direction="column" gap="10px">
-              <Heading as="h6" size="xs">
-                Size
-              </Heading>
-              <Checkbox>S (10)</Checkbox>
-              <Checkbox>M (10)</Checkbox>
-            </Flex>
-          </Flex>
-          <Flex
-            direction="column"
-            gap="40px"
-            bgColor="#fff"
-            w="100%"
-            borderRadius="5px"
-            p="10px"
-          >
-            <Heading as="h5" size="sm">
-              Product Tags
-            </Heading>
-            {/* <Text fontWeight="bold">Shop By Categories</Text> */}
-            <Flex gap="5px" flexWrap="wrap">
-              <Tag>Headphones</Tag>
-              <Tag>Tv</Tag>
-              <Tag>Speakers</Tag>
-              <Tag>Watch</Tag>
-              <Tag>Mobile Phones</Tag>
-            </Flex>
-          </Flex>
-        </VStack>
+        <FilterPanel />
         <VStack w="100%">
           <Flex bgColor="#fff" w="100%" px="20px" py="10px" borderRadius="5px">
             <Flex
@@ -181,9 +86,7 @@ const OurStore = () => {
                 variant="filled"
               >
                 <option value="manual">Featured</option>
-                <option value="best-selling" selected>
-                  Best Selling
-                </option>
+                <option value="best-selling">Best Selling</option>
                 <option value="title-asc">Title, A-Z</option>
                 <option value="title-desc">Title, Z-A</option>
                 <option value="price-asc">Price, low to high</option>
@@ -229,10 +132,15 @@ const OurStore = () => {
                         </Heading>
 
                         <Flex direction="column" gap="5px">
-                          <Text>Watch</Text>
-                          <Text>Tv</Text>
-                          <Text>Camera</Text>
-                          <Text>Laptop</Text>
+                          <Checkbox value="" id="">
+                            Bag
+                          </Checkbox>
+                          <Checkbox value="" id="">
+                            Sandal
+                          </Checkbox>
+                          <Checkbox value="" id="">
+                            Clothing
+                          </Checkbox>
                         </Flex>
                       </Flex>
                       <Flex
@@ -352,45 +260,23 @@ const OurStore = () => {
             }}
             gap="20px"
           >
-            <GridItem>
+            {/* ===========================map data here =========================== */}
+            {products.length > 0 &&
+              products.map((product) => {
+                // console.log(product);
+                return (
+                  <GridItem key={product.id}>
+                    <ProductCard productData={product} />
+                  </GridItem>
+                );
+              })}
+
+            {/* <GridItem>
               <ProductCard />
             </GridItem>
             <GridItem>
               <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
-            <GridItem>
-              <ProductCard />
-            </GridItem>
+            </GridItem> */}
           </Grid>
         </VStack>
       </HStack>

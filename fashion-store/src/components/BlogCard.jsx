@@ -1,7 +1,9 @@
 import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 const BlogCard = () => {
+  const navigate = useNavigate();
+
   return (
     <Box boxShadow="rgba(99, 99, 99, 0.2) 0px 2px 8px 0px">
       <Box>
@@ -38,6 +40,7 @@ const BlogCard = () => {
             // w="35%"
             transition="0.5s"
             bgColor="black"
+            onClick={() => navigate("/blog/id")}
           >
             READ MORE
           </Button>

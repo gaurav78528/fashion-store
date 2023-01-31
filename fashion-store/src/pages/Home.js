@@ -29,14 +29,13 @@ const Home = () => {
         templateColumns="repeat(4, 1fr)"
         gap={4}
         py="40px"
-        px={{ base: "10px", sm: "10px", md: "50px", lg: "100px" }}
+        px={{ base: "0px", sm: "0px", md: "50px", lg: "100px" }}
         // h="500px"
       >
         <GridItem
           rowSpan={2}
           colSpan={{ base: "4", sm: "4", md: "4", lg: "2" }}
         >
-          
           {/* <Image
             src="https://images-eu.ssl-images-amazon.com/images/G/31/img22/Beauty/COOP/June/Desktop-Banner_Without-Super-Value_1.jpg"
             alt="img"
