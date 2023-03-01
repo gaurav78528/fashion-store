@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 const BlogCard = () => {
   const navigate = useNavigate();
-
+let desc=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor est culpa dolores dicta nihil perferendis, impedit quam doloremque odita."
   return (
     <Box boxShadow="rgba(99, 99, 99, 0.2) 0px 2px 8px 0px">
       <Box>
@@ -28,9 +28,7 @@ const BlogCard = () => {
             Hello World gaurav
           </Heading>
           <Text fontSize="12px" fontWeight={600} color="gray">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor est
-            culpa dolores dicta nihil perferendis, impedit quam doloremque odit
-            a.
+           {desc.length>100?`${desc.slice(0,100)}.....`:desc}
           </Text>
           <Button
             colorScheme="blackAlpha"

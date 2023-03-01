@@ -86,7 +86,6 @@ const Header = () => {
             <Input
               type="search"
               placeholder="search product here"
-              // _focus={{ borderColor: "#e3ae52", outlineColor: "none" }}
             />
             <InputRightAddon
               _hover={{ bgColor: "#ce9739" }}

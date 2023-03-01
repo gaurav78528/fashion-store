@@ -66,7 +66,7 @@ const ProductCard = ({ productData }) => {
             Havells
           </Heading>
           <Heading as="h6" size="xs">
-            {name}
+            {name.length>25?`${name.slice(0,25)}....`:name}
           </Heading>
           <ReactStars
             count={5}
