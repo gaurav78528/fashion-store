@@ -8,8 +8,6 @@ const CartItem = () => {
       justify={"space-between"}
       align={"center"}
       borderRadius={"5px"}
-      //   background={"rgba(0,0,0,0.2)"}
-      //   boxShadow="rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px"
       boxShadow="rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px"
       //   border={"1px solid blue"}
       gap="10px"
@@ -23,14 +21,9 @@ const CartItem = () => {
         src="https://upload.wikimedia.org/wikipedia/en/0/03/Far_Cry_5_boxshot.jpg"
         alt="Dan Abramov"
       />
-      <Flex
-        justify={"space-around"}
-        align={"center"}
-        border="1px solid green"
-        w={"full"}
-      >
+      <Flex justify={"space-around"} align={"center"} w={"full"}>
         <Text fontWeight={600}>Product Name</Text>
-        <HStack border={"1px solid red"}>
+        <HStack border={"1px solid gray"} borderRadius="5px">
           <Button size="sm" variant={"ghost"}>
             <AiOutlineMinus fontWeight={800} />
           </Button>

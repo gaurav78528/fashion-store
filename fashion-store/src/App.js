@@ -17,6 +17,7 @@ import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
 import SingleBlog from "./pages/SingleBlog";
 import SingleProduct from "./pages/SingleProduct";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/compare-products" element={<CompareProducts />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Route>
         </Routes>
       </BrowserRouter>
