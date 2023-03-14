@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdLocalShipping } from "react-icons/md";
 import { useParams } from "react-router-dom";
+import Wishlist from "./Wishlist";
 
 // function fetchSingleProduct() {
 //   return fetch("http://localhost:8080/products");
@@ -103,7 +104,7 @@ const SingleProduct = () => {
                 reprehenderit velit? Natus, totam.
               </Text>
             </VStack>
-            <Box>
+            {/* <Box>
               <Text
                 fontSize={{ base: "16px", lg: "18px" }}
                 color={useColorModeValue("yellow.500", "yellow.300")}
@@ -183,20 +184,33 @@ const SingleProduct = () => {
                   5 bar (50 metres / 167 feet){" "}
                 </ListItem>
               </List>
-            </Box>
+            </Box> */}
           </Stack>
 
-          <Button
-            size="lg"
-            bg={"#000"}
-            color={"white"}
-            _hover={{
-              bg: "#e3ae52",
-              color: "#000",
-            }}
-          >
-            Add to cart
-          </Button>
+          <Flex align={"center"} gap={"20px"}>
+            <Button
+              size="lg"
+              bg="#e3ae52"
+              color="#000"
+              _hover={{
+                bg: "#000",
+                color: "white",
+              }}
+            >
+              Add to Wishlist
+            </Button>
+            <Button
+              size="lg"
+              bg={"#000"}
+              color={"white"}
+              _hover={{
+                bg: "#e3ae52",
+                color: "#000",
+              }}
+            >
+              Add to cart
+            </Button>
+          </Flex>
 
           <Stack direction="row" alignItems="center" justifyContent={"center"}>
             <MdLocalShipping />

@@ -37,7 +37,7 @@ const Header = () => {
   const btnRef = useRef();
   return (
     <>
-      <Box bgColor="#000">
+      <Box bgColor="#000" position={"sticky"} top={"0px"} zIndex={10}>
         <Flex
           color="gray"
           py="5px"
@@ -83,10 +83,7 @@ const Header = () => {
             w="45%"
             display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
           >
-            <Input
-              type="search"
-              placeholder="search product here"
-            />
+            <Input type="search" placeholder="search product here" />
             <InputRightAddon
               _hover={{ bgColor: "#ce9739" }}
               bgColor="#e3ae52"
