@@ -20,7 +20,7 @@ const getFeaturedProductsError = () => {
 const getFeaturedProducts = () => (dispatch) => {
   dispatch(getFeaturedProductsLoading());
   return axios
-    .get("http://localhost:8080/featured-collection")
+    .get("https://json-server-six-psi.vercel.app/featured-collection")
     .then((res) => {
       dispatch(getFeaturedProductsSuccess(res.data));
     })

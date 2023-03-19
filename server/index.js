@@ -2,6 +2,9 @@ const express = require("express");
 const morgan = require("morgan");
 const { connection } = require("./config/db");
 const { userRouter } = require("./routes/user.route");
+const cors = require("cors");
+const { authenticate } = require("./middlewares/authenticate.middleware");
+// const cookieParser = require("cookie-parser");
 
 // dotenv config
 require("dotenv").config();
@@ -10,12 +13,15 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 // Middlewares
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
+// app.use(cookieParser());
 app.use(express.json());
+app.use(cors());
 
 // Routes
 
 app.use("/users", userRouter);
+app.use(authenticate);
 
 // Rest API
 app.get("/", (req, res) => {

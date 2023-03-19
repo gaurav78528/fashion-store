@@ -20,7 +20,7 @@ const getPopularProductsError = () => {
 const getPopularProducts = () => (dispatch) => {
   dispatch(getPopularProductsLoading());
   return axios
-    .get("http://localhost:8080/popular-products")
+    .get("https://json-server-six-psi.vercel.app/popular-products")
     .then((res) => {
       dispatch(getPopularProductsSuccess(res.data));
     })

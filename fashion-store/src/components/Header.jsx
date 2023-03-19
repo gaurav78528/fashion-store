@@ -224,11 +224,12 @@ const Header = () => {
             <BiCategory fontSize="25px" />
             <Select
               variant="unstyled"
+              bgColor="#232f3e"
               color="#a8a2a2"
               w="250px"
               fontSize="14px"
             >
-              <option value="option1">SHOP CATEGORIES</option>
+              <option value="">SHOP CATEGORIES</option>
               <option value="option2">MEN</option>
               <option value="option3">WOMEN</option>
             </Select>

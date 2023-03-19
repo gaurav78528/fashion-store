@@ -17,19 +17,68 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [userInput, setUserInput] = useState({
+    firstName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  // console.log(userInput);
   const toast = useToast();
-  const handleRegister = () => {
-    toast({
-      title: "Account created.",
-      description: "Registration Successfully.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserInput({ ...userInput, [name]: value });
   };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const { firstName, email, password, confirmPassword } = userInput;
+
+    if (!firstName || !email || !password || !confirmPassword) {
+      alert("please fill all deatils");
+    } else if (!email.includes("@")) {
+      alert("please enter valid email");
+    } else if (password.length < 6) {
+      alert("Password must be of length 6.");
+    } else if (password !== confirmPassword) {
+      alert("Password does not matches");
+    } else {
+      try {
+        const user = await axios.post(
+          "http://localhost:4500/users/register",
+          userInput
+        );
+        console.log(user);
+
+        toast({
+          title: "Account created.",
+          description: "Registration Successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate("/login");
+      } catch (error) {
+        console.log(error);
+        toast({
+          title: "Error",
+          description: error.response.data.message || "Something went wrong!",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    }
+  };
+
   return (
     <Flex
       minH={"100vh"}
@@ -37,7 +86,7 @@ const Register = () => {
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
     >
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} w="xl" py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} textAlign={"center"}>
             Sign up
@@ -51,30 +100,34 @@ const Register = () => {
           p={8}
         >
           <Stack spacing={4}>
-            <Stack
-              direction={{ base: "column", sm: "column", md: "row", lg: "row" }}
-            >
-              <Box>
-                <FormControl id="firstName" isRequired>
-                  <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl id="lastName">
-                  <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
-                </FormControl>
-              </Box>
-            </Stack>
+            <FormControl id="firstName" isRequired>
+              <FormLabel>First Name</FormLabel>
+              <Input
+                type="text"
+                name="firstName"
+                value={userInput.firstName}
+                onChange={handleChange}
+              />
+            </FormControl>
+
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                name="email"
+                value={userInput.email}
+                onChange={handleChange}
+              />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? "text" : "password"} />
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={userInput.password}
+                  onChange={handleChange}
+                />
                 <InputRightElement h={"full"}>
                   <Button
                     variant={"ghost"}
@@ -83,6 +136,29 @@ const Register = () => {
                     }
                   >
                     {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+            <FormControl id="confirm-password" isRequired>
+              <FormLabel>Confirm Password</FormLabel>
+              <InputGroup>
+                <Input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={userInput.confirmPassword}
+                  onChange={handleChange}
+                />
+                <InputRightElement h={"full"}>
+                  <Button
+                    variant={"ghost"}
+                    onClick={() =>
+                      setShowConfirmPassword(
+                        (showConfirmPassword) => !showConfirmPassword
+                      )
+                    }
+                  >
+                    {showConfirmPassword ? <ViewIcon /> : <ViewOffIcon />}
                   </Button>
                 </InputRightElement>
               </InputGroup>
