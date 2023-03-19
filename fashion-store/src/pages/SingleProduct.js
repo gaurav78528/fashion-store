@@ -16,6 +16,8 @@ import {
   List,
   ListItem,
   transition,
+  Divider,
+  Skeleton,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
@@ -24,24 +26,20 @@ import { useParams } from "react-router-dom";
 import Wishlist from "./Wishlist";
 import ShippingAddress from "./../components/Checkout/ShippingAddress";
 import ReactStars from "react-rating-stars-component";
-
-// function fetchSingleProduct() {
-//   return fetch("http://localhost:8080/products");
-// }
+import { AiOutlineTag } from "react-icons/ai";
+import { BiPurchaseTag } from "react-icons/bi";
 
 const SingleProduct = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
-  const { colors, brand, title, mrp, offer, category, subCategory, rating } =
-    data;
+  const { colors, brand, title, mrp, offer, rating } = data;
 
   const imageRef = useRef();
   const btnRef = useRef();
 
-  console.log(data);
-  console.log(colors);
+  // console.log(data);
+  // console.log(colors);
   const { id } = useParams();
-  // let img = colors[0].images[0];
 
   const getSingleProduct = async (id) => {
     try {
@@ -67,7 +65,20 @@ const SingleProduct = () => {
   };
 
   if (loading) {
-    return <h1>loading...</h1>;
+    return (
+      <Container maxW={"7xl"}>
+        <SimpleGrid
+          columns={{ base: 1, lg: 2 }}
+          spacing={{ base: 8, md: 10 }}
+          py={{ base: 18, md: 24 }}
+          px=""
+        >
+          <Skeleton height="500px" />
+          <Skeleton height="500px" />
+          <Skeleton height="500px" />
+        </SimpleGrid>
+      </Container>
+    );
   }
 
   return (
@@ -82,13 +93,11 @@ const SingleProduct = () => {
             rounded={"md"}
             ref={imageRef}
             alt={title}
-            // src={colors?.[0]?.images?.[0]}
             src={imageRef.current || colors?.[0]?.images?.[0]}
             // fit="contain"
             objectFit="fill"
             align={"center"}
             w={"100%"}
-            // h={{ base: "100%", sm: "400px", lg: "500px" }}
             h="auto"
             mt="20px"
           />
@@ -122,7 +131,16 @@ const SingleProduct = () => {
             })}
           </Flex>
         </Box>
-        <Stack spacing={{ base: 6, md: 10 }}>
+        <Stack
+          spacing={{ base: 6, md: 10 }}
+          boxShadow="rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
+          p={{
+            base: "20px 5px",
+            sm: "20px 40px",
+            md: "20px 40px",
+            lg: "20px 40px",
+          }}
+        >
           <Box as={"header"}>
             <Heading
               lineHeight={1.1}
@@ -159,6 +177,9 @@ const SingleProduct = () => {
                 Price: {mrp - (mrp * offer) / 100}
               </Text>
             </Flex>
+            <Text color={"#e3c810"} fontWeight={600} fontSize={"xl"}>
+              OFFER: {offer}%
+            </Text>
           </Box>
 
           <Stack
@@ -170,12 +191,7 @@ const SingleProduct = () => {
               <Text color={"gray"} fontSize={"2xl"} fontWeight={"300"}>
                 {title}
               </Text>
-              {/* <Text fontSize={"lg"}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-                aliquid amet at delectus doloribus dolorum expedita hic, ipsum
-                maxime modi nam officiis porro, quae, quisquam quos
-                reprehenderit velit? Natus, totam.
-              </Text> */}
+
               <ReactStars
                 count={5}
                 // onChange={ratingChanged}
@@ -184,88 +200,89 @@ const SingleProduct = () => {
                 size={24}
                 activeColor="#ffd700"
               />
+              <Heading as="h4" size={"sm"}>
+                Select Size
+              </Heading>
+              <Flex
+                align={"center"}
+                gap={{ base: "5px", sm: "10px", md: "10px", lg: "10px" }}
+                my="20px"
+              >
+                {colors?.[0]?.sizes.map((size) => {
+                  return (
+                    <Text
+                      h="50px"
+                      // p="10px 15px"
+                      w="50px"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      borderRadius="50%"
+                      textAlign="center"
+                      background="rgba(0,0,0,0.3)"
+                      fontWeight={600}
+                      transition="all 0.4s"
+                      cursor={"pointer"}
+                      _hover={{
+                        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+                        background: "#000",
+                        color: "#fff",
+                      }}
+                    >
+                      {size}
+                    </Text>
+                  );
+                })}
+              </Flex>
+              <Divider />
+              <Box my="50px">
+                <Text color="gray.700" mt="5px" fontSize={"15px"}>
+                  100% Original Products
+                </Text>
+                <Text color="gray.700" mt="5px" fontSize={"15px"}>
+                  Pay on delivery might be available
+                </Text>
+                <Text color="gray.700" mt="5px" fontSize={"15px"}>
+                  100% Original Products Easy 14 days returns and exchanges
+                </Text>
+                <Text color="gray.700" mt="5px" fontSize={"15px"}>
+                  Try & Buy might be available
+                </Text>
+
+                <Flex align={"center"} gap="10px">
+                  <Heading as="h2" size="sm" my="15px">
+                    Best Offers
+                  </Heading>
+                  <BiPurchaseTag fontSize={"20px"} />
+                </Flex>
+                <Text fontWeight={500}>
+                  Best Price: {"   "}
+                  <span style={{ color: "tomato" }}>
+                    Rs. {mrp - (mrp * offer) / 100}
+                  </span>
+                </Text>
+                <ul
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "5px",
+                    margin: "20px 0",
+                  }}
+                >
+                  <li>
+                    Applicable on: Orders above Rs. 2999 (only on first
+                    purchase)
+                  </li>
+                  <li>
+                    Coupon code:{" "}
+                    <span style={{ fontWeight: 700 }}>FASHIONFIRST200</span>{" "}
+                  </li>
+                  <li>
+                    Coupon Discount: Rs. 45 off (check cart for final savings)
+                  </li>
+                </ul>
+              </Box>
             </Box>
-            {/* <Box>
-           <Text
-             fontSize={{ base: "16px", lg: "18px" }}
-             color={useColorModeValue("yellow.500", "yellow.300")}
-             fontWeight={"500"}
-             textTransform={"uppercase"}
-             mb={"4"}
-           >
-             Features
-           </Text>
-
-           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-             <List spacing={2}>
-               <ListItem>Chronograph</ListItem>
-               <ListItem>Master Chronometer Certified</ListItem>{" "}
-               <ListItem>Tachymeter</ListItem>
-             </List>
-             <List spacing={2}>
-               <ListItem>Anti‑magnetic</ListItem>
-               <ListItem>Chronometer</ListItem>
-               <ListItem>Small seconds</ListItem>
-             </List>
-           </SimpleGrid>
-         </Box>
-         <Box>
-           <Text
-             fontSize={{ base: "16px", lg: "18px" }}
-             color={useColorModeValue("yellow.500", "yellow.300")}
-             fontWeight={"500"}
-             textTransform={"uppercase"}
-             mb={"4"}
-           >
-             Product Details
-           </Text>
-
-           <List spacing={2}>
-             <ListItem>
-               <Text as={"span"} fontWeight={"bold"}>
-                 Between lugs:
-               </Text>{" "}
-               20 mm
-             </ListItem>
-             <ListItem>
-               <Text as={"span"} fontWeight={"bold"}>
-                 Bracelet:
-               </Text>{" "}
-               leather strap
-             </ListItem>
-             <ListItem>
-               <Text as={"span"} fontWeight={"bold"}>
-                 Case:
-               </Text>{" "}
-               Steel
-             </ListItem>
-             <ListItem>
-               <Text as={"span"} fontWeight={"bold"}>
-                 Case diameter:
-               </Text>{" "}
-               42 mm
-             </ListItem>
-             <ListItem>
-               <Text as={"span"} fontWeight={"bold"}>
-                 Dial color:
-               </Text>{" "}
-               Black
-             </ListItem>
-             <ListItem>
-               <Text as={"span"} fontWeight={"bold"}>
-                 Crystal:
-               </Text>{" "}
-               Domed, scratch‑resistant sapphire crystal with anti‑reflective
-               treatment inside
-             </ListItem>
-             <ListItem>
-               <Text as={"span"} fontWeight={"bold"}>
-                 Water resistance:
-               </Text>{" "}
-               5 bar (50 metres / 167 feet){" "}
-             </ListItem>
-           </List>
-         </Box> */}
           </Stack>
 
           <Flex align={"center"} gap={"20px"}>
@@ -277,6 +294,7 @@ const SingleProduct = () => {
                 bg: "#000",
                 color: "white",
               }}
+              fontSize={{ base: "14px", sm: "16px", md: "17px", lg: "17px" }}
             >
               Add to Wishlist
             </Button>
@@ -288,6 +306,7 @@ const SingleProduct = () => {
                 bg: "#e3ae52",
                 color: "#000",
               }}
+              fontSize={{ base: "14px", sm: "16px", md: "17px", lg: "17px" }}
             >
               Add to cart
             </Button>

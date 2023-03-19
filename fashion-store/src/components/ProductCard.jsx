@@ -55,13 +55,13 @@ const ProductCard = ({
         <Box className="product-details" position={"relative"}>
           <Box className="product-image">
             <Image
-              src={colors[0].images[0]}
+              src={colors?.[0]?.images?.[0]}
               alt={title}
               minH="250px"
               w="100%"
             />
             <Image
-              src={colors[0].images[1]}
+              src={colors?.[0]?.images?.[1]}
               alt="product_img"
               minH="250px"
               w="100%"
