@@ -20,7 +20,7 @@ const getProductsError = () => {
 const getProducts = (params) => (dispatch) => {
   dispatch(getProductsLoading());
   return axios
-    .get("https://json-server-six-psi.vercel.app/products", params)
+    .get("http://localhost:4500/products", params)
     .then((res) => {
       dispatch(getProductsSuccess(res.data));
     })

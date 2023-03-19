@@ -17,89 +17,107 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import "../styles/productCard.css";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ productData }) => {
-  const { id, image, name, price } = productData;
-  // console.log(productData);
+const ProductCard = ({
+  productData: {
+    _id,
+    colors,
+    brand,
+    title,
+    mrp,
+    offer,
+    category,
+    subCategory,
+    new: newer,
+    rating,
+  },
+}) => {
+  console.log(colors);
   // const image =
   //   "https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Makeup/SBC-Makeup_02._SY530_QL85_.jpg";
   // const name = "helllo wolrd";
   // const price = 23;
   return (
-    <Link to={`/store/${id}`}>
-      <Box
-        className="product-card"
-        // border="1px solid red"
-        bgColor="#fff"
-        borderRadius="5px"
-        w="250px"
-        // _hover={{}}
-      >
-        <HStack justify="space-between" p="5px" align={"center"}>
-          <Tag size="sm" key="sm" variant="solid" colorScheme="orange">
-            Tag
+    <Box className="product-card" bgColor="#fff" borderRadius="5px" w="250px">
+      <HStack justify="space-between" p="5px" align={"center"}>
+        {newer ? (
+          <Tag size="sm" key="sm" variant="solid" colorScheme="green">
+            New
           </Tag>
-          <Button variant="link">
-            <AiOutlineHeart />
-          </Button>
-        </HStack>
-        <Flex direction="column" p="10px" gap="7px">
-          {/* <Flex> */}
-          <Box className="product-details">
-            <Box className="product-image">
-              <Image
-                src={image}
-                alt={name}
-                // h="200px"
-                h="250px"
-                w="100%"
-              />
-              <Image
-                src="https://cdn-images.farfetch-contents.com/18/20/20/38/18202038_38750523_480.jpg"
-                alt="product_img"
-                // h="200px"
-                h="250px"
-                w="100%"
-              />
-            </Box>
-          </Box>
-          <Heading color="#ed5b5b" as="h6" size="xs">
-            Havells
-          </Heading>
-          <Heading as="h6" size="xs">
-            {name.length>25?`${name.slice(0,25)}....`:name}
-          </Heading>
-          <ReactStars
-            count={5}
-            // onChange={ratingChanged}
-            value={3}
-            edit={false}
-            size={24}
-            activeColor="#ffd700"
-          />
-          <Text>${price}</Text>
-          {/* </Flex> */}
-        </Flex>
-        <Flex
-          className="product-side-bar"
-          direction="column"
-          gap="15px"
-          align="center"
-          justify="center"
+        ) : (
+          <Tag size="sm" key="sm" variant="ghost" colorScheme="green"></Tag>
+        )}
 
-          // h="100%"
-        >
-          <Button variant="link">
-            <BiGitCompare fontSize="20px" />
-          </Button>
-          <Button variant="link">
-            <AiOutlineEye fontSize="20px" />
-          </Button>
-          <Button variant="link">
-            <HiOutlineShoppingBag fontSize="20px" />
-          </Button>
-        </Flex>
-      </Box>
-    </Link>
+        <Button variant="link">
+          <AiOutlineHeart />
+        </Button>
+      </HStack>
+      <Flex direction="column" p="10px" gap="7px">
+        <Box className="product-details" position={"relative"}>
+          <Box className="product-image">
+            <Image
+              src={colors[0].images[0]}
+              alt={title}
+              minH="250px"
+              w="100%"
+            />
+            <Image
+              src={colors[0].images[1]}
+              alt="product_img"
+              minH="250px"
+              w="100%"
+            />
+          </Box>
+          <Link to={`/store/${_id}`}>
+            <Text
+              border={"1px solid gray"}
+              position={"absolute"}
+              bottom="-10px"
+              left={"50%"}
+              px="20px"
+              fontWeight={500}
+              color="#fff"
+              background={"rgba(0,0,0,0.5)"}
+              transform={"translate(-50%)"}
+              className="view-btn"
+            >
+              VIEW
+            </Text>
+          </Link>
+        </Box>
+        <Heading color="#ed5b5b" as="h6" size="xs" mt="15px">
+          {brand}
+        </Heading>
+        <Heading as="h6" size="xs">
+          {title.length > 25 ? `${title.slice(0, 25)}....` : title}
+        </Heading>
+        <ReactStars
+          count={5}
+          // onChange={ratingChanged}
+          value={rating}
+          edit={false}
+          size={24}
+          activeColor="#ffd700"
+        />
+        <Text>${mrp}</Text>
+      </Flex>
+      <Flex
+        className="product-side-bar"
+        direction="column"
+        gap="15px"
+        align="center"
+        justify="center"
+      >
+        <Button variant="link">
+          <BiGitCompare fontSize="20px" />
+        </Button>
+        <Button variant="link">
+          <AiOutlineEye fontSize="20px" />
+        </Button>
+        <Button variant="link">
+          <HiOutlineShoppingBag fontSize="20px" />
+        </Button>
+      </Flex>
+    </Box>
   );
 };
 

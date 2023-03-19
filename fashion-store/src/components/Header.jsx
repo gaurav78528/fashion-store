@@ -37,7 +37,7 @@ const Header = () => {
   const btnRef = useRef();
   return (
     <>
-      <Box bgColor="#000" position={"sticky"} top={"0px"} zIndex={10}>
+      <Box bgColor="#000" zIndex={10} position={"sticky"} top={"0px"}>
         <Flex
           color="gray"
           py="5px"

@@ -2,6 +2,7 @@
   position: relative;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  transition: all 1s;
 }
 
 .product-card:hover .product-side-bar {
@@ -27,5 +28,11 @@
   display: none;
 }
 .product-details:hover .product-image > img:last-child {
+  display: block;
+}
+.view-btn {
+  display: none;
+}
+.product-details:hover .view-btn {
   display: block;
 }
