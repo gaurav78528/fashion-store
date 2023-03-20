@@ -71,15 +71,20 @@ const ProductCard = ({
             <Text
               border={"1px solid gray"}
               position={"absolute"}
-              bottom="-10px"
+              bottom="-15px"
               left={"50%"}
-              px="20px"
+              px="40px"
+              py="5px"
               fontWeight={500}
               color="#fff"
               background={"rgba(0,0,0,0.5)"}
               transform={"translate(-50%)"}
               borderRadius={"3px"}
+              transition="all 0.5s"
               className="view-btn"
+              _hover={{
+                background: "rgba(0, 0, 0, 0.8)",
+              }}
             >
               VIEW
             </Text>

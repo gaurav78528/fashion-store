@@ -122,18 +122,208 @@
     {
       "colors": [
         {
+          "color": "blue",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20201222/vJCL/5fe0fba7f997dd8c83dbba19/-1117Wx1400H-460789301-blue-MODEL4.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20210316/vjmc/604fb3b0aeb2696981864c7c/-1117Wx1400H-460789301-blue-MARKETING.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20201222/5Hnj/5fe0f3d9f997dd8c83db5622/-1117Wx1400H-460789301-blue-MODEL3.jpg"
+          ],
+          "sizes": [28, 30, 32, 34, 36]
+        }
+      ],
+
+      "brand": "THE INDIAN GARAGE CO",
+      "title": "Lightly Washed Slim Fit Jeans",
+      "mrp": 1999,
+      "offer": 70,
+      "category": "mens",
+      "subCategory": "jeans",
+      "rating": 0,
+      "new": true
+    },
+    {
+      "colors": [
+        {
           "color": "",
-          "images": [],
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20220513/HaI0/627e22c9f997dd03e2b9a381/-473Wx593H-461653441-maroon-MODEL3.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220513/AhGv/627e22c9f997dd03e2b9a400/-473Wx593H-461653441-maroon-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220513/C8xi/627e22c9f997dd03e2b9a3af/-1117Wx1400H-461653441-maroon-MODEL5.jpg"
+          ],
+          "sizes": ["S", "M", "L"]
+        }
+      ],
+
+      "brand": "THE BEAR HOUSE",
+      "title": "Checked Slim Fit Shirt with Patch Pocket",
+      "mrp": 2495,
+      "offer": 57,
+      "category": "mens",
+      "subCategory": "shirt",
+      "rating": 0,
+      "new": false
+    },
+    {
+      "colors": [
+        {
+          "color": "",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20220818/lSh7/62fde20caeb269176182b7d0/-473Wx593H-461394178-green-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220818/d6Wb/62fde20caeb269176182b78a/-473Wx593H-461394178-green-MODEL4.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220818/W9rh/62fde20caeb269176182b78f/-473Wx593H-461394178-green-MODEL5.jpg"
+          ],
+          "sizes": [28, 30, 32, 34, 36]
+        }
+      ],
+
+      "brand": "iVOC",
+      "title": "Flat Front Slim Fit Cargo Pants",
+      "mrp": 1367,
+      "offer": 43,
+      "category": "mens",
+      "subCategory": "cargo_pants",
+      "rating": 0,
+      "new": false
+    },
+    {
+      "colors": [
+        {
+          "color": "pink",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20230102/R0me/63b30ae3aeb269659c1e4f01/-473Wx593H-462323964-pink-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20230102/YBoj/63b2f0a1aeb269659c1dc185/-473Wx593H-462323964-pink-MODEL3.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20230102/tUN5/63b30794aeb269659c1e3845/-473Wx593H-462323964-pink-MODEL4.jpg"
+          ],
+          "sizes": ["M", "L", "XL", "XXL"]
+        },
+        {
+          "color": "green",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20230102/wJfs/63b2fe3eaeb269659c1e09e8/-473Wx593H-462323964-green-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20230102/i0j1/63b2fd36f997ddfdbd0a4cb7/-473Wx593H-462323964-green-MODEL3.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20230102/qWGQ/63b30908f997ddfdbd0a9aca/-473Wx593H-462323964-green-MODEL4.jpg"
+          ],
+          "sizes": ["S", "M", "XL", "XXL"]
+        },
+        {
+          "color": "black",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20221117/CXZZ/6375d74faeb269659c97fe85/-473Wx593H-462323964-black-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20221117/bUcC/6375d74faeb269659c97fe12/-473Wx593H-462323964-black-MODEL5.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20221117/TTrB/6375d74faeb269659c97fe11/-473Wx593H-462323964-black-MODEL6.jpg"
+          ],
+          "sizes": ["S", "M", "L"]
+        },
+        {
+          "color": "yellow",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20221109/h1jU/636b8d0bf997ddfdbd66104e/-473Wx593H-462323964-yellow-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20221109/0arU/636b8d12f997ddfdbd661093/-473Wx593H-462323964-yellow-MODEL4.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20221109/Ky7g/636b8d12f997ddfdbd661097/-473Wx593H-462323964-yellow-MODEL5.jpg"
+          ],
           "sizes": ["S", "M", "L", "XL"]
         }
       ],
 
-      "brand": "CAMPUS SUTRA",
-      "title": "Striped Short-Sleeve Shirt",
-      "mrp": 1499,
-      "offer": 57,
+      "brand": "DENNISLINGO PREMIUM ATTIRE",
+      "title": "Full Sleeves Slim Fit Classic Shirt",
+      "mrp": 1849,
+      "offer": 62,
       "category": "mens",
       "subCategory": "shirt",
+      "rating": 0,
+      "new": false
+    },
+    {
+      "colors": [
+        {
+          "color": "blue",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20210923/ovv7/614b7854f997ddce89d75509/-473Wx593H-469009841-blue-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20210923/GkjP/614b7b2cf997ddce89d761c6/-473Wx593H-469009841-blue-MODEL2.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20210923/GlGX/614b80c1f997ddce89d77a0e/-473Wx593H-469009841-blue-MODEL3.jpg"
+          ],
+          "sizes": [28, 30, 32, 34, 36]
+        }
+      ],
+
+      "brand": "The Indian Garage Co",
+      "title": "Lightly Distressed Slim Fit Jeans",
+      "mrp": 1999,
+      "offer": 70,
+      "category": "mens",
+      "subCategory": "jeans",
+      "rating": 0,
+      "new": true
+    },
+    {
+      "colors": [
+        {
+          "color": "teal",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20220312/xtsP/622bb4a4aeb26921afd48a48/-473Wx593H-469157903-teal-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220312/HTTN/622bbe77f997dd03e20efeab/-473Wx593H-469157903-teal-MODEL3.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220312/axcl/622bc1b7aeb26921afd4bf41/-473Wx593H-469157903-teal-MODEL7.jpg"
+          ],
+          "sizes": ["S", "M", "L"]
+        },
+        {
+          "color": "lilac",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20220312/Iuhy/622b9bf1f997dd03e20e5ace/-473Wx593H-469157903-lilac-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220312/ZQdB/622b9e44aeb26921afd430e1/-473Wx593H-469157903-lilac-MODEL3.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220312/iOrf/622bc14daeb26921afd4bcea/-473Wx593H-469157903-lilac-MODEL4.jpg"
+          ],
+          "sizes": ["S", "M", "L", "XL"]
+        },
+        {
+          "color": "navy",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20220312/pylF/622ba86df997dd03e20e962c/-473Wx593H-469157903-navy-MODEL7.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220312/sr6O/622b972faeb26921afd414db/-473Wx593H-469157903-navy-MODEL2.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220312/c8JJ/622bbab6aeb26921afd4a22a/-473Wx593H-469157903-navy-MODEL5.jpg"
+          ],
+          "sizes": ["S", "M", "L"]
+        },
+        {
+          "color": "orange",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20220312/VMNf/622ba456aeb26921afd4496c/-473Wx593H-469157903-orange-MODEL4.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220312/nYfe/622ba526f997dd03e20e8629/-473Wx593H-469157903-orange-MODEL3.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20220312/cAOn/622bb149f997dd03e20ebf6c/-473Wx593H-469157903-orange-MODEL6.jpg"
+          ],
+          "sizes": ["S", "M", "L", "XL"]
+        }
+      ],
+
+      "brand": "THE INDIAN GARAGE CO",
+      "title": "Spread Collar Shirt with Patch Pocket",
+      "mrp": 1999,
+      "offer": 70,
+      "category": "mens",
+      "subCategory": "shirt",
+      "rating": 0,
+      "new": true
+    },
+    {
+      "colors": [
+        {
+          "color": "grey",
+          "images": [
+            "https://assets.ajio.com/medias/sys_master/root/20210923/ovv7/614b7854f997ddce89d75509/-473Wx593H-469009841-blue-MODEL.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20210923/GkjP/614b7b2cf997ddce89d761c6/-473Wx593H-469009841-blue-MODEL2.jpg",
+            "https://assets.ajio.com/medias/sys_master/root/20210923/GlGX/614b80c1f997ddce89d77a0e/-473Wx593H-469009841-blue-MODEL3.jpg"
+          ],
+          "sizes": [30, 32, 34, 36, 38]
+        }
+      ],
+
+      "brand": "DNMX",
+      "title": "Mid-Wash Slim Fit Jeans",
+      "mrp": 1499,
+      "offer": 50,
+      "category": "mens",
+      "subCategory": "jeans",
       "rating": 0,
       "new": true
     }

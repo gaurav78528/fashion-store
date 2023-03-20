@@ -21,6 +21,9 @@ import Loader from "../components/Loader";
 const SingleProduct = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [cartItems, setCartItems] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
   const { colors, brand, title, mrp, offer, rating } = data;
 
   const imageRef = useRef();
@@ -35,7 +38,7 @@ const SingleProduct = () => {
       setLoading(true);
       let res = await fetch(`http://localhost:4500/products/${id}`);
       let productData = await res.json();
-      console.log(productData);
+      // console.log(productData);
       setData(productData);
       setLoading(false);
     } catch (error) {
@@ -46,6 +49,22 @@ const SingleProduct = () => {
   useEffect(() => {
     getSingleProduct(id);
   }, [id]);
+
+  const handleAddToCart = () => {
+    setCartItems((prevItem) => [...prevItem, data]);
+
+    let isItemAlreadyInCart = cartItems.find((item) => item._id === id);
+    console.log(isItemAlreadyInCart);
+    if (isItemAlreadyInCart) {
+      alert("Item Already in Cart");
+      return;
+    }
+  };
+  // if()
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [handleAddToCart]);
 
   const showImage = (image) => {
     imageRef.current.setAttribute("src", image);
@@ -187,9 +206,10 @@ const SingleProduct = () => {
                     gap={{ base: "5px", sm: "10px", md: "10px", lg: "10px" }}
                     my="20px"
                   >
-                    {colors?.[0]?.sizes.map((size) => {
+                    {colors?.[0]?.sizes.map((size, id) => {
                       return (
                         <Text
+                          key={id}
                           h="50px"
                           // p="10px 15px"
                           w="50px"
@@ -297,6 +317,7 @@ const SingleProduct = () => {
                     md: "17px",
                     lg: "17px",
                   }}
+                  onClick={handleAddToCart}
                 >
                   Add to cart
                 </Button>
