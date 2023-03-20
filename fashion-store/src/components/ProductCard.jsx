@@ -47,7 +47,7 @@ const ProductCard = ({
           <Tag size="sm" key="sm" variant="ghost" colorScheme="green"></Tag>
         )}
 
-        <Button variant="link" >
+        <Button variant="link">
           <AiOutlineHeart />
         </Button>
       </HStack>
@@ -78,6 +78,7 @@ const ProductCard = ({
               color="#fff"
               background={"rgba(0,0,0,0.5)"}
               transform={"translate(-50%)"}
+              borderRadius={"3px"}
               className="view-btn"
             >
               VIEW

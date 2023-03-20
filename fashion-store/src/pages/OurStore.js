@@ -29,6 +29,7 @@ import ProductCard from "../components/ProductCard";
 import { getProducts } from "../redux/products/action";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/ourStore.css";
+import Loader from "../components/Loader";
 
 const OurStore = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -49,7 +50,7 @@ const OurStore = () => {
     }
   }, [location.search]);
   // console.log(products);
-  if (isLoading) return <h1>Loading....</h1>;
+  // if (isLoading) return <h1>Loading....</h1>;
 
   return (
     <Box bgColor="#f5f5f7">
@@ -248,14 +249,21 @@ const OurStore = () => {
             gap="20px"
           >
             {/* ===========================map data here =========================== */}
-            {products.length > 0 &&
-              products.map((product) => {
-                return (
-                  <GridItem key={product.id}>
-                    <ProductCard productData={product} />
-                  </GridItem>
-                );
-              })}
+            {isLoading
+              ? products.map((product, id) => {
+                  return (
+                    <GridItem key={id}>
+                      <Loader heightProps="350px" widthProps="250px" />
+                    </GridItem>
+                  );
+                })
+              : products.map((product) => {
+                  return (
+                    <GridItem key={product.id}>
+                      <ProductCard productData={product} />
+                    </GridItem>
+                  );
+                })}
           </Grid>
         </VStack>
       </HStack>
