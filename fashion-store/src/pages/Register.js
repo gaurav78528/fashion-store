@@ -5,7 +5,6 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  HStack,
   InputRightElement,
   Stack,
   Button,
@@ -17,28 +16,30 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../redux/auth/action";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [userInput, setUserInput] = useState({
     firstName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  // console.log(userInput);
+
   const toast = useToast();
   const navigate = useNavigate();
+  const { isLoading, isError } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserInput({ ...userInput, [name]: value });
   };
 
-  const handleRegister = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     const { firstName, email, password, confirmPassword } = userInput;
 
@@ -51,31 +52,7 @@ const Register = () => {
     } else if (password !== confirmPassword) {
       alert("Password does not matches");
     } else {
-      try {
-        const user = await axios.post(
-          "http://localhost:4500/users/register",
-          userInput
-        );
-        console.log(user);
-
-        toast({
-          title: "Account created.",
-          description: "Registration Successfully.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-        navigate("/login");
-      } catch (error) {
-        console.log(error);
-        toast({
-          title: "Error",
-          description: error.response.data.message || "Something went wrong!",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      }
+      dispatch(registerUser(userInput, toast, navigate));
     }
   };
 
@@ -144,23 +121,11 @@ const Register = () => {
               <FormLabel>Confirm Password</FormLabel>
               <InputGroup>
                 <Input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={"password"}
                   name="confirmPassword"
                   value={userInput.confirmPassword}
                   onChange={handleChange}
                 />
-                <InputRightElement h={"full"}>
-                  <Button
-                    variant={"ghost"}
-                    onClick={() =>
-                      setShowConfirmPassword(
-                        (showConfirmPassword) => !showConfirmPassword
-                      )
-                    }
-                  >
-                    {showConfirmPassword ? <ViewIcon /> : <ViewOffIcon />}
-                  </Button>
-                </InputRightElement>
               </InputGroup>
             </FormControl>
             <Stack spacing={10} pt={2}>
@@ -174,6 +139,7 @@ const Register = () => {
                   color: "#000",
                 }}
                 onClick={handleRegister}
+                isLoading={isLoading}
               >
                 Register
               </Button>

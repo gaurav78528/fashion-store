@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import axios from "axios";
+
 const getProductsLoading = () => {
   return {
     type: types.GET_PRODUCTS_LOADING,

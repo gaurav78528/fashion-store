@@ -47,7 +47,7 @@ const ProductCard = ({
           <Tag size="sm" key="sm" variant="ghost" colorScheme="green"></Tag>
         )}
 
-        <Button variant="link">
+        <Button variant="link" >
           <AiOutlineHeart />
         </Button>
       </HStack>

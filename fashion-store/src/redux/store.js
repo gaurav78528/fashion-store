@@ -8,9 +8,11 @@ import thunk from "redux-thunk";
 import { productsReducer } from "./products/reducer";
 import { popularProductsReducer } from "./popularProducts/reducer";
 import { featuredProductsReducer } from "./featuredCollections/reducer";
+import { authReducer } from "./auth/reducer";
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
-  productsReducer,
+  auth: authReducer,
+  products: productsReducer,
   popularProductsReducer,
   featuredProductsReducer,
 });

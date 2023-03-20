@@ -17,9 +17,10 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../redux/auth/action";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({
     firstName: "",
     email: "",
@@ -27,13 +28,15 @@ const Login = () => {
   });
   const toast = useToast();
   const navigate = useNavigate();
+  const { isLoading } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserInput({ ...userInput, [name]: value });
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     const { firstName, email, password } = userInput;
 
@@ -44,36 +47,7 @@ const Login = () => {
     } else if (password.length < 6) {
       alert("Password must be of length 6.");
     } else {
-      try {
-        setLoading(true);
-        const res = await axios.post(
-          "http://localhost:4500/users/login",
-          userInput
-        );
-        console.log(res);
-
-        if (res.status === 200) {
-          toast({
-            title: "Success.",
-            description: res.data.message || "User Logged In.",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-          });
-          setLoading(false);
-          localStorage.setItem("token", res.data.token);
-          navigate("/");
-        }
-      } catch (error) {
-        console.log(error);
-        toast({
-          title: "Error",
-          description: error.response.data.message || "Something went wrong!",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      }
+      dispatch(loginUser(userInput, toast, navigate));
     }
   };
 
@@ -142,7 +116,7 @@ const Login = () => {
                   color: "#000",
                 }}
                 onClick={handleLogin}
-                isLoading={loading}
+                isLoading={isLoading}
                 // spinner={<Spinner size={25} color="white" />}
               >
                 Sign in

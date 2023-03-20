@@ -1,13 +1,8 @@
 import {
   Box,
-  Card,
   Checkbox,
   Flex,
   Tag,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
   Grid,
   GridItem,
   Heading,
@@ -22,9 +17,7 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  DrawerHeader,
   DrawerBody,
-  DrawerFooter,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillFilter } from "react-icons/ai";
@@ -40,7 +33,7 @@ import "../styles/ourStore.css";
 const OurStore = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  const products = useSelector((store) => store.productsReducer.products);
+  const { isLoading, products } = useSelector((store) => store.products);
   const dispatch = useDispatch();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -56,6 +49,7 @@ const OurStore = () => {
     }
   }, [location.search]);
   // console.log(products);
+  if (isLoading) return <h1>Loading....</h1>;
 
   return (
     <Box bgColor="#f5f5f7">
