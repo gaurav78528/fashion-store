@@ -29,6 +29,7 @@ const ProductCard = ({
     subCategory,
     new: newer,
     rating,
+    quantity,
   },
 }) => {
   console.log(colors);
@@ -37,7 +38,14 @@ const ProductCard = ({
   // const name = "helllo wolrd";
   // const price = 23;
   return (
-    <Box className="product-card" bgColor="#fff" borderRadius="5px" w="250px">
+    <Box
+      className="product-card"
+      bgColor="#fff"
+      borderRadius="5px"
+      w="250px"
+      pointerEvents={quantity == 0 && "none"}
+      opacity={quantity == 0 ? "0.5" : "1"}
+    >
       <HStack justify="space-between" p="5px" align={"center"}>
         {newer ? (
           <Tag size="sm" key="sm" variant="solid" colorScheme="green">
@@ -67,6 +75,21 @@ const ProductCard = ({
               w="100%"
             />
           </Box>
+          {quantity === 0 ? (
+            <Text
+              position={"absolute"}
+              bottom="50%"
+              left={"50%"}
+              transform={"translate(-50%)"}
+              backgroundColor="gray.50"
+              w={"100%"}
+              textAlign="center"
+              fontWeight={500}
+              py="10px"
+            >
+              Out Of Stock
+            </Text>
+          ) : null}
           <Link to={`/store/${_id}`}>
             <Text
               border={"1px solid gray"}
@@ -104,7 +127,7 @@ const ProductCard = ({
           size={24}
           activeColor="#ffd700"
         />
-        <Text>${mrp}</Text>
+        <Text>Rs.{Math.round(mrp - (mrp * offer) / 100)}</Text>
       </Flex>
       <Flex
         className="product-side-bar"

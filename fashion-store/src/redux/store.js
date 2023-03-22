@@ -4,6 +4,7 @@ import {
   compose,
   legacy_createStore,
 } from "redux";
+
 import thunk from "redux-thunk";
 import { productsReducer } from "./products/reducer";
 import { popularProductsReducer } from "./popularProducts/reducer";

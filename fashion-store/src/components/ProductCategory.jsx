@@ -1,4 +1,12 @@
-import { Box, Flex, Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 
 const ProductCategory = () => {

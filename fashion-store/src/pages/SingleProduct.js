@@ -172,7 +172,7 @@ const SingleProduct = () => {
                     MRP: {mrp}
                   </Text>
                   <Text fontWeight={600} fontSize={"lg"}>
-                    Price: {mrp - (mrp * offer) / 100}
+                    Price: {Math.round(mrp - (mrp * offer) / 100)}
                   </Text>
                 </Flex>
                 <Text color={"#e3c810"} fontWeight={600} fontSize={"xl"}>
@@ -257,7 +257,7 @@ const SingleProduct = () => {
                     <Text fontWeight={500}>
                       Best Price: {"   "}
                       <span style={{ color: "tomato" }}>
-                        Rs. {mrp - (mrp * offer) / 100}
+                        Rs. {Math.round(mrp - (mrp * offer) / 100)}
                       </span>
                     </Text>
                     <ul
