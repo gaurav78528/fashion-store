@@ -20,8 +20,15 @@ import {
   Drawer,
   DrawerHeader,
   VStack,
+  Menu,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
+  MenuList,
+  MenuButton,
+  Stack,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   BiCart,
   BiCategory,
@@ -38,6 +45,14 @@ const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const { cartItems } = useSelector((state) => state.cart);
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
+
+  const handleLogout = () => {
+    setToken("");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    window.location.reload();
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -78,10 +93,10 @@ const Header = () => {
           py="20px"
           align="center"
           justify="space-between"
-          color="#fff"
+          // color="#fff"
         >
           <Link to="/">
-            <Heading fontWeight="400" as="h2" size="lg">
+            <Heading fontWeight="400" as="h2" size="lg" color="#fff">
               Fashion
             </Heading>
           </Link>
@@ -90,6 +105,7 @@ const Header = () => {
           <InputGroup
             w="45%"
             display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
+            color="#fff"
           >
             <Input type="search" placeholder="search product here" />
             <InputRightAddon
@@ -113,16 +129,16 @@ const Header = () => {
                 align="center"
                 gap="5px"
                 display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
+                color="#fff"
               >
                 <BiGitCompare fontSize="25px" />
                 <Box>
                   <Text>Compare</Text>
-                  <Text>Products</Text>
                 </Box>
               </Flex>
             </Link>
             <Link to="/wishlist">
-              <Flex justify="center" align="center" gap="5px">
+              <Flex justify="center" align="center" gap="5px" color="#fff">
                 <BiHeart fontSize="25px" />
                 <Box
                   display={{
@@ -132,7 +148,6 @@ const Header = () => {
                     lg: "block",
                   }}
                 >
-                  <Text>Favourite</Text>
                   <Text>Wishlist</Text>
                 </Box>
                 <Text
@@ -147,20 +162,50 @@ const Header = () => {
                 </Text>
               </Flex>
             </Link>
-            <Link to="/login">
-              <Flex
-                justify="center"
-                align="center"
-                gap="5px"
-                display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
-              >
-                <BiUser fontSize="25px" />
-                <Box>
-                  <Text>Log in</Text>
-                  <Text>My Account</Text>
-                </Box>
-              </Flex>
-            </Link>
+            {token !== "" ? (
+              <Menu>
+                <Flex justify="center" align="center" gap="5px">
+                  <BiUser fontSize="25px" color="#fff" />
+                  <MenuButton
+                    as={Button}
+                    m="-10px"
+                    p="0"
+                    fontSize="12px"
+                    colorScheme="#000"
+                    textTransform={"uppercase"}
+                  >
+                    {localStorage.getItem("username")}
+                  </MenuButton>
+                </Flex>
+                <MenuList>
+                  <MenuGroup title="Profile">
+                    <MenuItem>My Account</MenuItem>
+                    <MenuItem>Payments </MenuItem>
+                  </MenuGroup>
+                  <MenuDivider />
+                  <MenuGroup title="Help">
+                    <MenuItem>Docs</MenuItem>
+                    <MenuItem>FAQ</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </MenuGroup>
+                </MenuList>
+              </Menu>
+            ) : (
+              <Link to="/login">
+                <Flex
+                  justify="center"
+                  align="center"
+                  gap="5px"
+                  display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
+                  color="#fff"
+                >
+                  <BiUser fontSize="25px" />
+                  <Box>
+                    <Text>Log in</Text>
+                  </Box>
+                </Flex>
+              </Link>
+            )}
             <Link to="/cart">
               <Flex justify="center" align="center" gap="5px">
                 <BiCart fontSize="25px" color="#e3ae52" />

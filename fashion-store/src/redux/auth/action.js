@@ -52,6 +52,7 @@ export const loginUser = (userData, toast, navigate) => async (dispatch) => {
       payload: { user: data.user, token: data.token },
     });
     localStorage.setItem("token", data.token);
+    localStorage.setItem("username", data.user.firstName);
     toast({
       ...toastProps,
       title: "Success",
