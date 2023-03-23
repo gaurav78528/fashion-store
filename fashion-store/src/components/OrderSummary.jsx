@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 
-const OrderSummary = () => {
+const OrderSummary = ({ cartItems }) => {
   return (
     <>
       <Heading as={"h4"} size={"md"}>
@@ -11,7 +11,7 @@ const OrderSummary = () => {
       <Box borderTop="1px solid gray" borderBottom="1px solid gray" my="10px">
         <Flex align={"center"} justify={"space-between"} mt="5px">
           <Text fontWeight={500}>Total Items:</Text>
-          <Text fontWeight={500}>4</Text>
+          <Text fontWeight={500}>{cartItems.length}</Text>
         </Flex>
         <Flex align={"center"} justify={"space-between"} mt="5px">
           <Text fontWeight={500}>Total Amt.:</Text>

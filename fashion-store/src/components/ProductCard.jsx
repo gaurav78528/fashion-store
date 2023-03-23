@@ -7,6 +7,7 @@ import {
   Image,
   Tag,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
@@ -15,11 +16,14 @@ import ReactStars from "react-rating-stars-component";
 import { BiGitCompare } from "react-icons/bi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import "../styles/productCard.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addItemToCart, deleteCartItem } from "../redux/cart/action";
+import { toastProps } from "../constants/constants";
 
-const ProductCard = ({
-  productData: {
-    _id,
+const ProductCard = ({ productData }) => {
+  const {
+    _id: id,
     colors,
     brand,
     title,
@@ -30,13 +34,20 @@ const ProductCard = ({
     new: newer,
     rating,
     quantity,
-  },
-}) => {
-  console.log(colors);
-  // const image =
-  //   "https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Makeup/SBC-Makeup_02._SY530_QL85_.jpg";
-  // const name = "helllo wolrd";
-  // const price = 23;
+  } = productData;
+  const toast = useToast();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleAddToCart = (item) => {
+    dispatch(addItemToCart(item));
+    toast({
+      ...toastProps,
+      title: "Success",
+      description: "Item Added To Cart",
+      status: "success",
+    });
+  };
+
   return (
     <Box
       className="product-card"
@@ -90,7 +101,7 @@ const ProductCard = ({
               Out Of Stock
             </Text>
           ) : null}
-          <Link to={`/store/${_id}`}>
+          <Link to={`/store/${id}`}>
             <Text
               border={"1px solid gray"}
               position={"absolute"}
@@ -139,11 +150,15 @@ const ProductCard = ({
         <Button variant="link">
           <BiGitCompare fontSize="20px" />
         </Button>
-        <Button variant="link">
+
+        <Button variant="link" onClick={()=>navigate(`/store/${id}`)}>
           <AiOutlineEye fontSize="20px" />
         </Button>
         <Button variant="link">
-          <HiOutlineShoppingBag fontSize="20px" />
+          <HiOutlineShoppingBag
+            fontSize="20px"
+            onClick={() => handleAddToCart(productData)}
+          />
         </Button>
       </Flex>
     </Box>

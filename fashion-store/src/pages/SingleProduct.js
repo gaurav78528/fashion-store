@@ -10,6 +10,7 @@ import {
   SimpleGrid,
   StackDivider,
   Divider,
+  useToast,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { MdLocalShipping } from "react-icons/md";
@@ -17,21 +18,28 @@ import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { BiPurchaseTag } from "react-icons/bi";
 import Loader from "../components/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../redux/cart/action";
+import { toastProps } from "../constants/constants";
 
 const SingleProduct = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
-  const [cartItems, setCartItems] = useState(
-    JSON.parse(localStorage.getItem("cart")) || []
-  );
+
   const { colors, brand, title, mrp, offer, rating } = data;
 
   const imageRef = useRef();
   const btnRef = useRef();
+  const toast = useToast();
 
   // console.log(data);
   // console.log(colors);
   const { id } = useParams();
+
+  const { cartItems } = useSelector((state) => state.cart);
+  console.log(cartItems);
+
+  const dispatch = useDispatch();
 
   const getSingleProduct = async (id) => {
     try {
@@ -50,21 +58,15 @@ const SingleProduct = () => {
     getSingleProduct(id);
   }, [id]);
 
-  const handleAddToCart = () => {
-    setCartItems((prevItem) => [...prevItem, data]);
-
-    let isItemAlreadyInCart = cartItems.find((item) => item._id === id);
-    console.log(isItemAlreadyInCart);
-    if (isItemAlreadyInCart) {
-      alert("Item Already in Cart");
-      return;
-    }
+  const handleAddToCart = (item) => {
+    dispatch(addItemToCart(item));
+    toast({
+      ...toastProps,
+      title: "Success",
+      description: "Item Added To Cart",
+      status: "success",
+    });
   };
-  // if()
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [handleAddToCart]);
 
   const showImage = (image) => {
     imageRef.current.setAttribute("src", image);
@@ -317,7 +319,7 @@ const SingleProduct = () => {
                     md: "17px",
                     lg: "17px",
                   }}
-                  onClick={handleAddToCart}
+                  onClick={() => handleAddToCart(data)}
                 >
                   Add to cart
                 </Button>

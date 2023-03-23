@@ -1,4 +1,4 @@
 export const toastProps = {
-  duration: 5000,
+  duration: 3000,
   isClosable: true,
 };

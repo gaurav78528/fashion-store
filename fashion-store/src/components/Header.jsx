@@ -21,7 +21,7 @@ import {
   DrawerHeader,
   VStack,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   BiCart,
   BiCategory,
@@ -32,9 +32,17 @@ import {
 } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartItems } from "../redux/cart/action";
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, []);
   return (
     <>
       <Box bgColor="#000" zIndex={10} position={"sticky"} top={"0px"}>
@@ -164,7 +172,7 @@ const Header = () => {
                     px="5px"
                     borderRadius="50%"
                   >
-                    0
+                    {cartItems?.length}
                   </Text>
                   {/* <Text>$0.00</Text> */}
                 </Box>
