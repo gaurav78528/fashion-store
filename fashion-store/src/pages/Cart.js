@@ -17,7 +17,7 @@ import EmptyCart from "../components/EmptyCart";
 
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
-  console.log(cartItems);
+  // console.log(cartItems);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCartItems());

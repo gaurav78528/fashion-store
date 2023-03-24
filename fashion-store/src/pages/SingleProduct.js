@@ -25,6 +25,7 @@ import { toastProps } from "../constants/constants";
 const SingleProduct = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [currentFocus, setCurrentFocus] = useState(0);
 
   const { colors, brand, title, mrp, offer, rating } = data;
 
@@ -32,8 +33,6 @@ const SingleProduct = () => {
   const btnRef = useRef();
   const toast = useToast();
 
-  // console.log(data);
-  // console.log(colors);
   const { id } = useParams();
 
   const { cartItems } = useSelector((state) => state.cart);
@@ -46,7 +45,6 @@ const SingleProduct = () => {
       setLoading(true);
       let res = await fetch(`http://localhost:4500/products/${id}`);
       let productData = await res.json();
-      // console.log(productData);
       setData(productData);
       setLoading(false);
     } catch (error) {
@@ -68,10 +66,9 @@ const SingleProduct = () => {
     });
   };
 
-  const showImage = (image) => {
+  const showImage = (image, id) => {
     imageRef.current.setAttribute("src", image);
-    btnRef.current.style.border = "2px solid green";
-    // console.log(imageRef.current);
+    setCurrentFocus(id);
   };
 
   return (
@@ -106,13 +103,12 @@ const SingleProduct = () => {
                 align={"center"}
                 gap={{ base: "5px", sm: "10px", md: "10px", lg: "10px" }}
                 w={{ base: "100%", sm: "60%", md: "45%", lg: "45%" }}
-                // flexWrap="wrap"
                 m="20px auto"
-                border="1px solid gray"
               >
                 {colors?.[0]?.images.map((image, id) => {
                   return (
                     <Image
+                      border={currentFocus === id ? "1px solid red" : ""}
                       key={id}
                       alt={title}
                       src={image}
@@ -120,11 +116,8 @@ const SingleProduct = () => {
                       align={"center"}
                       w={"100%"}
                       h="100px"
-                      _active={{
-                        border: "2px solid red",
-                      }}
                       ref={btnRef}
-                      onClick={() => showImage(image)}
+                      onClick={() => showImage(image, id)}
                       cursor={"pointer"}
                     />
                   );

@@ -11,14 +11,28 @@ import {
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { deleteCartItem } from "../redux/cart/action";
-const CartItem = ({ cartItem: { _id: id, title, colors } }) => {
-  // console.log(cartItem);
-  // console.log(id);
+import {
+  addItemToCart,
+  decrementCartItem,
+  deleteCartItem,
+  incrementCartItem,
+} from "../redux/cart/action";
+const CartItem = ({ cartItem }) => {
+  const { _id: id, title, colors, qty } = cartItem;
+
   const dispatch = useDispatch();
+
+  const handleQtyIncrement = (id) => {
+    dispatch(incrementCartItem(id));
+  };
+  const handleQtyDecrement = (id) => {
+    dispatch(decrementCartItem(id));
+  };
+
   const handleDeleteCartItem = (id) => {
     dispatch(deleteCartItem(id));
   };
+
   return (
     <Flex
       justify={"space-between"}
@@ -54,11 +68,19 @@ const CartItem = ({ cartItem: { _id: id, title, colors } }) => {
         <Text fontWeight={600}>{title}</Text>
         <Flex justify={"space-around"} align={"center"} w={"full"}>
           <HStack border={"1px solid gray"} borderRadius="5px">
-            <Button size="sm" variant={"ghost"}>
-              <AiOutlineMinus fontWeight={800} />
+            <Button size="sm" variant={"ghost"} isDisabled={cartItem.qty <= 1}>
+              <AiOutlineMinus
+                fontWeight={800}
+                onClick={() => handleQtyDecrement(id)}
+              />
             </Button>
-            <Text fontWeight={600}>1</Text>
-            <Button size="sm" variant={"ghost"}>
+            <Text fontWeight={600}>{qty}</Text>
+            <Button
+              size="sm"
+              variant={"ghost"}
+              isDisabled={cartItem.qty >= 5}
+              onClick={() => handleQtyIncrement(id)}
+            >
               <AiOutlinePlus fontWeight={800} />
             </Button>
           </HStack>

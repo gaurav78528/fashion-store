@@ -151,7 +151,7 @@ const ProductCard = ({ productData }) => {
           <BiGitCompare fontSize="20px" />
         </Button>
 
-        <Button variant="link" onClick={()=>navigate(`/store/${id}`)}>
+        <Button variant="link" onClick={() => navigate(`/store/${id}`)}>
           <AiOutlineEye fontSize="20px" />
         </Button>
         <Button variant="link">
