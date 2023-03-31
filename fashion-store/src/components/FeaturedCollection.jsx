@@ -25,7 +25,7 @@ const FeaturedCollection = () => {
         {featuredCollection.length > 0 &&
           featuredCollection.map((product) => {
             return (
-              <Box key={product.id}>
+              <Box key={product._id}>
                 <ProductCard productData={product} />
               </Box>
             );

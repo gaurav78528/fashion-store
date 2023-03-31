@@ -27,12 +27,8 @@ const SingleProduct = () => {
   const [loading, setLoading] = useState(false);
   const [currentFocus, setCurrentFocus] = useState(0);
   const [currentProduct, setCurrentProduct] = useState(0);
-  console.log(currentProduct);
-
-  const [itemColor, setItemColor] = useState(data?.colors?.[0]?.images[0]);
 
   const { colors, brand, title, mrp, offer, rating } = data;
-  // console.log(data);
 
   const imageRef = useRef();
   const btnRef = useRef();

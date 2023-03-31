@@ -25,7 +25,7 @@ const PopularProducts = () => {
         {popularProducts.length > 0 &&
           popularProducts.map((product) => {
             return (
-              <Box key={product.id}>
+              <Box key={product._id}>
                 <ProductCard productData={product} />
               </Box>
             );

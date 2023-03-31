@@ -79,7 +79,7 @@ const OurStore = () => {
                 })
               : products.map((product) => {
                   return (
-                    <GridItem key={product.id}>
+                    <GridItem key={product._id}>
                       <ProductCard productData={product} />
                     </GridItem>
                   );
