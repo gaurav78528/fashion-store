@@ -1,9 +1,10 @@
 import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-const BlogCard = () => {
+const ShopByBrand = () => {
   const navigate = useNavigate();
-let desc=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor est culpa dolores dicta nihil perferendis, impedit quam doloremque odita."
+  let desc =
+    " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor est culpa dolores dicta nihil perferendis, impedit quam doloremque odita.";
   return (
     <Box boxShadow="rgba(99, 99, 99, 0.2) 0px 2px 8px 0px">
       <Box>
@@ -28,7 +29,7 @@ let desc=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor est cu
             Hello World gaurav
           </Heading>
           <Text fontSize="12px" fontWeight={600} color="gray">
-           {desc.length>100?`${desc.slice(0,100)}.....`:desc}
+            {desc.length > 100 ? `${desc.slice(0, 100)}.....` : desc}
           </Text>
           <Button
             colorScheme="blackAlpha"
@@ -48,4 +49,4 @@ let desc=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor est cu
   );
 };
 
-export default BlogCard;
+export default ShopByBrand;

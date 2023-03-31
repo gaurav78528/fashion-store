@@ -26,8 +26,13 @@ const SingleProduct = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [currentFocus, setCurrentFocus] = useState(0);
+  const [currentProduct, setCurrentProduct] = useState(0);
+  console.log(currentProduct);
+
+  const [itemColor, setItemColor] = useState(data?.colors?.[0]?.images[0]);
 
   const { colors, brand, title, mrp, offer, rating } = data;
+  // console.log(data);
 
   const imageRef = useRef();
   const btnRef = useRef();
@@ -36,7 +41,7 @@ const SingleProduct = () => {
   const { id } = useParams();
 
   const { cartItems } = useSelector((state) => state.cart);
-  console.log(cartItems);
+  // console.log(cartItems);
 
   const dispatch = useDispatch();
 
@@ -70,6 +75,10 @@ const SingleProduct = () => {
     imageRef.current.setAttribute("src", image);
     setCurrentFocus(id);
   };
+  const handleChangeColor = (id) => {
+    // console.log(id);
+    setCurrentProduct(id);
+  };
 
   return (
     <Container maxW={"7xl"}>
@@ -90,7 +99,7 @@ const SingleProduct = () => {
                 rounded={"md"}
                 ref={imageRef}
                 alt={title}
-                src={imageRef.current || colors?.[0]?.images?.[0]}
+                src={colors?.[currentProduct]?.images?.[0]}
                 // fit="contain"
                 objectFit="fill"
                 align={"center"}
@@ -105,7 +114,7 @@ const SingleProduct = () => {
                 w={{ base: "100%", sm: "60%", md: "45%", lg: "45%" }}
                 m="20px auto"
               >
-                {colors?.[0]?.images.map((image, id) => {
+                {colors?.[currentProduct]?.images.map((image, id) => {
                   return (
                     <Image
                       border={currentFocus === id ? "1px solid red" : ""}
@@ -201,7 +210,7 @@ const SingleProduct = () => {
                     gap={{ base: "5px", sm: "10px", md: "10px", lg: "10px" }}
                     my="20px"
                   >
-                    {colors?.[0]?.sizes.map((size, id) => {
+                    {colors?.[currentProduct]?.sizes.map((size, id) => {
                       return (
                         <Text
                           key={id}
@@ -224,6 +233,49 @@ const SingleProduct = () => {
                           }}
                         >
                           {size}
+                        </Text>
+                      );
+                    })}
+                  </Flex>
+                  <Heading as="h4" size={"sm"}>
+                    Select color
+                  </Heading>
+                  <Flex
+                    align={"center"}
+                    gap={{ base: "5px", sm: "10px", md: "10px", lg: "10px" }}
+                    my="20px"
+                  >
+                    {colors?.map((item, id) => {
+                      return (
+                        <Text
+                          key={id}
+                          h="50px"
+                          // p="10px 15px"
+                          w="50px"
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                          borderRadius="50%"
+                          textAlign="center"
+                          background={item?.color}
+                          fontSize={"15px"}
+                          textTransform={"capitalize"}
+                          color="#fff"
+                          opacity={"0.8"}
+                          filter={"brightness(90%)"}
+                          transition="all 0.2s"
+                          cursor={"pointer"}
+                          _hover={{
+                            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+
+                            opacity: "0.5",
+                            color: "#fff",
+                            fontWeight: "500",
+                            zIndex: "1000",
+                          }}
+                          onClick={() => handleChangeColor(id)}
+                        >
+                          {item?.color}
                         </Text>
                       );
                     })}

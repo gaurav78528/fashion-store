@@ -31,9 +31,9 @@ import { AiFillFilter } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
-import BlogCard from "../components/BlogCard";
+import ShopByBrand from "../components/ShopByBrand";
 //
-const Blogs = () => {
+const Shop = () => {
   return (
     <Box bgColor="#f5f5f7">
       <Meta title={"Blogs"} />
@@ -83,13 +83,13 @@ const Blogs = () => {
             gap="20px"
           >
             <GridItem>
-              <BlogCard />
+              <ShopByBrand />
             </GridItem>
             <GridItem>
-              <BlogCard />
+              <ShopByBrand />
             </GridItem>
             <GridItem>
-              <BlogCard />
+              <ShopByBrand />
             </GridItem>
           </Grid>
         </VStack>
@@ -98,4 +98,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default Shop;

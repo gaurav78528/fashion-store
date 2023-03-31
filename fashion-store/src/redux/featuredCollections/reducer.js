@@ -11,7 +11,9 @@ export const featuredProductsReducer = (state = initalState, action) => {
     case types.GET_FEATURED_PRODUCTS_LOADING:
       return { ...state, isLoading: true };
     case types.GET_FEATURED_PRODUCTS_SUCCESS:
-      return { ...state, isLoading: false, featuredProducts: payload };
+      const filterProducts = payload.filter((item) => item.new === true);
+      console.log(filterProducts);
+      return { ...state, isLoading: false, featuredProducts: filterProducts };
     case types.GET_FEATURED_PRODUCTS_ERROR:
       return { ...state, isLoading: false, isError: true };
     default:

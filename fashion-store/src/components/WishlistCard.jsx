@@ -17,13 +17,13 @@ const WishlistCard = () => {
         <Box position="relative">
           <Box>
             <Image
-              src="https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Makeup/SBC-Makeup_01._SY530_QL85_.jpg"
+              src="https://assets.ajio.com/medias/sys_master/root/20210604/LLV4/60b925b0f997ddb312b62679/-1117Wx1400H-460918955-navyblue-MODEL4.jpg"
               alt="product_img"
               // h="200px"
             />
           </Box>
           <Button variant="link" position="absolute" top="0px" right="0px">
-            <AiOutlineClose fontSize="25px" color="#fff" />
+            <AiOutlineClose fontSize="25px" color="gray" />
           </Button>
         </Box>
 

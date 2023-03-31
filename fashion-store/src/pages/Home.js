@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
 import Marquee from "react-fast-marquee";
 import apple from "../../src/images/apple.png";
-import BlogCard from "../components/BlogCard";
+import ShopByBrand from "../components/ShopByBrand";
 import SpecialProductCard from "../components/SpecialProductCard";
 import CustomerServices from "../components/CustomerServices";
 import HeroSection from "../components/HeroSection";
@@ -77,7 +77,7 @@ const Home = () => {
 
         <Box>
           <Heading as="h2" size="lg" fontWeight={500} my="30px" border>
-            Our Latest Blogs
+            Shop By Brand
           </Heading>
           <Grid
             templateColumns={{
@@ -89,16 +89,16 @@ const Home = () => {
             gap="20px"
           >
             <GridItem>
-              <BlogCard />
+              <ShopByBrand />
             </GridItem>
             <GridItem>
-              <BlogCard />
+              <ShopByBrand />
             </GridItem>
             <GridItem>
-              <BlogCard />
+              <ShopByBrand />
             </GridItem>
             <GridItem>
-              <BlogCard />
+              <ShopByBrand />
             </GridItem>
           </Grid>
         </Box>
