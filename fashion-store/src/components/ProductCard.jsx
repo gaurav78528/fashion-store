@@ -17,10 +17,11 @@ import { BiGitCompare } from "react-icons/bi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import "../styles/productCard.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, deleteCartItem } from "../redux/cart/action";
 // import { toastProps } from "../constants/constants";
 import { toastProps } from "./../constants/constants";
+import { addToWishlist } from "../redux/wishlist/action";
 
 const ProductCard = ({ productData }) => {
   const {
@@ -37,8 +38,8 @@ const ProductCard = ({ productData }) => {
     quantity,
   } = productData;
 
-  const [isInWishlist, setIsInWishlist] = useState("");
   const toast = useToast();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleAddToCart = (item) => {
@@ -51,7 +52,7 @@ const ProductCard = ({ productData }) => {
     });
   };
 
-  const handleAddToWishlist = async () => {
+  const handleAddToWishlist = () => {
     const payload = {
       image: colors?.[0]?.images?.[0],
       brand,
@@ -61,33 +62,7 @@ const ProductCard = ({ productData }) => {
     };
     console.log(payload);
 
-    try {
-      const res = await fetch(`http://localhost:4500/wishlist/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      // console.log(data.message);
-      toast({
-        ...toastProps,
-        title: "Success",
-        description: data.message,
-        status: "success",
-      });
-    } catch (error) {
-      console.log(error);
-      toast({
-        ...toastProps,
-        title: "Error",
-        description: error.message,
-        status: "error",
-      });
-    }
+    dispatch(addToWishlist(payload, toast));
   };
 
   return (

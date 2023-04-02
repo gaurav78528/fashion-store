@@ -2,25 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
-
 import WishlistCard from "../components/WishlistCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getWishlistItems } from "../redux/wishlist/action";
 const Wishlist = () => {
-  const [wishlistItems, setWishlistItems] = useState([]);
-  const getWishlistItems = async () => {
-    try {
-      const res = await fetch(`http://localhost:4500/wishlist/`);
+  const { isLoading, wishlistItems } = useSelector((store) => store.wishlist);
 
-      const products = await res.json();
-      console.log(products);
-      setWishlistItems(products);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getWishlistItems();
-  }, []);
+    dispatch(getWishlistItems());
+  }, [wishlistItems]);
   return (
     <Box bgColor="#f5f5f7">
       <Meta title={"Wishlist"} />

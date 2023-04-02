@@ -21,6 +21,7 @@ import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../redux/cart/action";
 import { toastProps } from "../constants/constants";
+import { addToWishlist } from "../redux/wishlist/action";
 
 const SingleProduct = () => {
   const [data, setData] = useState({});
@@ -36,7 +37,7 @@ const SingleProduct = () => {
 
   const { id } = useParams();
 
-  const { cartItems } = useSelector((state) => state.cart);
+  // const { cartItems } = useSelector((state) => state.cart);
   // console.log(cartItems);
 
   const dispatch = useDispatch();
@@ -67,12 +68,24 @@ const SingleProduct = () => {
     });
   };
 
+  const handleAddToWishlist = () => {
+    const payload = {
+      image: colors?.[0]?.images?.[0],
+      brand,
+      title,
+      mrp,
+      offer,
+    };
+    console.log(payload);
+
+    dispatch(addToWishlist(payload, toast));
+  };
+
   const showImage = (image, id) => {
     imageRef.current.setAttribute("src", image);
     setCurrentFocus(id);
   };
   const handleChangeColor = (id) => {
-    // console.log(id);
     setCurrentProduct(id);
   };
 
@@ -342,6 +355,7 @@ const SingleProduct = () => {
                     md: "17px",
                     lg: "17px",
                   }}
+                  onClick={handleAddToWishlist}
                 >
                   Add to Wishlist
                 </Button>

@@ -8,42 +8,19 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { toastProps } from "../constants/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromWishlist } from "../redux/wishlist/action";
 
 const WishlistCard = ({ item }) => {
-  // console.log(item);\
-
   const toast = useToast();
 
-  const handleRemoveFromWishlist = async () => {
-    try {
-      const id = item._id;
-      console.log(id);
-      const res = await fetch(`http://localhost:4500/wishlist/delete/${id}`, {
-        method: "DELETE",
-      });
+  const { isLoading } = useSelector((store) => store.wishlist);
 
-      const data = await res.json();
-      // console.log(products);
-      toast({
-        ...toastProps,
-        title: "Success",
-        description: data.message,
-        status: "success",
-      });
+  const dispatch = useDispatch();
 
-      // setWishlistItems(products);
-    } catch (error) {
-      console.log(error);
-      toast({
-        ...toastProps,
-        title: "Error",
-        description: error.message,
-        status: "error",
-      });
-    }
-  };
   return (
     <Box
       className="product-card"
@@ -71,7 +48,7 @@ const WishlistCard = ({ item }) => {
             position="absolute"
             top="0px"
             right="0px"
-            onClick={handleRemoveFromWishlist}
+            onClick={() => dispatch(removeFromWishlist(item._id, toast))}
           >
             <AiOutlineClose fontSize="25px" color="gray" />
           </Button>

@@ -11,6 +11,7 @@ import { popularProductsReducer } from "./popularProducts/reducer";
 import { featuredProductsReducer } from "./featuredCollections/reducer";
 import { authReducer } from "./auth/reducer";
 import { cartReducer } from "./cart/reducer";
+import { wishlistReducer } from "./wishlist/reducer";
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -18,9 +19,6 @@ const rootReducer = combineReducers({
   products: productsReducer,
   popularProductsReducer,
   featuredProductsReducer,
+  wishlist: wishlistReducer,
 });
-const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
-
-export { store };
-
-// export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
+export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));

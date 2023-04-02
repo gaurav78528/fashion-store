@@ -50,12 +50,7 @@ const Footer = () => {
     <Box
       bg={useColorModeValue("#232f3e", "#232f3e")}
       color={useColorModeValue("#fff", "#fff")}
-      // position="sticky"
-      // bottom="0px"
-      // position="absolute"
-      // bottom="0"
       w="100%"
-      // mt="100px"
     >
       <Container as={Stack} maxW={"6xl"} py={10}>
         <SimpleGrid
@@ -64,9 +59,6 @@ const Footer = () => {
         >
           <Stack spacing={6}>
             <Box>
-              {/* <Logo color={useColorModeValue("gray.700", "white")} />
-               */}
-
               <Link to="/">
                 <Heading fontWeight="400" as="h2" size="lg">
                   Fashion
