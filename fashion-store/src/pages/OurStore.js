@@ -72,16 +72,16 @@ const OurStore = () => {
             {isLoading
               ? products.map((product, id) => {
                   return (
-                    <GridItem key={id}>
-                      <Loader heightProps="350px" widthProps="250px" />
-                    </GridItem>
+                    // <GridItem key={id}>
+                    <Loader key={id} heightProps="350px" widthProps="250px" />
+                    // </GridItem>
                   );
                 })
               : products.map((product) => {
                   return (
-                    <GridItem key={product._id}>
-                      <ProductCard productData={product} />
-                    </GridItem>
+                    // <GridItem key={product._id}>
+                    <ProductCard key={product._id} productData={product} />
+                    // </GridItem>
                   );
                 })}
           </Flex>

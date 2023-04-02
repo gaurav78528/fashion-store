@@ -94,13 +94,15 @@ const ProductCard = ({ productData }) => {
             <Image
               src={colors?.[0]?.images?.[0]}
               alt={title}
-              minH="250px"
+              minH="300px"
+              maxH="300px"
               w="100%"
             />
             <Image
               src={colors?.[0]?.images?.[1]}
               alt="product_img"
-              minH="250px"
+              minH="300px"
+              maxH="300px"
               w="100%"
             />
           </Box>
