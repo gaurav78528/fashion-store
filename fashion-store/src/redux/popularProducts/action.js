@@ -1,32 +1,20 @@
 import * as types from "./actionTypes";
 import axios from "axios";
-const getPopularProductsLoading = () => {
-  return {
+
+export const getPopularProducts = () => async (dispatch) => {
+  dispatch({
     type: types.GET_POPULAR_PRODUCTS_LOADING,
-  };
-};
-const getPopularProductsSuccess = (payload) => {
-  return {
-    type: types.GET_POPULAR_PRODUCTS_SUCCESS,
-    payload,
-  };
-};
-const getPopularProductsError = () => {
-  return {
-    type: types.GET_POPULAR_PRODUCTS_ERROR,
-  };
-};
-
-const getPopularProducts = () => (dispatch) => {
-  dispatch(getPopularProductsLoading());
-  return axios
-    .get("http://localhost:4500/products")
-    .then((res) => {
-      dispatch(getPopularProductsSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(getPopularProductsError());
+  });
+  try {
+    let res = await axios.get("http://localhost:4500/products");
+    dispatch({
+      type: types.GET_POPULAR_PRODUCTS_SUCCESS,
+      payload: res.data,
     });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: types.GET_POPULAR_PRODUCTS_ERROR,
+    });
+  }
 };
-
-export { getPopularProducts };

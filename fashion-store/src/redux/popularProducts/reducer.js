@@ -12,7 +12,7 @@ export const popularProductsReducer = (state = initalState, action) => {
       return { ...state, isLoading: true };
     case types.GET_POPULAR_PRODUCTS_SUCCESS:
       const filterProducts = payload.filter((item) => item.offer >= 70);
-      console.log(filterProducts);
+      // console.log(filterProducts);
       return { ...state, isLoading: false, popularProducts: filterProducts };
     case types.GET_POPULAR_PRODUCTS_ERROR:
       return { ...state, isLoading: false, isError: true };
