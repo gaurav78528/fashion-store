@@ -4,6 +4,9 @@ const { connection } = require("./config/db");
 const { userRouter } = require("./routes/user.route");
 const cors = require("cors");
 const { authenticate } = require("./middlewares/authenticate.middleware");
+const { productsRouter } = require("./routes/products.route");
+const { wishlistRouter } = require("./routes/wishlist.route");
+
 // const cookieParser = require("cookie-parser");
 
 // dotenv config
@@ -21,6 +24,9 @@ app.use(cors());
 // Routes
 
 app.use("/users", userRouter);
+app.use("/products", productsRouter);
+app.use("/wishlist", wishlistRouter);
+
 app.use(authenticate);
 
 // Rest API
