@@ -10,8 +10,8 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
-import { AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
+import React, { useState } from "react";
+import { AiFillHeart, AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
 import ReactStars from "react-rating-stars-component";
 import { BiGitCompare } from "react-icons/bi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
@@ -19,7 +19,8 @@ import "../styles/productCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToCart, deleteCartItem } from "../redux/cart/action";
-import { toastProps } from "../constants/constants";
+// import { toastProps } from "../constants/constants";
+import { toastProps } from "./../constants/constants";
 
 const ProductCard = ({ productData }) => {
   const {
@@ -35,6 +36,8 @@ const ProductCard = ({ productData }) => {
     rating,
     quantity,
   } = productData;
+
+  const [isInWishlist, setIsInWishlist] = useState("");
   const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,6 +49,45 @@ const ProductCard = ({ productData }) => {
       description: "Item Added To Cart",
       status: "success",
     });
+  };
+
+  const handleAddToWishlist = async () => {
+    const payload = {
+      image: colors?.[0]?.images?.[0],
+      brand,
+      title,
+      mrp,
+      offer,
+    };
+    console.log(payload);
+
+    try {
+      const res = await fetch(`http://localhost:4500/wishlist/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      // console.log(data.message);
+      toast({
+        ...toastProps,
+        title: "Success",
+        description: data.message,
+        status: "success",
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        ...toastProps,
+        title: "Error",
+        description: error.message,
+        status: "error",
+      });
+    }
   };
 
   return (
@@ -66,7 +108,8 @@ const ProductCard = ({ productData }) => {
           <Tag size="sm" key="sm" variant="ghost" colorScheme="green"></Tag>
         )}
 
-        <Button variant="link">
+        <Button variant="link" onClick={handleAddToWishlist}>
+          {/* <AiFillHeart color="red" />  */}
           <AiOutlineHeart />
         </Button>
       </HStack>
@@ -97,6 +140,7 @@ const ProductCard = ({ productData }) => {
               textAlign="center"
               fontWeight={500}
               py="10px"
+              color="red"
             >
               Out Of Stock
             </Text>
@@ -128,7 +172,7 @@ const ProductCard = ({ productData }) => {
           {brand}
         </Heading>
         <Heading as="h6" size="xs">
-          {title.length > 25 ? `${title.slice(0, 25)}....` : title}
+          {title?.length > 25 ? `${title?.slice(0, 25)}....` : title}
         </Heading>
         <ReactStars
           count={5}

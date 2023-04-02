@@ -27,7 +27,7 @@ const OurStore = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  // console.log(location);
+  console.log(products);
   useEffect(() => {
     if (location || products.length === 0) {
       const getProductParams = {

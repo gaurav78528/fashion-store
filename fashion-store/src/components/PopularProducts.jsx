@@ -3,18 +3,20 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopularProducts } from "../redux/popularProducts/action";
 import ProductCard from "./ProductCard";
+import Loader from "./Loader";
 
 const PopularProducts = () => {
-  const popularProducts = useSelector(
-    (store) => store.popularProductsReducer.popularProducts
+  const { popularProducts, isLoading } = useSelector(
+    (store) => store.popularProductsReducer
   );
+  
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (popularProducts.length === 0) {
-      dispatch(getPopularProducts());
-    }
+    // if (popularProducts.length === 0) {
+    dispatch(getPopularProducts());
+    // }
   }, []);
   return (
     <Box>
@@ -22,14 +24,19 @@ const PopularProducts = () => {
         Popular Products
       </Heading>
       <Flex overflow="auto" className="hide-scrollbar" gap="20px">
-        {popularProducts.length > 0 &&
-          popularProducts.map((product) => {
-            return (
-              <Box key={product._id}>
-                <ProductCard productData={product} />
-              </Box>
-            );
-          })}
+        {isLoading
+          ? popularProducts.map((item) => {
+              return (
+                <Loader key={item._id} heightProps="350px" widthProps="250px" />
+              );
+            })
+          : popularProducts.map((product) => {
+              return (
+                <Box key={product._id}>
+                  <ProductCard productData={product} />
+                </Box>
+              );
+            })}
       </Flex>
     </Box>
   );

@@ -1,13 +1,55 @@
-import { Box, Button, Flex, Heading, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { toastProps } from "../constants/constants";
 
-const WishlistCard = () => {
+const WishlistCard = ({ item }) => {
+  // console.log(item);\
+
+  const toast = useToast();
+
+  const handleRemoveFromWishlist = async () => {
+    try {
+      const id = item._id;
+      console.log(id);
+      const res = await fetch(`http://localhost:4500/wishlist/delete/${id}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+      // console.log(products);
+      toast({
+        ...toastProps,
+        title: "Success",
+        description: data.message,
+        status: "success",
+      });
+
+      // setWishlistItems(products);
+    } catch (error) {
+      console.log(error);
+      toast({
+        ...toastProps,
+        title: "Error",
+        description: error.message,
+        status: "error",
+      });
+    }
+  };
   return (
     <Box
       className="product-card"
       // border="1px solid red"
       bgColor="#fff"
+      w="250px"
       borderRadius="5px"
 
       // _hover={{}}
@@ -17,19 +59,33 @@ const WishlistCard = () => {
         <Box position="relative">
           <Box>
             <Image
-              src="https://assets.ajio.com/medias/sys_master/root/20210604/LLV4/60b925b0f997ddb312b62679/-1117Wx1400H-460918955-navyblue-MODEL4.jpg"
-              alt="product_img"
+              src={item?.image}
+              alt={item?.title}
               // h="200px"
+              minH="250px"
+              w="100%"
             />
           </Box>
-          <Button variant="link" position="absolute" top="0px" right="0px">
+          <Button
+            variant="link"
+            position="absolute"
+            top="0px"
+            right="0px"
+            onClick={handleRemoveFromWishlist}
+          >
             <AiOutlineClose fontSize="25px" color="gray" />
           </Button>
         </Box>
 
         <Heading as="h6" size="xs">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, animi.
+          {item?.brand}
         </Heading>
+
+        <Text color="gray.400" fontSize="15px">
+          {item?.title?.length > 25
+            ? `${item?.title?.slice(0, 25)}....`
+            : item?.title}
+        </Text>
         <Heading as="h6" size="xs">
           $10.00
         </Heading>

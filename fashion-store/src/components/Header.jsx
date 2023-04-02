@@ -191,20 +191,31 @@ const Header = () => {
                 </MenuList>
               </Menu>
             ) : (
-              <Link to="/login">
-                <Flex
-                  justify="center"
-                  align="center"
-                  gap="5px"
-                  display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
-                  color="#fff"
-                >
-                  <BiUser fontSize="25px" />
-                  <Box>
-                    <Text>Log in</Text>
-                  </Box>
+              <Menu>
+                <Flex justify="center" align="center" gap="5px">
+                  <BiUser fontSize="25px" color="#fff" />
+                  <MenuButton
+                    as={Button}
+                    m="-10px"
+                    p="0"
+                    fontSize="12px"
+                    colorScheme="#000"
+                    textTransform={"uppercase"}
+                  >
+                    User
+                  </MenuButton>
                 </Flex>
-              </Link>
+                <MenuList>
+                  <MenuGroup title="User">
+                    <Link to="/register">
+                      <MenuItem>Register</MenuItem>
+                    </Link>
+                    <Link to="/login">
+                      <MenuItem>Login</MenuItem>
+                    </Link>
+                  </MenuGroup>
+                </MenuList>
+              </Menu>
             )}
             <Link to="/cart">
               <Flex justify="center" align="center" gap="5px">

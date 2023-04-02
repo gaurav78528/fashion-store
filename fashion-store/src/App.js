@@ -40,6 +40,7 @@ function App() {
             <Route path="/compare-products" element={<CompareProducts />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
+
             <Route path="/checkout" element={<Checkout />} />
           </Route>
         </Routes>

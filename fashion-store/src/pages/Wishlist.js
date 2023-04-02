@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 
 import WishlistCard from "../components/WishlistCard";
 const Wishlist = () => {
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const getWishlistItems = async () => {
+    try {
+      const res = await fetch(`http://localhost:4500/wishlist/`);
+
+      const products = await res.json();
+      console.log(products);
+      setWishlistItems(products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getWishlistItems();
+  }, []);
   return (
     <Box bgColor="#f5f5f7">
       <Meta title={"Wishlist"} />
@@ -20,24 +36,13 @@ const Wishlist = () => {
         py="40px"
         gap="20px"
       >
-        <GridItem>
-          <WishlistCard />
-        </GridItem>
-        <GridItem>
-          <WishlistCard />
-        </GridItem>
-        <GridItem>
-          <WishlistCard />
-        </GridItem>
-        <GridItem>
-          <WishlistCard />
-        </GridItem>
-        <GridItem>
-          <WishlistCard />
-        </GridItem>
-        <GridItem>
-          <WishlistCard />
-        </GridItem>
+        {wishlistItems?.map((item) => {
+          return (
+            <GridItem key={item._id}>
+              <WishlistCard item={item} />
+            </GridItem>
+          );
+        })}
       </Grid>
     </Box>
   );
