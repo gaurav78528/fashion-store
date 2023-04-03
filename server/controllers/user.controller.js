@@ -2,56 +2,80 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { UserModel } = require("../models/User.model");
 
+// const userRegisterController = async (req, res) => {
+//   try {
+//     const { firstName, email, password, confirmPassword } = req.body;
+//     // FORM VALIDATION
+//     if (!firstName || !email || !password || !confirmPassword) {
+//       return res.status(403).send({ message: "Please Fill all the Details." });
+//     } else if (!email.includes("@")) {
+//       return res.status(403).send({ message: "Please Enter Valid Email." });
+//     } else if (password.length < 6) {
+//       return res.status(403).send({ message: "Password must be of length 6." });
+//     } else if (password !== confirmPassword) {
+//       return res.status(403).send({ message: "Password Does not Matches." });
+//     }
+
+//     // Checking Already Existing User
+//     const isUserExist = await UserModel.findOne({ email });
+
+//     if (isUserExist) {
+//       return res.status(500).send({
+//         message: "User Already Registered. Please Login.",
+//       });
+//     }
+
+//     // Register New User
+
+//     bcrypt.hash(password, 10, async (err, hashedPassword) => {
+//       // Store hash in your password DB.
+//       if (err) {
+//         console.log(err);
+//         return res.status(500).send({ message: err });
+//       } else {
+//         const newUser = new UserModel({
+//           firstName,
+//           email,
+//           password: hashedPassword,
+//           confirmPassword: hashedPassword,
+//         });
+//         await newUser.save();
+//         // console.log(hashedPassword);
+//         return res.status(201).send({
+//           message: "User Registered Successfully.",
+//           newUser,
+//         });
+//       }
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(400).send({
+//       message: "Failed to Register User.",
+//       error,
+//     });
+//   }
+// };
+
 const userRegisterController = async (req, res) => {
+  const { firstName, email, password, confirmPassword } = req.body;
   try {
-    const { firstName, email, password, confirmPassword } = req.body;
-    // FORM VALIDATION
-    if (!firstName || !email || !password || !confirmPassword) {
-      return res.status(403).send({ message: "Please Fill all the Details." });
-    } else if (!email.includes("@")) {
-      return res.status(403).send({ message: "Please Enter Valid Email." });
-    } else if (password.length < 6) {
-      return res.status(403).send({ message: "Password must be of length 6." });
-    } else if (password !== confirmPassword) {
-      return res.status(403).send({ message: "Password Does not Matches." });
-    }
-
-    // Checking Already Existing User
-    const isUserExist = await UserModel.findOne({ email });
-
-    if (isUserExist) {
-      return res.status(500).send({
-        message: "User Already Registered. Please Login.",
-      });
-    }
-
-    // Register New User
-
-    bcrypt.hash(password, 10, async (err, hashedPassword) => {
-      // Store hash in your password DB.
-      if (err) {
-        console.log(err);
-        return res.status(500).send({ message: err });
-      } else {
-        const newUser = new UserModel({
-          firstName,
-          email,
-          password: hashedPassword,
-          confirmPassword: hashedPassword,
-        });
-        await newUser.save();
-        // console.log(hashedPassword);
-        return res.status(201).send({
-          message: "User Registered Successfully.",
-          newUser,
-        });
-      }
+    const newUser = new UserModel({
+      firstName,
+      email,
+      password,
+      confirmPassword,
+    });
+    await newUser.save();
+    // console.log(hashedPassword);
+    return res.status(201).json({
+      message: "User Registered Successfully.",
+      user: newUser,
     });
   } catch (error) {
     console.log(error);
-    return res.status(400).send({
+    return res.status(500).send({
       message: "Failed to Register User.",
-      error,
+      error: error.message,
     });
   }
 };

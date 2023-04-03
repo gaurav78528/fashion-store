@@ -4,7 +4,11 @@ const ApiFeatures = require("../utils/apifeature");
 // GET ALL PRODUCTS
 
 const getProductsController = async (req, res) => {
-  const apiFeature = new ApiFeatures(ProductModel.find(), req.query).search();
+  const resultPerPage = 5;
+  const apiFeature = new ApiFeatures(ProductModel.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resultPerPage);
   try {
     // const products = await ProductModel.find();
     const products = await apiFeature.query;
