@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const { connection } = require("./config/db");
 const { userRouter } = require("./routes/user.route");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const { authenticate } = require("./middlewares/authenticate.middleware");
 const { productsRouter } = require("./routes/products.route");
 const { wishlistRouter } = require("./routes/wishlist.route");
@@ -17,17 +18,16 @@ const app = express();
 
 // Middlewares
 // app.use(morgan("dev"));
-// app.use(cookieParser());
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
 // Routes
 
 app.use("/users", userRouter);
+// app.use(authenticate);
 app.use("/products", productsRouter);
 app.use("/wishlist", wishlistRouter);
-
-app.use(authenticate);
 
 // Rest API
 app.get("/", (req, res) => {

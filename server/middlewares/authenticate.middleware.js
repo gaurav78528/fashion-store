@@ -1,18 +1,18 @@
 const jwt = require("jsonwebtoken");
+const { UserModel } = require("../models/User.model");
+require("dotenv").config();
 
-const authenticate = (req, res, next) => {
-  const token = req.headers.authorization;
+const authenticate = async (req, res, next) => {
+  const { token } = req.cookies;
 
-  if (token) {
-    const decoded = jwt.verify(token, "masai");
-    if (decoded) {      
-      next();
-    } else {
-      res.send("Please login First.");
-    }
-  } else {
-    res.send("Please login First.");
+  if (!token) {
+    return res.status(401).json({
+      message: "Please Login.",
+    });
   }
+  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  req.user = await UserModel.findById(decoded.id);
+  next();
 };
 
 module.exports = {

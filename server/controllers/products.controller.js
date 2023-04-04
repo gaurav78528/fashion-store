@@ -4,7 +4,7 @@ const ApiFeatures = require("../utils/apifeature");
 // GET ALL PRODUCTS
 
 const getProductsController = async (req, res) => {
-  const resultPerPage = 5;
+  const resultPerPage = 50;
   const apiFeature = new ApiFeatures(ProductModel.find(), req.query)
     .search()
     .filter()
@@ -42,6 +42,7 @@ const addNewProductController = async (req, res) => {
   const payload = req.body;
   console.log(payload);
   try {
+    req.body.user = req.user.id;
     const newProduct = new ProductModel(payload);
 
     await newProduct.save();
