@@ -3,6 +3,7 @@ const { UserModel } = require("../models/User.model");
 require("dotenv").config();
 
 const authenticate = async (req, res, next) => {
+  // console.log(req.user);
   const { token } = req.cookies;
 
   if (!token) {
@@ -12,6 +13,7 @@ const authenticate = async (req, res, next) => {
   }
   const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
   req.user = await UserModel.findById(decoded.id);
+  // console.log(req.user);
   next();
 };
 

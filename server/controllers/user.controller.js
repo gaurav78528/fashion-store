@@ -20,20 +20,23 @@ const userRegisterController = async (req, res) => {
 
     return res.status(500).send({
       message: "Failed to Register User.",
-      error: "Email Already Exists.",
+      error: error.message,
     });
   }
 };
 
 const userLoginController = async (req, res) => {
   const { firstName, email, password } = req.body;
+  // console.log({ password });
+  // console.log(req.user);
   try {
     if (!firstName || !email || !password) {
-      return res.status(401).json({
+      return res.status(400).json({
         message: "Please Fill all Credentials.",
       });
     }
     const user = await UserModel.findOne({ email }).select("+password");
+    // console.log(user);
 
     if (!user) {
       return res.status(401).json({
@@ -41,7 +44,8 @@ const userLoginController = async (req, res) => {
       });
     }
 
-    const isPasswordMatch = user.comparePassword(password);
+    const isPasswordMatch = await user.comparePassword(password);
+    // console.log(isPasswordMatch);
 
     if (!isPasswordMatch) {
       return res.status(401).json({
@@ -154,7 +158,63 @@ const resetPasswordController = async (req, res) => {
     sendToken(user, 200, res);
   } catch (error) {
     return res.status(500).json({
-      message: "Something Went Wrong.",
+      message: "Failed to Reset Password.",
+      error: error.message,
+    });
+  }
+};
+
+// GET USER DETAILS
+
+const getUserDetailsController = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.user.id);
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Failed to get user.",
+      error: error.message,
+    });
+  }
+};
+
+// UPDATE PASSWORD
+
+const updatePasswordController = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.user.id).select("+password");
+    // console.log(user);
+
+    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+    console.log(isPasswordMatched);
+    if (!isPasswordMatched) {
+      return res.status(400).json({
+        message: "Old Password in incorrect.",
+      });
+    }
+
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      return res.status(400).json({
+        message: "Password does not matches.",
+      });
+    }
+
+    user.password = req.body.newPassword;
+    await user.save();
+    sendToken(user, 200, res);
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Failed to update password.",
       error: error.message,
     });
   }
@@ -166,4 +226,6 @@ module.exports = {
   userLogoutController,
   forgetPasswordController,
   resetPasswordController,
+  getUserDetailsController,
+  updatePasswordController,
 };
