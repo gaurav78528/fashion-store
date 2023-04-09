@@ -7,7 +7,6 @@ const {
   updateProductController,
   productReviewController,
   getProductReviewController,
-  deleteProductReviewController,
 } = require("../controllers/products.controller");
 const { authenticate } = require("../middlewares/authenticate.middleware");
 const { authorizeRoles } = require("../middlewares/authorizeRoles.middleware");
@@ -42,12 +41,7 @@ productsRouter.delete(
   deleteProductController
 );
 
-productsRouter.put("/review/add", authenticate, productReviewController);
-productsRouter.get("/reviews", authenticate, getProductReviewController);
-productsRouter.get(
-  "/reviews/delete",
-  authenticate,
-  deleteProductReviewController
-);
+productsRouter.put("/reviews/add", authenticate, productReviewController);
+productsRouter.get("/reviews/:id", authenticate, getProductReviewController);
 
 module.exports = { productsRouter };

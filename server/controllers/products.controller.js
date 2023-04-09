@@ -25,7 +25,7 @@ const getProductsController = async (req, res) => {
 // GET SINGLE PRODUCT
 const getSingleProductController = async (req, res) => {
   const ID = req.params;
-  console.log(ID);
+  // console.log(ID);
   try {
     const product = await ProductModel.findOne({ _id: ID });
     console.log(product);
@@ -91,7 +91,6 @@ const updateProductController = async (req, res) => {
 
 const deleteProductController = async (req, res) => {
   const { _id } = req.params;
-  // console.log(_id);
   try {
     let product = await ProductModel.findById(_id);
     if (!product) {
@@ -152,18 +151,17 @@ const productReviewController = async (req, res) => {
     return res.status(200).json({ success: true });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ message: "Something Went Wrong!", error: error.message });
+    return res.status(500).json({
+      message: "Something Went Wrong!",
+      error: error.message,
+    });
   }
 };
 
 // GET ALL REVIEWS OF A PRODUCT
 const getProductReviewController = async (req, res) => {
-  console.log({ ID: req.query.id });
   try {
-    const product = await ProductModel.findById(req.query.id);
-
+    const product = await ProductModel.findById(req.params.id);
     if (!product) {
       return res.status(404).json({
         message: "Product Not Found.",
@@ -173,54 +171,10 @@ const getProductReviewController = async (req, res) => {
     return res.status(200).json({ success: true, reviews: product.reviews });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ message: "Something Went Wrong!", error: error.message });
-  }
-};
-// DELETE REVIEW OF A PRODUCT
-const deleteProductReviewController = async (req, res) => {
-  try {
-    const product = await ProductModel.findById(req.query.productID);
-
-    if (!product) {
-      return res.status(404).json({
-        message: "Product Not Found.",
-      });
-    }
-
-    const reviews = product.reviews.filter(
-      (review) => review._id.toString() !== req.query.id.toString()
-    );
-
-    let avg = 0;
-
-    reviews.forEach((item) => {
-      avg += item.rating;
+    return res.status(500).json({
+      message: "Something Went Wrong!",
+      error: error.message,
     });
-
-    const rating = avg / reviews.length;
-    const numOfReviews = reviews.length;
-    await product.findByIdAndUpdate(
-      req.query.productID,
-      {
-        reviews,
-        rating,
-        numOfReviews,
-      },
-      {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false,
-      }
-    );
-
-    return res.status(200).json({ success: true, reviews: product.review });
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(500)
-      .json({ message: "Something Went Wrong!", error: error.message });
   }
 };
 
@@ -232,5 +186,4 @@ module.exports = {
   deleteProductController,
   productReviewController,
   getProductReviewController,
-  deleteProductReviewController,
 };
