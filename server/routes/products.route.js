@@ -5,6 +5,9 @@ const {
   addNewProductController,
   deleteProductController,
   updateProductController,
+  productReviewController,
+  getProductReviewController,
+  deleteProductReviewController,
 } = require("../controllers/products.controller");
 const { authenticate } = require("../middlewares/authenticate.middleware");
 const { authorizeRoles } = require("../middlewares/authorizeRoles.middleware");
@@ -21,22 +24,30 @@ productsRouter.get("/", getProductsController);
 productsRouter.get("/:_id", getSingleProductController);
 
 productsRouter.post(
-  "/add",
+  "/admin/add",
   authenticate,
   authorizeRoles("admin"),
   addNewProductController
 );
 productsRouter.patch(
-  "/update/:_id",
+  "/admin/update/:_id",
   authenticate,
   authorizeRoles("admin"),
   updateProductController
 );
 productsRouter.delete(
-  "/delete/:_id",
+  "/admin/delete/:_id",
   authenticate,
   authorizeRoles("admin"),
   deleteProductController
+);
+
+productsRouter.put("/review/add", authenticate, productReviewController);
+productsRouter.get("/reviews", authenticate, getProductReviewController);
+productsRouter.get(
+  "/reviews/delete",
+  authenticate,
+  deleteProductReviewController
 );
 
 module.exports = { productsRouter };

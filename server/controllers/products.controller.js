@@ -40,7 +40,8 @@ const getSingleProductController = async (req, res) => {
 // ADD PRODUCTS   --> FOR ADMIN ONLY
 const addNewProductController = async (req, res) => {
   const payload = req.body;
-  console.log(payload);
+  // console.log(req);
+  // console.log(payload);
   try {
     req.body.user = req.user.id;
     const newProduct = new ProductModel(payload);
@@ -94,7 +95,7 @@ const deleteProductController = async (req, res) => {
   try {
     let product = await ProductModel.findById(_id);
     if (!product) {
-      return res.status(500).json({
+      return res.status(404).json({
         message: "Product Not Found.",
       });
     }
@@ -110,10 +111,126 @@ const deleteProductController = async (req, res) => {
   }
 };
 
+// CRETAE AND UPDATE PRODUCT REVIEW
+
+const productReviewController = async (req, res) => {
+  const { rating, comment, productID } = req.body;
+  // console.log(req);
+  try {
+    const review = {
+      user: req.user._id,
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+    };
+
+    const product = await ProductModel.findById(productID);
+
+    const isReviewed = product.reviews.find(
+      (item) => item.user.toString() === req.user._id.toString()
+    );
+
+    if (isReviewed) {
+      product.reviews.forEach((item) => {
+        if (item.user.toString() === req.user._id.toString()) {
+          item.rating = rating;
+          item.comment = comment;
+        }
+      });
+    } else {
+      product.reviews.push(review);
+      product.noOfReviews = product.reviews.length;
+    }
+    let avg = 0;
+
+    product.reviews.forEach((item) => {
+      avg += item.rating;
+    });
+
+    product.rating = avg / product.reviews.length;
+    await product.save({ validateBeforeSave: false });
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Something Went Wrong!", error: error.message });
+  }
+};
+
+// GET ALL REVIEWS OF A PRODUCT
+const getProductReviewController = async (req, res) => {
+  console.log({ ID: req.query.id });
+  try {
+    const product = await ProductModel.findById(req.query.id);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product Not Found.",
+      });
+    }
+
+    return res.status(200).json({ success: true, reviews: product.reviews });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Something Went Wrong!", error: error.message });
+  }
+};
+// DELETE REVIEW OF A PRODUCT
+const deleteProductReviewController = async (req, res) => {
+  try {
+    const product = await ProductModel.findById(req.query.productID);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product Not Found.",
+      });
+    }
+
+    const reviews = product.reviews.filter(
+      (review) => review._id.toString() !== req.query.id.toString()
+    );
+
+    let avg = 0;
+
+    reviews.forEach((item) => {
+      avg += item.rating;
+    });
+
+    const rating = avg / reviews.length;
+    const numOfReviews = reviews.length;
+    await product.findByIdAndUpdate(
+      req.query.productID,
+      {
+        reviews,
+        rating,
+        numOfReviews,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    return res.status(200).json({ success: true, reviews: product.review });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Something Went Wrong!", error: error.message });
+  }
+};
+
 module.exports = {
   getProductsController,
   getSingleProductController,
   addNewProductController,
   updateProductController,
   deleteProductController,
+  productReviewController,
+  getProductReviewController,
+  deleteProductReviewController,
 };

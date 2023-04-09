@@ -1,3 +1,4 @@
+const { log } = require("console");
 const { UserModel } = require("../models/User.model");
 const { sendToken } = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
@@ -214,12 +215,79 @@ const updatePasswordController = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message: "Failed to update password.",
-      error: error.message,
+      success: false,
+      message: error.message,
     });
   }
 };
 
+// GET ALL USERS
+
+const getAllUsersController = async (req, res) => {
+  try {
+    const users = await UserModel.find();
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+// GET SINGLE USER DETAILS (ADMIN)
+const getSingleUserDetailsContoller = async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const user = await UserModel.findById(req.params.id);
+
+    if (!user) {
+      return res.status(400).json({
+        message: `User Does exist not With ID ${req.params.id}`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// DELETE USER -ADMIN
+
+const deleteUserController = async (req, res) => {
+  // console.log(req.params.id);
+  try {
+    const user = await UserModel.findByIdAndDelete(req.params.id);
+    console.log(user);
+
+    if (!user) {
+      return res.status(400).json({
+        message: `User Does exist not With ID ${req.params.id}`,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User has been Removed.",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 module.exports = {
   userRegisterController,
   userLoginController,
@@ -228,4 +296,7 @@ module.exports = {
   resetPasswordController,
   getUserDetailsController,
   updatePasswordController,
+  getAllUsersController,
+  getSingleUserDetailsContoller,
+  deleteUserController,
 };
