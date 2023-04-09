@@ -27,6 +27,79 @@ const orderSchema = mongoose.Schema({
       required: true,
     },
   },
+  orderItems: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+      image: {
+        type: String,
+        required: true,
+      },
+      product: {
+        type: mongoose.Schema.ObjectId,
+        ref: "ProductModel",
+      },
+    },
+  ],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "UserModel",
+    required: true,
+  },
+  paymentInfo: {
+    id: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
+  },
+  paidAt: {
+    type: Date,
+    required: true,
+  },
+  itemsPrice: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
+  taxPrice: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
+  shippingPrice: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
+  totalPrice: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
+  orderStatus: {
+    type: String,
+    required: true,
+    default: "Processing",
+  },
+  deliveredAt: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 const OrderModel = mongoose.model("order", orderSchema);
 

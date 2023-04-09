@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const { authenticate } = require("./middlewares/authenticate.middleware");
 const { productsRouter } = require("./routes/products.route");
 const { wishlistRouter } = require("./routes/wishlist.route");
+const { orderRouter } = require("./routes/orderRoute");
 
 // const cookieParser = require("cookie-parser");
 
@@ -28,6 +29,7 @@ app.use("/users", userRouter);
 // app.use(authenticate);
 app.use("/products", productsRouter);
 app.use("/wishlist", wishlistRouter);
+app.use("/orders", orderRouter);
 
 // Rest API
 app.get("/", (req, res) => {
