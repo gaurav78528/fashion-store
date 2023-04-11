@@ -1,4 +1,4 @@
-import { Avatar, Box, Text } from "@chakra-ui/react";
+import { Avatar, Box, Divider, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 
@@ -13,13 +13,15 @@ const ReviewCard = ({ review }) => {
     activeColor: "#ffd700",
   };
   return (
-    <Box>
-      <Avatar
-        name={review.name}
-        bgColor={"gray.100"}
-        src="https://bit.ly/tioluwani-kolawole"
-      />
-      <Text>{review.name}</Text>
+    <Box mt="20px">
+      <Flex alignItems={"center"} gap="20px">
+        <Avatar
+          name={review.name}
+          bgColor={"gray.100"}
+          src="https://bit.ly/tioluwani-kolawole"
+        />
+        <Text>{review.name}</Text>
+      </Flex>
       <ReactStars {...ratingOptions} />
       <Text>{review.comment}</Text>
     </Box>

@@ -46,12 +46,18 @@ const Header = () => {
   const btnRef = useRef();
   const { cartItems } = useSelector((state) => state.cart);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [query, setQuery] = useState("");
 
   const handleLogout = () => {
     setToken("");
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     window.location.reload();
+  };
+  console.log(query);
+
+  const handleSearch = () => {
+    console.log(query);
   };
 
   const dispatch = useDispatch();
@@ -107,13 +113,18 @@ const Header = () => {
             display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
             color="#fff"
           >
-            <Input type="search" placeholder="search product here" />
+            <Input
+              type="text"
+              placeholder="search product here"
+              onChange={(e) => setQuery(e.target.value)}
+            />
             <InputRightAddon
               _hover={{ bgColor: "#ce9739" }}
               bgColor="#e3ae52"
               color="#000"
               cursor="pointer"
               children={<BiSearch />}
+              onClick={handleSearch}
             />
           </InputGroup>
 
@@ -271,6 +282,7 @@ const Header = () => {
             <Input
               type="search"
               placeholder="search product here"
+              onChange={(e) => setQuery(e.target.value)}
               // _focus={{ borderColor: "#e3ae52", outlineColor: "none" }}
             />
             <InputRightAddon
@@ -279,6 +291,7 @@ const Header = () => {
               color="#000"
               cursor="pointer"
               children={<BiSearch />}
+              onClick={handleSearch}
             />
           </InputGroup>
           <HStack

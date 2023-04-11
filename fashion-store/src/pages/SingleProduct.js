@@ -11,6 +11,7 @@ import {
   StackDivider,
   Divider,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { MdLocalShipping } from "react-icons/md";
@@ -95,6 +96,8 @@ const SingleProduct = () => {
     size: 24,
     activeColor: "#ffd700",
   };
+
+  const handleSubmitReview = () => {};
 
   return (
     <Container maxW={"7xl"} border="2px solid red">
@@ -402,15 +405,54 @@ const SingleProduct = () => {
           </>
         )}
       </SimpleGrid>
-      {reviews && reviews[0] ? (
-        <Box>
-          {reviews.map((review) => (
-            <ReviewCard review={review} />
-          ))}
-        </Box>
-      ) : (
-        <Text>No Reviews Yet</Text>
-      )}
+      <Box p="10px">
+        <Heading as="h2" size={"lg"} textAlign={"center"}>
+          Reviews
+        </Heading>
+        {reviews && reviews[0] ? (
+          <VStack justifyContent="start" alignItems="start" gap="10px">
+            {reviews.map((review) => (
+              <ReviewCard key={review._id} review={review} />
+            ))}
+            <Divider />
+            <Box>
+              <Button
+                size="sm"
+                // textDecoration={"none"}
+                my="20px"
+                variant={"none"}
+                color={"blue"}
+                fontSize={"15px"}
+                _hover={{
+                  color: "red",
+                }}
+                onClick={handleSubmitReview}
+              >
+                Submit Review
+              </Button>
+            </Box>
+          </VStack>
+        ) : (
+          <VStack my="40px" justifyContent="center" alignItems="center">
+            <Text fontSize="25px" color="gray" textAlign={"center"}>
+              No Reviews Yet
+            </Text>
+            <Button
+              size="sm"
+              // textDecoration={"none"}
+              variant={"none"}
+              color={"blue"}
+              fontSize={"15px"}
+              _hover={{
+                color: "red",
+              }}
+              onClick={handleSubmitReview}
+            >
+              Submit Review
+            </Button>
+          </VStack>
+        )}
+      </Box>
     </Container>
   );
 };
