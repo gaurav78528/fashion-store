@@ -1,16 +1,5 @@
-import {
-  Box,
-  Grid,
-  GridItem,
-  HStack,
-  Select,
-  Text,
-  Flex,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, HStack, Flex, VStack, useToast } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-
-import { useLocation, useSearchParams } from "react-router-dom";
 import BreadCrumb from "../components/BreadCrumb";
 import FilterPanel from "../components/FilterPanel";
 import Meta from "../components/Meta";
@@ -20,24 +9,17 @@ import { useSelector, useDispatch } from "react-redux";
 import "../styles/ourStore.css";
 import Loader from "../components/Loader";
 import SortingPanel from "../components/SortingPanel";
-// import MobileFilterPanel from "../components/FilterPanel";
 
 const OurStore = () => {
-  const { isLoading, products } = useSelector((store) => store.products);
+  const { error, isLoading, products } = useSelector((store) => store.products);
+
   const dispatch = useDispatch();
-  const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
-  // console.log(products);
+
   useEffect(() => {
-    if (location || products.length === 0) {
-      const getProductParams = {
-        params: {
-          category: searchParams.getAll("category"),
-        },
-      };
-      dispatch(getProducts(getProductParams));
-    }
-  }, [location.search]);
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  const toast = useToast();
 
   return (
     <Box bgColor="#f5f5f7">
@@ -70,14 +52,14 @@ const OurStore = () => {
           >
             {/* ===========================map data here =========================== */}
             {isLoading
-              ? products.map((product, id) => {
+              ? products?.map((product, id) => {
                   return (
                     // <GridItem key={id}>
                     <Loader key={id} heightProps="350px" widthProps="250px" />
                     // </GridItem>
                   );
                 })
-              : products.map((product) => {
+              : products?.map((product) => {
                   return (
                     // <GridItem key={product._id}>
                     <ProductCard key={product._id} productData={product} />

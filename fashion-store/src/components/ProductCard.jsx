@@ -35,9 +35,11 @@ const ProductCard = ({ productData }) => {
     subCategory,
     new: newer,
     rating,
+    stock,
     quantity,
   } = productData;
 
+  console.log(productData);
   const toast = useToast();
 
   const dispatch = useDispatch();
@@ -65,14 +67,23 @@ const ProductCard = ({ productData }) => {
     dispatch(addToWishlist(payload, toast));
   };
 
+  const ratingOptions = {
+    count: 5,
+    // onChange:{ratingChanged},
+    value: rating,
+    edit: false,
+    size: 24,
+    activeColor: "#ffd700",
+  };
+
   return (
     <Box
       className="product-card"
       bgColor="#fff"
       borderRadius="5px"
       w="250px"
-      pointerEvents={quantity == 0 && "none"}
-      opacity={quantity == 0 ? "0.5" : "1"}
+      pointerEvents={stock < 1 && "none"}
+      opacity={stock < 1 ? "0.5" : "1"}
     >
       <HStack justify="space-between" p="5px" align={"center"}>
         {newer ? (
@@ -106,7 +117,7 @@ const ProductCard = ({ productData }) => {
               w="100%"
             />
           </Box>
-          {quantity === 0 ? (
+          {stock < 1 ? (
             <Text
               position={"absolute"}
               bottom="50%"
@@ -151,14 +162,7 @@ const ProductCard = ({ productData }) => {
         <Heading as="h6" size="xs">
           {title?.length > 25 ? `${title?.slice(0, 25)}....` : title}
         </Heading>
-        <ReactStars
-          count={5}
-          // onChange={ratingChanged}
-          value={rating}
-          edit={false}
-          size={24}
-          activeColor="#ffd700"
-        />
+        <ReactStars {...ratingOptions} />
         <Text>Rs.{Math.round(mrp - (mrp * offer) / 100)}</Text>
       </Flex>
       <Flex

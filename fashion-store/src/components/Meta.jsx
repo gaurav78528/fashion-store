@@ -1,10 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-const Meta = () => {
+const Meta = ({ title }) => {
   return (
     <Helmet>
       <meta charSet="utf-8" />
-      <title>Our Store</title>
+      <title>{title}</title>
       {/* <link rel="canonical" href="http://mysite.com/example" /> */}
     </Helmet>
   );

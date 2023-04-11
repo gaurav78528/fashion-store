@@ -9,10 +9,12 @@ import HeroSection from "../components/HeroSection";
 import ProductCategory from "../components/ProductCategory";
 import PopularProducts from "../components/PopularProducts";
 import FeaturedCollection from "../components/FeaturedCollection";
+import Meta from "../components/Meta";
 import "../styles/home.css";
 const Home = () => {
   return (
     <>
+      <Meta title={"Home"} />
       <HeroSection />
       <Box
         px={{ base: "10px", sm: "10px", md: "50px", lg: "100px" }}

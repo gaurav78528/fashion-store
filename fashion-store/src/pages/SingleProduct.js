@@ -22,14 +22,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../redux/cart/action";
 import { toastProps } from "../constants/constants";
 import { addToWishlist } from "../redux/wishlist/action";
+import { getSingleProduct } from "../redux/products/action";
+import ReviewCard from "../components/ReviewCard";
 
 const SingleProduct = () => {
-  const [data, setData] = useState({});
-  const [loading, setLoading] = useState(false);
   const [currentFocus, setCurrentFocus] = useState(0);
   const [currentProduct, setCurrentProduct] = useState(0);
-
-  const { colors, brand, title, mrp, offer, rating } = data;
 
   const imageRef = useRef();
   const btnRef = useRef();
@@ -37,26 +35,27 @@ const SingleProduct = () => {
 
   const { id } = useParams();
 
-  // const { cartItems } = useSelector((state) => state.cart);
-  // console.log(cartItems);
-
   const dispatch = useDispatch();
 
-  const getSingleProduct = async (id) => {
-    try {
-      setLoading(true);
-      let res = await fetch(`http://localhost:4500/products/${id}`);
-      let productData = await res.json();
-      setData(productData);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { error, isLoading, product } = useSelector(
+    (store) => store.singleProduct
+  );
+
+  const {
+    colors,
+    brand,
+    title,
+    mrp,
+    offer,
+    noOfReviews,
+    rating,
+    stock,
+    reviews,
+  } = product;
 
   useEffect(() => {
-    getSingleProduct(id);
-  }, [id]);
+    dispatch(getSingleProduct(id));
+  }, [id, dispatch]);
 
   const handleAddToCart = (item) => {
     dispatch(addItemToCart(item));
@@ -88,15 +87,23 @@ const SingleProduct = () => {
   const handleChangeColor = (id) => {
     setCurrentProduct(id);
   };
+  const ratingOptions = {
+    count: 5,
+    // onChange:{ratingChanged},
+    value: rating,
+    edit: false,
+    size: 24,
+    activeColor: "#ffd700",
+  };
 
   return (
-    <Container maxW={"7xl"}>
+    <Container maxW={"7xl"} border="2px solid red">
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
         py={{ base: 18, md: 24 }}
       >
-        {loading ? (
+        {isLoading ? (
           <>
             <Loader heightProps={"600px"} widthProps={"100%"} />
             <Loader heightProps={"600px"} widthProps={"100%"} />
@@ -203,21 +210,25 @@ const SingleProduct = () => {
                     {title}
                   </Text>
 
-                  <ReactStars
-                    count={5}
-                    // onChange={ratingChanged}
-                    value={rating}
-                    edit={false}
-                    size={24}
-                    activeColor="#ffd700"
-                  />
-                  <Heading as="h4" size={"sm"}>
+                  <Flex alignItems={"center"} gap="20px">
+                    <ReactStars {...ratingOptions} />
+                    <Text fontSize={"md"} fontWeight={"500"}>
+                      {noOfReviews} Reviews
+                    </Text>
+                  </Flex>
+                  <Text fontSize={"md"} fontWeight={"500"} my="10px">
+                    Availability:{" "}
+                    <span style={{ color: stock < 1 ? "red" : "green" }}>
+                      {stock < 1 ? "Out Of Stock" : "In Stock"}
+                    </span>
+                  </Text>
+                  <Heading as="h4" size={"sm"} mt="10px">
                     Select Size
                   </Heading>
                   <Flex
                     align={"center"}
                     gap={{ base: "5px", sm: "10px", md: "10px", lg: "10px" }}
-                    my="20px"
+                    my="10px"
                   >
                     {colors?.[currentProduct]?.sizes.map((size, id) => {
                       return (
@@ -246,13 +257,13 @@ const SingleProduct = () => {
                       );
                     })}
                   </Flex>
-                  <Heading as="h4" size={"sm"}>
+                  <Heading as="h4" size={"sm"} mt="10px">
                     Select color
                   </Heading>
                   <Flex
                     align={"center"}
                     gap={{ base: "5px", sm: "10px", md: "10px", lg: "10px" }}
-                    my="20px"
+                    my="10px"
                   >
                     {colors?.map((item, id) => {
                       return (
@@ -373,7 +384,7 @@ const SingleProduct = () => {
                     md: "17px",
                     lg: "17px",
                   }}
-                  onClick={() => handleAddToCart(data)}
+                  onClick={() => handleAddToCart(product)}
                 >
                   Add to cart
                 </Button>
@@ -391,6 +402,15 @@ const SingleProduct = () => {
           </>
         )}
       </SimpleGrid>
+      {reviews && reviews[0] ? (
+        <Box>
+          {reviews.map((review) => (
+            <ReviewCard review={review} />
+          ))}
+        </Box>
+      ) : (
+        <Text>No Reviews Yet</Text>
+      )}
     </Container>
   );
 };
