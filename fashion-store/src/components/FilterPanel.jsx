@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   useDisclosure,
@@ -16,12 +16,21 @@ import {
   Box,
   Text,
   VStack,
+  RangeSlider,
+  RangeSliderTrack,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
 } from "@chakra-ui/react";
 import { AiFillFilter } from "react-icons/ai";
 
-const FilterPanel = () => {
+const categories = ["mens", "womens", "kids"];
+
+const FilterPanel = ({ price, priceHandler }) => {
+  // console.log({ price, priceHandler });
+  const [category, setCategory] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
   return (
     <>
       <Button ref={btnRef} onClick={onOpen}>
@@ -51,17 +60,22 @@ const FilterPanel = () => {
                   Shop By Categories
                 </Heading>
 
-                <Flex direction="column" gap="5px">
+                {/* <Flex direction="column" gap="5px">
                   <Checkbox value="" id="">
                     Bag
                   </Checkbox>
-                  <Checkbox value="" id="">
-                    Sandal
-                  </Checkbox>
-                  <Checkbox value="" id="">
-                    Clothing
-                  </Checkbox>
-                </Flex>
+                </Flex> */}
+                <ul className="categoryBox">
+                  {categories.map((category) => (
+                    <li
+                      className="category"
+                      key={category}
+                      onClick={() => setCategory(category)}
+                    >
+                      {category}
+                    </li>
+                  ))}
+                </ul>
               </Flex>
               <Flex
                 direction="column"
@@ -72,8 +86,25 @@ const FilterPanel = () => {
                 p="10px"
               >
                 <Heading as="h5" size="sm">
-                  Filter By
+                  Filter By Price
                 </Heading>
+                <RangeSlider
+                  colorScheme="red"
+                  defaultValue={price}
+                  onChange={priceHandler}
+                  aria-label={["min", "max"]}
+                  min={0}
+                  max={15000}
+                  step={100}
+                >
+                  <RangeSliderTrack>
+                    <RangeSliderFilledTrack />
+                  </RangeSliderTrack>
+
+                  <RangeSliderThumb index={0} />
+                  <RangeSliderThumb index={1} />
+                </RangeSlider>
+
                 <Flex direction="column" gap="10px">
                   <Heading as="h6" size="xs">
                     Availability

@@ -1,27 +1,30 @@
 import * as types from "./actionTypes";
 import axios from "axios";
 
-export const getProducts = () => async (dispatch) => {
-  // dispatch(getProductsLoading());
-  dispatch({
-    type: types.GET_PRODUCTS_LOADING,
-  });
+export const getProducts =
+  (currentPage = 1, price = [0, 15000]) =>
+  async (dispatch) => {
+    dispatch({
+      type: types.GET_PRODUCTS_LOADING,
+    });
 
-  try {
-    let { data } = await axios.get("http://localhost:4500/products");
-    // console.log(data);
-    dispatch({
-      type: types.GET_PRODUCTS_SUCCESS,
-      payload: data.products,
-    });
-  } catch (error) {
-    console.log(error);
-    dispatch({
-      type: types.GET_PRODUCTS_ERROR,
-      payload: error.response.data.message,
-    });
-  }
-};
+    try {
+      let { data } = await axios.get(
+        `http://localhost:4500/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}`
+      );
+      const { products, productsCount, resultPerPage } = data;
+      dispatch({
+        type: types.GET_PRODUCTS_SUCCESS,
+        payload: { products, productsCount, resultPerPage },
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: types.GET_PRODUCTS_ERROR,
+        payload: error,
+      });
+    }
+  };
 export const getSingleProduct = (id) => async (dispatch) => {
   dispatch({
     type: types.GET_SINGLE_PRODUCT_LOADING,

@@ -439,7 +439,6 @@ const SingleProduct = () => {
             </Text>
             <Button
               size="sm"
-              // textDecoration={"none"}
               variant={"none"}
               color={"blue"}
               fontSize={"15px"}

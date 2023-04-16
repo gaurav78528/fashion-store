@@ -3,6 +3,8 @@ const productsInitalState = {
   products: [],
   isLoading: false,
   error: "",
+  productsCount: 0,
+  resultPerPage: 0,
 };
 
 export const productsReducer = (state = productsInitalState, action) => {
@@ -11,7 +13,13 @@ export const productsReducer = (state = productsInitalState, action) => {
     case types.GET_PRODUCTS_LOADING:
       return { ...state, isLoading: true };
     case types.GET_PRODUCTS_SUCCESS:
-      return { ...state, isLoading: false, products: payload };
+      return {
+        ...state,
+        isLoading: false,
+        products: payload.products,
+        productsCount: payload.productsCount,
+        resultPerPage: payload.resultPerPage,
+      };
     case types.GET_PRODUCTS_ERROR:
       return { ...state, isLoading: false, error: payload };
     default:

@@ -37,27 +37,39 @@ import {
   BiSearch,
   BiUser,
 } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../redux/cart/action";
+
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const { cartItems } = useSelector((state) => state.cart);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  // const location = queryParams.get("location");
+
+  // console.log({ queryParams, term });
   const handleLogout = () => {
     setToken("");
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     window.location.reload();
   };
-  console.log(query);
+  // console.log(query);
+  const navigate = useNavigate();
 
   const handleSearch = () => {
-    console.log(query);
+    // console.log(query);
+    if (query.trim()) {
+      // history.push(`/store/${query}`);
+      setSearchParams({ query: query });
+
+      // navigate("/store");
+    }
   };
 
   const dispatch = useDispatch();

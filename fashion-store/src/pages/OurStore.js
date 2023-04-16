@@ -1,5 +1,5 @@
 import { Box, HStack, Flex, VStack, useToast } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import FilterPanel from "../components/FilterPanel";
 import Meta from "../components/Meta";
@@ -9,15 +9,37 @@ import { useSelector, useDispatch } from "react-redux";
 import "../styles/ourStore.css";
 import Loader from "../components/Loader";
 import SortingPanel from "../components/SortingPanel";
+import Pagination from "react-js-pagination";
 
 const OurStore = () => {
-  const { error, isLoading, products } = useSelector((store) => store.products);
+  const [price, setPrice] = useState([0, 15000]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const {
+    error,
+    isLoading,
+    products,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
+  } = useSelector((store) => store.products);
 
   const dispatch = useDispatch();
 
+  const queryParams = new URLSearchParams(window.location.search);
+  const query = queryParams.get("query");
+
+  const setCurrentPageNo = (e) => {
+    setCurrentPage(e);
+  };
+
+  const priceHandler = (e) => {
+    setPrice(e);
+  };
+
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    dispatch(getProducts(currentPage, price));
+  }, [dispatch, currentPage, price]);
 
   const toast = useToast();
 
@@ -41,7 +63,7 @@ const OurStore = () => {
               w="100%"
             >
               <SortingPanel />
-              <FilterPanel />
+              <FilterPanel price={price} priceHandler={priceHandler} />
             </Flex>
           </Box>
           <Flex
@@ -69,6 +91,22 @@ const OurStore = () => {
           </Flex>
         </VStack>
       </HStack>
+      <Flex justifyContent="center" p="2rem">
+        <Pagination
+          activePage={currentPage}
+          itemsCountPerPage={resultPerPage}
+          totalItemsCount={productsCount}
+          onChange={setCurrentPageNo}
+          nextPageText="Next"
+          prevPageText="Prev"
+          firstPageText="First"
+          lastPageText="Last"
+          itemClass="page-item"
+          linkClass="page-link"
+          activeClass="pageItemActive"
+          activeLinkClass="pageLinkActive"
+        />
+      </Flex>
     </Box>
   );
 };

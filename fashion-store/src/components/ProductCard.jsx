@@ -39,7 +39,7 @@ const ProductCard = ({ productData }) => {
     quantity,
   } = productData;
 
-  console.log(productData);
+  // console.log(productData);
   const toast = useToast();
 
   const dispatch = useDispatch();
