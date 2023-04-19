@@ -27,6 +27,7 @@ import {
   MenuList,
   MenuButton,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -41,23 +42,25 @@ import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../redux/cart/action";
+import { logoutUser } from "../redux/auth/action";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const { cartItems } = useSelector((state) => state.cart);
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  // const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [query, setQuery] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
   // const location = queryParams.get("location");
+  const toast = useToast();
 
   // console.log({ queryParams, term });
+
+  console.log("header", user);
   const handleLogout = () => {
-    setToken("");
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    window.location.reload();
+    dispatch(logoutUser(toast));
   };
   // console.log(query);
   const navigate = useNavigate();
@@ -73,6 +76,7 @@ const Header = () => {
   };
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCartItems());
   }, []);
@@ -185,7 +189,7 @@ const Header = () => {
                 </Text>
               </Flex>
             </Link>
-            {token !== "" ? (
+            {isAuthenticated ? (
               <Menu>
                 <Flex justify="center" align="center" gap="5px">
                   <BiUser fontSize="25px" color="#fff" />
@@ -197,13 +201,22 @@ const Header = () => {
                     colorScheme="#000"
                     textTransform={"uppercase"}
                   >
-                    {localStorage.getItem("username")}
+                    {user?.firstName}
                   </MenuButton>
                 </Flex>
                 <MenuList>
                   <MenuGroup title="Profile">
-                    <MenuItem>My Account</MenuItem>
-                    <MenuItem>Payments </MenuItem>
+                    {user?.role === "admin" && (
+                      <Link to="/dashboard">
+                        <MenuItem>Dashboard</MenuItem>
+                      </Link>
+                    )}
+                    <Link to="/my-account">
+                      <MenuItem>My Account</MenuItem>
+                    </Link>
+                    <Link to="/my-orders">
+                      <MenuItem>Orders</MenuItem>
+                    </Link>
                   </MenuGroup>
                   <MenuDivider />
                   <MenuGroup title="Help">

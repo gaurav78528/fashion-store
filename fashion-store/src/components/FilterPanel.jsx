@@ -11,25 +11,36 @@ import {
   Flex,
   Tag,
   Heading,
-  HStack,
-  Input,
-  Box,
-  Text,
   VStack,
   RangeSlider,
   RangeSliderTrack,
   RangeSliderFilledTrack,
   RangeSliderThumb,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
 } from "@chakra-ui/react";
 import { AiFillFilter } from "react-icons/ai";
 
 const categories = ["mens", "womens", "kids"];
+const productsStock = ["In Stock", "Out Of Stock"];
 
-const FilterPanel = ({ price, priceHandler }) => {
+const FilterPanel = ({
+  price,
+  priceHandler,
+  setCategory,
+  rating,
+  setRating,
+}) => {
   // console.log({ price, priceHandler });
-  const [category, setCategory] = useState("");
+
+  // console.log(rating);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
+  // console.log(category);
 
   return (
     <>
@@ -105,18 +116,41 @@ const FilterPanel = ({ price, priceHandler }) => {
                   <RangeSliderThumb index={1} />
                 </RangeSlider>
 
-                <Flex direction="column" gap="10px">
+                <Heading as="h5" size="sm">
+                  Filter By Ratings
+                </Heading>
+                <Slider
+                  aria-label="slider-ex-1"
+                  defaultValue={0}
+                  value={rating}
+                  onChange={(e) => setRating(e)}
+                  min={0}
+                  max={5}
+                >
+                  <SliderTrack>
+                    <SliderFilledTrack />
+                  </SliderTrack>
+                  <SliderThumb />
+                </Slider>
+
+                {/* <Flex direction="column" gap="10px">
                   <Heading as="h6" size="xs">
                     Availability
-                  </Heading>
-                  <Checkbox value="" id="">
+                  </Heading> */}
+                {/* <Checkbox
+                    value={isSubscribed}
+                    onChange={handleChange}
+                    id="subscribe"
+                    name="subscribe"
+                  >
                     In Stock (2)
                   </Checkbox>
                   <Checkbox value="" id="">
                     Out of stock (0)
-                  </Checkbox>
-                </Flex>
-                <Flex direction="column" gap="10px">
+                  </Checkbox> */}
+                {/* </Flex> */}
+
+                {/* <Flex direction="column" gap="10px">
                   <Heading as="h6" size="xs">
                     Price
                   </Heading>
@@ -130,8 +164,8 @@ const FilterPanel = ({ price, priceHandler }) => {
                       <Input variant="filled" placeholder="To" />
                     </HStack>
                   </Flex>
-                </Flex>
-                <Flex direction="column" gap="10px">
+                </Flex> */}
+                {/* <Flex direction="column" gap="10px">
                   <Heading as="h6" size="xs">
                     Color
                   </Heading>
@@ -156,14 +190,14 @@ const FilterPanel = ({ price, priceHandler }) => {
                       <li></li>
                     </ul>
                   </Box>
-                </Flex>
-                <Flex direction="column" gap="10px">
+                </Flex> */}
+                {/* <Flex direction="column" gap="10px">
                   <Heading as="h6" size="xs">
                     Size
                   </Heading>
                   <Checkbox>S (10)</Checkbox>
                   <Checkbox>M (10)</Checkbox>
-                </Flex>
+                </Flex> */}
               </Flex>
               <Flex
                 direction="column"

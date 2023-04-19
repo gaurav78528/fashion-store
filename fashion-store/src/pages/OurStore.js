@@ -14,6 +14,8 @@ import Pagination from "react-js-pagination";
 const OurStore = () => {
   const [price, setPrice] = useState([0, 15000]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [category, setCategory] = useState("");
+  const [rating, setRating] = useState(0);
 
   const {
     error,
@@ -38,8 +40,8 @@ const OurStore = () => {
   };
 
   useEffect(() => {
-    dispatch(getProducts(currentPage, price));
-  }, [dispatch, currentPage, price]);
+    dispatch(getProducts(currentPage, price, category, rating));
+  }, [dispatch, currentPage, price, category, rating]);
 
   const toast = useToast();
 
@@ -63,7 +65,13 @@ const OurStore = () => {
               w="100%"
             >
               <SortingPanel />
-              <FilterPanel price={price} priceHandler={priceHandler} />
+              <FilterPanel
+                price={price}
+                priceHandler={priceHandler}
+                setCategory={setCategory}
+                rating={rating}
+                setRating={setRating}
+              />
             </Flex>
           </Box>
           <Flex

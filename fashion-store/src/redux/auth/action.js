@@ -3,18 +3,22 @@ import { toastProps } from "../../constants/constants";
 
 import * as types from "./actionTypes";
 
-export const registerUser = (userData, toast, navigate) => async (dispatch) => {
+export const registerUser = (userData, toast) => async (dispatch) => {
   console.log({ toast, userData });
   try {
     dispatch({ type: types.REGISTER_REQUEST });
     const { data } = await axios.post(
       "http://localhost:4500/users/register",
-      userData
+      userData,
+      {
+        withCredentials: true,
+        credentials: "include",
+      }
     );
     console.log(data);
     dispatch({
       type: types.REGISTER_SUCCESS,
-      payload: data.newUser,
+      payload: data.user,
     });
     toast({
       ...toastProps,
@@ -23,7 +27,7 @@ export const registerUser = (userData, toast, navigate) => async (dispatch) => {
       status: "success",
     });
 
-    navigate("/login");
+    // navigate("/login");
   } catch (error) {
     console.log(error);
     dispatch({
@@ -39,27 +43,35 @@ export const registerUser = (userData, toast, navigate) => async (dispatch) => {
   }
 };
 
-export const loginUser = (userData, toast, navigate) => async (dispatch) => {
+export const loginUser = (userData, toast) => async (dispatch) => {
   try {
     dispatch({ type: types.LOGIN_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+      credentials: "include",
+    };
     const { data } = await axios.post(
       "http://localhost:4500/users/login",
-      userData
+      userData,
+      config
     );
-    console.log(data);
+    console.log("login", data);
     dispatch({
       type: types.LOGIN_SUCCESS,
-      payload: { user: data.user, token: data.token },
+      payload: data.user,
     });
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("username", data.user.firstName);
+
     toast({
       ...toastProps,
       title: "Success",
       description: data.message,
       status: "success",
     });
-    navigate("/");
+    // navigate("/");
   } catch (error) {
     console.log(error);
     dispatch({
@@ -71,6 +83,58 @@ export const loginUser = (userData, toast, navigate) => async (dispatch) => {
       title: "Error",
       description: error.response.data.message || "Something went wrong!",
       status: "error",
+    });
+  }
+};
+export const logoutUser = (toast) => async (dispatch) => {
+  try {
+    dispatch({ type: types.LOGOUT_REQUEST });
+    const { data } = await axios.get("http://localhost:4500/users/logout", {
+      withCredentials: true,
+      credentials: "include",
+    });
+    console.log(data);
+    dispatch({
+      type: types.LOGOUT_SUCCESS,
+    });
+
+    toast({
+      ...toastProps,
+      title: "Success",
+      description: data.message,
+      status: "success",
+    });
+    // navigate("/");
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: types.LOGOUT_ERROR,
+      payload: error.response.data.message,
+    });
+    toast({
+      ...toastProps,
+      title: "Error",
+      description: error.response.data.message || "Something went wrong!",
+      status: "error",
+    });
+  }
+};
+export const loadUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.LOAD_USER_REQUEST });
+    const { data } = await axios.get("http://localhost:4500/users/user");
+    // console.log(data);
+    dispatch({
+      type: types.LOAD_USER_SUCCESS,
+      payload: data.user,
+    });
+
+    // navigate("/");
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: types.LOAD_USER_ERROR,
+      payload: error.response.data.message,
     });
   }
 };

@@ -14,7 +14,7 @@ import {
   useToast,
   Spinner,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/auth/action";
@@ -23,13 +23,13 @@ import Meta from "../components/Meta";
 
 const Login = () => {
   const [userInput, setUserInput] = useState({
-    firstName: "",
+    // firstName: "",
     email: "",
     password: "",
   });
   const toast = useToast();
   const navigate = useNavigate();
-  const { isLoading } = useSelector((store) => store.auth);
+  const { isLoading, isAuthenticated } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -41,16 +41,22 @@ const Login = () => {
     e.preventDefault();
     const { firstName, email, password } = userInput;
 
-    if (!firstName || !email || !password) {
+    if (!email || !password) {
       alert("Please fill all deatils");
     } else if (!email.includes("@")) {
       alert("please enter valid email");
-    } else if (password.length < 6) {
-      alert("Password must be of length 6.");
+    } else if (password.length < 8) {
+      alert("Password must be of length 8.");
     } else {
-      dispatch(loginUser(userInput, toast, navigate));
+      dispatch(loginUser(userInput, toast));
     }
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated]);
 
   return (
     <>
@@ -72,7 +78,7 @@ const Login = () => {
             p={8}
           >
             <Stack spacing={4}>
-              <FormControl id="firstName">
+              {/* <FormControl id="firstName">
                 <FormLabel>FirstName</FormLabel>
                 <Input
                   type="text"
@@ -80,7 +86,7 @@ const Login = () => {
                   value={userInput.firstName}
                   onChange={handleChange}
                 />
-              </FormControl>
+              </FormControl> */}
               <FormControl id="email">
                 <FormLabel>Email address</FormLabel>
                 <Input

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
@@ -18,8 +18,19 @@ import ResetPassword from "./pages/ResetPassword";
 import SingleBlog from "./pages/SingleBlog";
 import SingleProduct from "./pages/SingleProduct";
 import Checkout from "./pages/Checkout";
+import Account from "./pages/Account";
+import MyOrders from "./pages/MyOrders";
+import Dashboard from "./pages/Dashboard";
+import { store } from "./redux/store";
+import { loadUser } from "./redux/auth/action";
 
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+  // const x = store.dispatch(loadUser());
+  // console.log({ loadUser });
+
   return (
     <>
       <BrowserRouter>
@@ -40,6 +51,9 @@ function App() {
             <Route path="/compare-products" element={<CompareProducts />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/my-account" element={<Account />} />
+            <Route path="/my-orders" element={<MyOrders />} />
+            <Route path="/dashboard" element={<Dashboard />} />
 
             <Route path="/checkout" element={<Checkout />} />
           </Route>

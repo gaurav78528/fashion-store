@@ -9,7 +9,6 @@ const PopularProducts = () => {
   const { popularProducts, isLoading } = useSelector(
     (store) => store.popularProductsReducer
   );
-  
 
   const dispatch = useDispatch();
 
@@ -25,7 +24,7 @@ const PopularProducts = () => {
       </Heading>
       <Flex overflow="auto" className="hide-scrollbar" gap="20px">
         {isLoading
-          ? popularProducts.map((item) => {
+          ? popularProducts.slice(0, 5).map((item) => {
               return (
                 <Loader key={item._id} heightProps="350px" widthProps="250px" />
               );

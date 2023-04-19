@@ -26,9 +26,11 @@ const FeaturedCollection = () => {
       </Heading>
       <Flex overflowX="auto" className="hide-scrollbar" gap="20px">
         {isLoading
-          ? featuredProducts.map((item) => (
-              <Loader key={item._id} heightProps="350px" widthProps="250px" />
-            ))
+          ? featuredProducts
+              .slice(0, 5)
+              .map((item) => (
+                <Loader key={item._id} heightProps="350px" widthProps="250px" />
+              ))
           : featuredProducts.map((product) => {
               return (
                 <Box key={product._id}>

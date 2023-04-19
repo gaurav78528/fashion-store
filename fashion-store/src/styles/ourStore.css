@@ -45,3 +45,17 @@
 .pageLinkActive {
   color: #fff;
 }
+.categoryBox {
+  padding: 0;
+}
+.category {
+  list-style: none;
+  position: static;
+  margin: auto;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: capitalize;
+}
+.category:hover {
+  color: gray;
+}

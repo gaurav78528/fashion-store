@@ -14,7 +14,7 @@ import {
   Link,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,9 @@ const Register = () => {
 
   const toast = useToast();
   const navigate = useNavigate();
-  const { isLoading, isError } = useSelector((state) => state.auth);
+  const { isLoading, isAuthenticated, isError } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -53,10 +55,17 @@ const Register = () => {
     } else if (password !== confirmPassword) {
       alert("Password does not matches");
     } else {
-      dispatch(registerUser(userInput, toast, navigate));
+      dispatch(registerUser(userInput, toast));
     }
   };
 
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated]);
   return (
     <>
       <Meta title={"Register"} />

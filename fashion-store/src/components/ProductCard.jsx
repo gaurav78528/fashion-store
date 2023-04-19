@@ -38,6 +38,7 @@ const ProductCard = ({ productData }) => {
     stock,
     quantity,
   } = productData;
+  // console.log(productData);
 
   // console.log(productData);
   const toast = useToast();
