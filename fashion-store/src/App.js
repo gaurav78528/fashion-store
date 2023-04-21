@@ -23,9 +23,11 @@ import MyOrders from "./pages/MyOrders";
 import Dashboard from "./pages/Dashboard";
 import { store } from "./redux/store";
 import { loadUser } from "./redux/auth/action";
+import ProctectedRoute from "./components/ProctectedRoute";
 
 function App() {
   useEffect(() => {
+    console.log("loaded");
     store.dispatch(loadUser());
   }, []);
   // const x = store.dispatch(loadUser());
@@ -51,10 +53,16 @@ function App() {
             <Route path="/compare-products" element={<CompareProducts />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/my-account" element={<Account />} />
+            <Route
+              path="/profile"
+              element={
+                <ProctectedRoute>
+                  <Account />
+                </ProctectedRoute>
+              }
+            />
             <Route path="/my-orders" element={<MyOrders />} />
             <Route path="/dashboard" element={<Dashboard />} />
-
             <Route path="/checkout" element={<Checkout />} />
           </Route>
         </Routes>

@@ -6,12 +6,10 @@ import {
   HStack,
   Input,
   InputGroup,
-  InputLeftAddon,
   InputRightAddon,
   Select,
   Spacer,
   Text,
-  Divider,
   useDisclosure,
   DrawerBody,
   DrawerCloseButton,
@@ -26,7 +24,6 @@ import {
   MenuDivider,
   MenuList,
   MenuButton,
-  Stack,
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
@@ -38,7 +35,7 @@ import {
   BiSearch,
   BiUser,
 } from "react-icons/bi";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../redux/cart/action";
@@ -58,12 +55,10 @@ const Header = () => {
 
   // console.log({ queryParams, term });
 
-  console.log("header", user);
+  // console.log("header", user);
   const handleLogout = () => {
     dispatch(logoutUser(toast));
   };
-  // console.log(query);
-  const navigate = useNavigate();
 
   const handleSearch = () => {
     // console.log(query);
@@ -79,7 +74,7 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(getCartItems());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Box bgColor="#000" zIndex={10} position={"sticky"} top={"0px"}>
@@ -205,14 +200,14 @@ const Header = () => {
                   </MenuButton>
                 </Flex>
                 <MenuList>
-                  <MenuGroup title="Profile">
+                  <MenuGroup title="My Account">
                     {user?.role === "admin" && (
                       <Link to="/dashboard">
                         <MenuItem>Dashboard</MenuItem>
                       </Link>
                     )}
-                    <Link to="/my-account">
-                      <MenuItem>My Account</MenuItem>
+                    <Link to="/profile">
+                      <MenuItem>Profile</MenuItem>
                     </Link>
                     <Link to="/my-orders">
                       <MenuItem>Orders</MenuItem>

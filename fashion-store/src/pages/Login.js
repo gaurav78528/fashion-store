@@ -32,6 +32,7 @@ const Login = () => {
   const { isLoading, isAuthenticated } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
+  // console.log({ isAuthenticated });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserInput({ ...userInput, [name]: value });
@@ -56,7 +57,7 @@ const Login = () => {
     if (isAuthenticated) {
       navigate("/");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <>

@@ -1,7 +1,10 @@
 import axios from "axios";
 import { toastProps } from "../../constants/constants";
-
 import * as types from "./actionTypes";
+
+axios.defaults.withCredentials = true;
+
+// REGISTER ACTION
 
 export const registerUser = (userData, toast) => async (dispatch) => {
   console.log({ toast, userData });
@@ -9,13 +12,13 @@ export const registerUser = (userData, toast) => async (dispatch) => {
     dispatch({ type: types.REGISTER_REQUEST });
     const { data } = await axios.post(
       "http://localhost:4500/users/register",
-      userData,
-      {
-        withCredentials: true,
-        credentials: "include",
-      }
+      userData
+      // {
+      //   withCredentials: true,
+      //   credentials: "include",
+      // }
     );
-    console.log(data);
+    // console.log(data);
     dispatch({
       type: types.REGISTER_SUCCESS,
       payload: data.user,
@@ -43,6 +46,8 @@ export const registerUser = (userData, toast) => async (dispatch) => {
   }
 };
 
+// LOGIN ACTION
+
 export const loginUser = (userData, toast) => async (dispatch) => {
   try {
     dispatch({ type: types.LOGIN_REQUEST });
@@ -51,8 +56,8 @@ export const loginUser = (userData, toast) => async (dispatch) => {
       headers: {
         "Content-Type": "application/json",
       },
-      withCredentials: true,
-      credentials: "include",
+      // withCredentials: true,
+      // credentials: "include",
     };
     const { data } = await axios.post(
       "http://localhost:4500/users/login",
@@ -86,13 +91,18 @@ export const loginUser = (userData, toast) => async (dispatch) => {
     });
   }
 };
+
+// LOGOUT ACTION
 export const logoutUser = (toast) => async (dispatch) => {
   try {
     dispatch({ type: types.LOGOUT_REQUEST });
-    const { data } = await axios.get("http://localhost:4500/users/logout", {
-      withCredentials: true,
-      credentials: "include",
-    });
+    const { data } = await axios.get(
+      "http://localhost:4500/users/logout"
+      // {
+      //   withCredentials: true,
+      //   credentials: "include",
+      // }
+    );
     console.log(data);
     dispatch({
       type: types.LOGOUT_SUCCESS,
@@ -119,11 +129,13 @@ export const logoutUser = (toast) => async (dispatch) => {
     });
   }
 };
+
+// LOAD USER ACTION
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOAD_USER_REQUEST });
     const { data } = await axios.get("http://localhost:4500/users/user");
-    // console.log(data);
+    console.log(data);
     dispatch({
       type: types.LOAD_USER_SUCCESS,
       payload: data.user,
