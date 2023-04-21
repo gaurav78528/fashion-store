@@ -1,16 +1,17 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { MdOutlineAssignmentReturn } from "react-icons/md";
 
 const ProctectedRoute = ({ children }) => {
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isLoading, isAuthenticated } = useSelector((state) => state.auth);
 
   // console.log({ isAuthenticated, isLoading });
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
-  return children;
+  return (
+    <>{!isLoading && !isAuthenticated ? <Navigate to="/login" /> : children}</>
+  );
+  // MdOutlineAssignmentReturn;
 };
 
 export default ProctectedRoute;

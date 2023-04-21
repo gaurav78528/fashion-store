@@ -7,18 +7,20 @@ axios.defaults.withCredentials = true;
 // REGISTER ACTION
 
 export const registerUser = (userData, toast) => async (dispatch) => {
-  console.log({ toast, userData });
   try {
     dispatch({ type: types.REGISTER_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
     const { data } = await axios.post(
       "http://localhost:4500/users/register",
-      userData
-      // {
-      //   withCredentials: true,
-      //   credentials: "include",
-      // }
+      userData,
+      config
     );
-    // console.log(data);
+
     dispatch({
       type: types.REGISTER_SUCCESS,
       payload: data.user,
@@ -56,15 +58,13 @@ export const loginUser = (userData, toast) => async (dispatch) => {
       headers: {
         "Content-Type": "application/json",
       },
-      // withCredentials: true,
-      // credentials: "include",
     };
     const { data } = await axios.post(
       "http://localhost:4500/users/login",
       userData,
       config
     );
-    console.log("login", data);
+
     dispatch({
       type: types.LOGIN_SUCCESS,
       payload: data.user,
@@ -135,7 +135,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOAD_USER_REQUEST });
     const { data } = await axios.get("http://localhost:4500/users/user");
-    console.log(data);
+    // console.log(data);
     dispatch({
       type: types.LOAD_USER_SUCCESS,
       payload: data.user,

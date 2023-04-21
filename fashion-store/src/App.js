@@ -24,10 +24,11 @@ import Dashboard from "./pages/Dashboard";
 import { store } from "./redux/store";
 import { loadUser } from "./redux/auth/action";
 import ProctectedRoute from "./components/ProctectedRoute";
+import UpdatePassword from "./pages/UpdatePassword";
 
 function App() {
   useEffect(() => {
-    console.log("loaded");
+    // console.log("loaded");
     store.dispatch(loadUser());
   }, []);
   // const x = store.dispatch(loadUser());
@@ -40,8 +41,16 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/update-password" element={<UpdatePassword />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route
+            path="/reset-password"
+            element={
+              // <ProctectedRoute>
+              <ResetPassword />
+              // </ProctectedRoute>
+            }
+          />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/about" element={<About />} />

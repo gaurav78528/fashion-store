@@ -13,9 +13,12 @@ import { featuredProductsReducer } from "./featuredCollections/reducer";
 import { authReducer } from "./auth/reducer";
 import { cartReducer } from "./cart/reducer";
 import { wishlistReducer } from "./wishlist/reducer";
+import { passwordReducer } from "./profile/reducer";
+// import { updatePassword } from './profile/action';
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
   auth: authReducer,
+  updatePassword: passwordReducer,
   cart: cartReducer,
   products: productsReducer,
   singleProduct: singleProductReducer,

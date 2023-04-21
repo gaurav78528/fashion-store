@@ -126,6 +126,7 @@ const Account = () => {
                   md: "17px",
                   lg: "17px",
                 }}
+                onClick={() => navigate("/update-password")}
               >
                 Change Password
               </Button>
