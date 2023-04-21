@@ -4,16 +4,19 @@ const ApiFeatures = require("../utils/apifeature");
 // GET ALL PRODUCTS
 
 const getProductsController = async (req, res) => {
-  const resultPerPage = 50;
-  const apiFeature = new ApiFeatures(ProductModel.find(), req.query)
-    .search()
-    .filter()
-    .pagination(resultPerPage);
   try {
+    const resultPerPage = 15;
+    const productsCount = await ProductModel.countDocuments();
+    const apiFeature = new ApiFeatures(ProductModel.find(), req.query)
+      .search()
+      .filter()
+      .pagination(resultPerPage);
     // const products = await ProductModel.find();
     const products = await apiFeature.query;
     // console.log(products);
-    return res.status(200).json({ products });
+    return res
+      .status(200)
+      .json({ success: true, products, productsCount, resultPerPage });
   } catch (error) {
     console.log(error);
     return res
@@ -28,8 +31,8 @@ const getSingleProductController = async (req, res) => {
   // console.log(ID);
   try {
     const product = await ProductModel.findOne({ _id: ID });
-    console.log(product);
-    return res.json(product);
+    // console.log(product);
+    return res.json({ product });
   } catch (error) {
     console.log(error);
     console.log(error);
@@ -114,11 +117,11 @@ const deleteProductController = async (req, res) => {
 
 const productReviewController = async (req, res) => {
   const { rating, comment, productID } = req.body;
-  // console.log(req);
+  console.log(req.user.firstName);
   try {
     const review = {
       user: req.user._id,
-      name: req.user.name,
+      name: req.user.firstName,
       rating: Number(rating),
       comment,
     };

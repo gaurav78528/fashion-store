@@ -1,5 +1,6 @@
 const { OrderModel } = require("../models/Order.model");
 const mongoose = require("mongoose");
+const { ProductModel } = require("../models/Product.model");
 
 // NEW ORDER
 
@@ -70,7 +71,7 @@ const getSingleOrderController = async (req, res) => {
 
 // GET LOGGED IN USER ORDERS
 const getmyOrdersController = async (req, res) => {
-  console.log(req.user._id);
+  // console.log(req.user._id);
 
   try {
     const myOrders = await OrderModel.find({
@@ -90,8 +91,97 @@ const getmyOrdersController = async (req, res) => {
     });
   }
 };
+// GET ALL ORDERS  --ADMIN
+const getAllOrdersController = async (req, res) => {
+  try {
+    const allOrders = await OrderModel.find();
+
+    let totalAmount = 0;
+    allOrders.forEach((order) => {
+      totalAmount += order.totalPrice;
+    });
+
+    res.status(200).json({
+      success: true,
+      totalAmount,
+      allOrders,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something Went Wrong!",
+      error: error.message,
+    });
+  }
+};
+// UPDATE ORDER STATUS --ADMIN
+const updateOrderController = async (req, res) => {
+  try {
+    const order = await OrderModel.find(req.params.id);
+
+    if (order.orderStatus === "Delivered") {
+      return res.status(400).json({
+        message: "You have already Delivered this product.",
+      });
+    }
+    order.orderItems.forEach(async (order) => {
+      await updateStock(order.product, order.quantity);
+    });
+    order.orderStatus = req.body.status;
+
+    if (req.body.status === "Delivered") {
+      order.deliveredAt = Date.now();
+    }
+
+    await order.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      totalAmount,
+      allOrders,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something Went Wrong!",
+      error: error.message,
+    });
+  }
+};
+
+async function updateStock(id, quantity) {
+  const product = await ProductModel.findById(id);
+  product.stock -= quantity;
+  await product.save({ validateBeforeSave: false });
+}
+
+// DELETE ORDER
+const deleteOrderController = async (req, res) => {
+  try {
+    const order = await OrderModel.findByIdAndDelete(req.params.id);
+    await order.save();
+
+    
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something Went Wrong!",
+      error: error.message,
+    });
+  }
+};
 module.exports = {
   newOrderController,
   getSingleOrderController,
   getmyOrdersController,
+  getAllOrdersController,
+  updateOrderController,
+  deleteOrderController,
 };

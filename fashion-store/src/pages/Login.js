@@ -114,7 +114,7 @@ const Login = () => {
                   justify={"space-between"}
                 >
                   <Checkbox>Remember me</Checkbox>
-                  <Link href="/forget-password" color={"blue.400"}>
+                  <Link href="password/forget-password" color={"blue.400"}>
                     Forgot password?
                   </Link>
                 </Stack>

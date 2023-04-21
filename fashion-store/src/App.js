@@ -42,9 +42,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/update-password" element={<UpdatePassword />} />
-          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="password/forget-password" element={<ForgetPassword />} />
           <Route
-            path="/reset-password"
+            path="password/reset-password/:token"
             element={
               // <ProctectedRoute>
               <ResetPassword />

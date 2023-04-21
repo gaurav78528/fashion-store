@@ -1,8 +1,8 @@
-const { log } = require("console");
 const { UserModel } = require("../models/User.model");
 const { sendToken } = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
+require("dotenv").config();
 
 const userRegisterController = async (req, res) => {
   const { firstName, email, password } = req.body;
@@ -13,9 +13,9 @@ const userRegisterController = async (req, res) => {
       password,
     });
 
-    const token = user.getJWTToken();
+    // const token = user.getJWTToken();
     // console.log(token);
-    sendToken(user, 200, res, "User Registered Successfully.");
+    sendToken(user, 201, res, "User Registered Successfully.");
   } catch (error) {
     console.log(error);
 
@@ -27,11 +27,11 @@ const userRegisterController = async (req, res) => {
 };
 
 const userLoginController = async (req, res) => {
-  const { firstName, email, password } = req.body;
+  const { email, password } = req.body;
   // console.log({ password });
   // console.log(req.user);
   try {
-    if (!firstName || !email || !password) {
+    if (!email || !password) {
       return res.status(400).json({
         message: "Please Fill all Credentials.",
       });
@@ -99,9 +99,9 @@ const forgetPasswordController = async (req, res) => {
     validateBeforeSave: false,
   });
 
-  const resetPasswordUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/users/password/reset/${resetToken}`;
+  console.log(process.env.FRONTEND_URL);
+
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset-password/${resetToken}`;
 
   const message = `Your password reset link is :- \n\n This Link will expire after 10 minutes. \n\n\ ${resetPasswordUrl} \n\n If you have not requested for reset password then please ignore it.`;
 
@@ -156,7 +156,7 @@ const resetPasswordController = async (req, res) => {
     user.resetPasswordExpire = undefined;
 
     await user.save();
-    sendToken(user, 200, res);
+    sendToken(user, 200, res, "Password Changed Successfully.");
   } catch (error) {
     return res.status(500).json({
       message: "Failed to Reset Password.",
@@ -191,7 +191,7 @@ const updatePasswordController = async (req, res) => {
     // console.log(user);
 
     const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
-    console.log(isPasswordMatched);
+    console.log({ isPasswordMatched });
     if (!isPasswordMatched) {
       return res.status(400).json({
         message: "Old Password in incorrect.",
@@ -206,12 +206,12 @@ const updatePasswordController = async (req, res) => {
 
     user.password = req.body.newPassword;
     await user.save();
-    sendToken(user, 200, res);
+    sendToken(user, 200, res, "Password Updated.");
 
-    res.status(200).json({
-      success: true,
-      user,
-    });
+    //  return res.status(200).json({
+    //     success: true,
+    //     user,
+    //   });
   } catch (error) {
     console.log(error);
     return res.status(500).json({

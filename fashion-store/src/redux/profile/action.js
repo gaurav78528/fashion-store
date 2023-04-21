@@ -12,10 +12,7 @@ export const updatePassword = (toast, password) => async (dispatch) => {
     const { data } = await axios.put(
       "http://localhost:4500/users/user/password/update",
       password
-      // {
-      //   withCredentials: true,
-      //   credentials: "include",
-      // }
+     
     );
     console.log(data);
     dispatch({

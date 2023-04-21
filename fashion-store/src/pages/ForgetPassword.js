@@ -6,10 +6,34 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { forgetPassword } from "../redux/forgetPassword/action";
 
 const ForgetPassword = () => {
+  const [email, setEmail] = useState("");
+  console.log(email);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, message } = useSelector((store) => store.forgetPassword);
+  console.log(message);
+  const toast = useToast();
+  const handleResetPassword = () => {
+    dispatch(forgetPassword(toast, email));
+  };
+
+  const token = useParams();
+
+  // useEffect(() => {
+  //   if (message) {
+  //     navigate(`/password/reset-password/${token}`);
+  //   }
+  // }, [message]);
+
   return (
     <Flex
       minH={"100vh"}
@@ -36,11 +60,12 @@ const ForgetPassword = () => {
         >
           You&apos;ll get an email with a reset link
         </Text>
-        <FormControl id="email">
+        <FormControl>
           <Input
             placeholder="Enter Your email"
             _placeholder={{ color: "gray.500" }}
             type="email"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
         <Stack spacing={6}>
@@ -51,6 +76,8 @@ const ForgetPassword = () => {
               bg: "#e3ae52",
               color: "#000",
             }}
+            onClick={handleResetPassword}
+            isLoading={isLoading}
           >
             Reset Password
           </Button>

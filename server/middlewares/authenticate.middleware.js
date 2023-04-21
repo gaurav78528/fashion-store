@@ -4,7 +4,10 @@ require("dotenv").config();
 
 const authenticate = async (req, res, next) => {
   // console.log(req.user);
-  const { token } = req.cookies;
+  // const { token } = req.cookies;
+  const { cookies } = req;
+  const { token } = cookies;
+  console.log({ cookies });
 
   if (!token) {
     return res.status(401).json({

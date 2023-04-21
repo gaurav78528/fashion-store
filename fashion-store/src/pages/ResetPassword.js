@@ -7,9 +7,45 @@ import {
   Input,
   Stack,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { resetPassword } from "../redux/forgetPassword/action";
 
 const ResetPassword = () => {
+  const [userInput, setUserInput] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+
+  console.log(userInput);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { token } = useParams();
+
+  // const t = JSON.stringify(token);
+  console.log(token);
+  const { isLoading, success } = useSelector((store) => store.forgetPassword);
+  const toast = useToast();
+  const handleResetPassword = () => {
+    dispatch(resetPassword(toast, token, userInput));
+    // if (!isLoading && isUpdated) {
+    //   navigate("/profile");
+    // }
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserInput({ ...userInput, [name]: value });
+  };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/login");
+    }
+  }, [success]);
   return (
     <Flex
       minH={"100vh"}
@@ -35,7 +71,10 @@ const ResetPassword = () => {
           <Input
             placeholder="Enter new password"
             _placeholder={{ color: "gray.500" }}
-            type="email"
+            type="password"
+            name="password"
+            value={userInput.password}
+            onChange={handleChange}
           />
         </FormControl>
         <FormControl id="password" isRequired>
@@ -44,6 +83,9 @@ const ResetPassword = () => {
             placeholder="Confirm new password"
             _placeholder={{ color: "gray.500" }}
             type="password"
+            name="confirmPassword"
+            value={userInput.confirmPassword}
+            onChange={handleChange}
           />
         </FormControl>
         <Stack spacing={6}>
@@ -54,6 +96,8 @@ const ResetPassword = () => {
               bg: "#e3ae52",
               color: "#000",
             }}
+            isLoading={isLoading}
+            onClick={handleResetPassword}
           >
             Change Password
           </Button>

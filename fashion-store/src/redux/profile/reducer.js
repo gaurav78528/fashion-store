@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 
-export const passwordReducer = (state = { state: {} }, action) => {
+export const updatePasswordReducer = (state = { state: {} }, action) => {
   switch (action.type) {
     case types.UPDATE_PASSWORD_REQUEST:
       return {

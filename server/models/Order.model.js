@@ -47,13 +47,13 @@ const orderSchema = mongoose.Schema({
       },
       product: {
         type: mongoose.Schema.ObjectId,
-        ref: "ProductModel",
+        ref: "product",
       },
     },
   ],
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "UserModel",
+    ref: "user",
     required: true,
   },
   paymentInfo: {
