@@ -1,32 +1,23 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  decrementCartItem,
-  deleteCartItem,
-  incrementCartItem,
-} from "../redux/cart/action";
+import { addItemToCart, deleteCartItem } from "../redux/cart/action";
 const CartItem = ({ cartItem }) => {
-  const { _id: id, title, colors, qty } = cartItem;
+  const { product, title, colors, price, quantity, stock, img } = cartItem;
 
   const dispatch = useDispatch();
 
-  const handleQtyIncrement = (id) => {
-    dispatch(incrementCartItem(id));
+  const handleQtyIncrement = (id, quantity, img, stock) => {
+    let newQty = quantity + 1;
+    console.log(quantity);
+    console.log(newQty);
+    dispatch(addItemToCart(id, newQty, img));
   };
-  const handleQtyDecrement = (id) => {
-    dispatch(decrementCartItem(id));
+  const handleQtyDecrement = (id, quantity, img, stock) => {
+    let newQty = quantity - 1;
+    dispatch(addItemToCart(id, newQty, img));
   };
 
   const handleDeleteCartItem = (id) => {
@@ -50,12 +41,7 @@ const CartItem = ({ cartItem }) => {
       direction={{ base: "column", sm: "row", md: "row", lg: "row" }}
       mt="10px"
     >
-      <Image
-        boxSize="150px"
-        objectFit="cover"
-        src={colors?.[0]?.images?.[0]}
-        alt={title}
-      />
+      <Image boxSize="150px" objectFit="cover" src={img} alt={title} />
       <Flex
         align={"center"}
         justify={"center"}
@@ -63,31 +49,40 @@ const CartItem = ({ cartItem }) => {
         gap={{ base: "15px", sm: "15px", md: "15px", lg: "30px" }}
         // w="auto"
         p="10px"
-        // border={"1px solid green"}
+        w="100%"
+        border={"1px solid green"}
       >
         <Text fontWeight={600}>{title}</Text>
-        <Flex justify={"space-around"} align={"center"} w={"full"}>
+        <Flex
+          border="1px solid red"
+          justify={"space-around"}
+          align={"center"}
+          w={"100%"}
+        >
           <HStack border={"1px solid gray"} borderRadius="5px">
-            <Button size="sm" variant={"ghost"} isDisabled={cartItem.qty <= 1}>
-              <AiOutlineMinus
-                fontWeight={800}
-                onClick={() => handleQtyDecrement(id)}
-              />
-            </Button>
-            <Text fontWeight={600}>{qty}</Text>
             <Button
               size="sm"
               variant={"ghost"}
-              isDisabled={cartItem.qty >= 5}
-              onClick={() => handleQtyIncrement(id)}
+              isDisabled={quantity <= 1}
+              onClick={() => handleQtyDecrement(product, quantity, img, stock)}
+            >
+              <AiOutlineMinus fontWeight={800} />
+            </Button>
+            <Text fontWeight={600}>{quantity}</Text>
+            <Button
+              size="sm"
+              variant={"ghost"}
+              isDisabled={quantity >= product.stock}
+              onClick={() => handleQtyIncrement(product, quantity, img, stock)}
             >
               <AiOutlinePlus fontWeight={800} />
             </Button>
           </HStack>
+          <Text>{price * quantity}</Text>
           <Button
             size="sm"
             variant={"link"}
-            onClick={() => handleDeleteCartItem(id)}
+            onClick={() => handleDeleteCartItem(product)}
           >
             <BsTrashFill color="red" fontSize={"25px"} />
           </Button>

@@ -38,17 +38,19 @@ import {
 import { Link, useSearchParams } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartItems } from "../redux/cart/action";
+// import { getCartItems } from "../redux/cart/action";
 import { logoutUser } from "../redux/auth/action";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  // const { cartItems } = useSelector((state) => state.cart);
   const { cartItems } = useSelector((state) => state.cart);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   // const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [query, setQuery] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useDispatch();
 
   // const location = queryParams.get("location");
   const toast = useToast();
@@ -70,11 +72,9 @@ const Header = () => {
     }
   };
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCartItems());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCartItems());
+  // }, [dispatch]);
   return (
     <>
       <Box bgColor="#000" zIndex={10} position={"sticky"} top={"0px"}>

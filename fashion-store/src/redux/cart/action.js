@@ -1,37 +1,43 @@
-import {
-  ADD_CART_ITEMS,
-  DECREMENT_CART_ITEM,
-  DELETE_CART_ITEMS,
-  GET_CART_ITEMS,
-  INCREMENT_CART_ITEM,
-} from "./actionTypes";
+import axios from "axios";
+import * as types from "./actionTypes";
+import { store } from "../store";
 
-export const addItemToCart = (item) => {
-  return {
-    type: ADD_CART_ITEMS,
-    payload: { ...item, qty: 1 },
-  };
+axios.defaults.withCredentials = true;
+
+export const addItemToCart = (id, quantity, img) => async (dispatch) => {
+  const { data } = await axios.get(`http://localhost:4500/products/${id}`);
+  let price = Math.round(
+    data.product.mrp - (data.product.mrp * data.product.offer) / 100
+  );
+
+  dispatch({
+    type: types.ADD_TO_CART,
+    payload: {
+      product: data.product._id,
+      brand: data.product.brand,
+      title: data.product.title,
+      price,
+      mrp: data.product.mrp,
+      offer: data.product.offer,
+      img,
+      stock: data.product.stock,
+      quantity,
+    },
+  });
+
+  localStorage.setItem(
+    "cartItems",
+    JSON.stringify(store.getState().cart.cartItems)
+  );
 };
-export const incrementCartItem = (id) => {
-  return {
-    type: INCREMENT_CART_ITEM,
+export const deleteCartItem = (id) => async (dispatch) => {
+  dispatch({
+    type: types.DELETE_CART_ITEM,
     payload: id,
-  };
-};
-export const decrementCartItem = (id) => {
-  return {
-    type: DECREMENT_CART_ITEM,
-    payload: id,
-  };
-};
-export const getCartItems = () => {
-  return {
-    type: GET_CART_ITEMS,
-  };
-};
-export const deleteCartItem = (id) => {
-  return {
-    type: DELETE_CART_ITEMS,
-    payload: id,
-  };
+  });
+
+  localStorage.setItem(
+    "cartItems",
+    JSON.stringify(store.getState().cart.cartItems)
+  );
 };

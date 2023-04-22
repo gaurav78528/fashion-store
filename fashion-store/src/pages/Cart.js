@@ -11,20 +11,15 @@ import {
 } from "@chakra-ui/react";
 import CartItem from "../components/CartItem";
 import OrderSummary from "../components/OrderSummary";
-import { useSelector, useDispatch } from "react-redux";
-import { getCartItems } from "../redux/cart/action";
+import { useSelector } from "react-redux";
 import EmptyCart from "../components/EmptyCart";
 
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
-  // console.log(cartItems);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCartItems());
-  }, []);
+  console.log(cartItems);
   return (
     <>
-      {cartItems.length !== 0 ? (
+      {cartItems?.length > 0 ? (
         <Box bgColor="#f5f5f7">
           <Stack
             w={{ base: "100vw", sm: "100vw", md: "100vw", lg: "80vw" }}
@@ -34,8 +29,8 @@ const Cart = () => {
             bgColor="#fff"
           >
             <Heading as={"h1"} size={"xl"} textAlign="center" my="20px">
-              Your Cart: {cartItems.length}{" "}
-              {cartItems.length > 1 ? "Items" : "Item"}
+              Your Cart: {cartItems?.length}{" "}
+              {cartItems?.length > 1 ? "Items" : "Item"}
             </Heading>
             <Stack
               gap="20px"
@@ -56,8 +51,8 @@ const Cart = () => {
               >
                 {/* card  item  */}
                 {cartItems &&
-                  cartItems.map((cartItem) => (
-                    <CartItem key={cartItem._id} cartItem={cartItem} />
+                  cartItems?.map((cartItem) => (
+                    <CartItem key={cartItem.product} cartItem={cartItem} />
                   ))}
               </Box>
               {/* order details */}

@@ -12,6 +12,8 @@ import {
   Divider,
   useToast,
   VStack,
+  HStack,
+  background,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { MdLocalShipping } from "react-icons/md";
@@ -20,18 +22,25 @@ import ReactStars from "react-rating-stars-component";
 import { BiPurchaseTag } from "react-icons/bi";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../redux/cart/action";
 import { toastProps } from "../constants/constants";
 import { addToWishlist } from "../redux/wishlist/action";
 import { getSingleProduct } from "../redux/products/action";
 import ReviewCard from "../components/ReviewCard";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { addItemToCart } from "../redux/cart/action";
 
 const SingleProduct = () => {
   const [currentFocus, setCurrentFocus] = useState(0);
   const [currentProduct, setCurrentProduct] = useState(0);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [quantity, setQuantity] = useState(1);
+
+  console.log(selectedSize);
 
   const imageRef = useRef();
   const btnRef = useRef();
+  const cartBtnRef = useRef();
   const toast = useToast();
 
   const { id } = useParams();
@@ -41,6 +50,8 @@ const SingleProduct = () => {
   const { error, isLoading, product } = useSelector(
     (store) => store.singleProduct
   );
+
+  console.log({ product });
 
   const {
     colors,
@@ -54,18 +65,24 @@ const SingleProduct = () => {
     reviews,
   } = product;
 
+  console.log({ stock });
+
   useEffect(() => {
     dispatch(getSingleProduct(id));
   }, [id, dispatch]);
 
-  const handleAddToCart = (item) => {
-    dispatch(addItemToCart(item));
+  // const
+
+  const handleAddToCart = () => {
+    // dispatch(addItemToCart(item));
+    dispatch(addItemToCart(id, quantity, "img"));
     toast({
       ...toastProps,
       title: "Success",
       description: "Item Added To Cart",
       status: "success",
     });
+    cartBtnRef.current.disabled = true;
   };
 
   const handleAddToWishlist = () => {
@@ -97,7 +114,20 @@ const SingleProduct = () => {
     activeColor: "#ffd700",
   };
 
+  const sizeRef = useRef();
+  console.log(sizeRef);
+  const handleSize = (size) => {
+    setSelectedSize(size);
+    sizeRef.current.style.backgroundColor = "red";
+  };
   const handleSubmitReview = () => {};
+
+  const handleQtyDecrement = () => {
+    setQuantity(quantity - 1);
+  };
+  const handleQtyIncrement = () => {
+    setQuantity(quantity + 1);
+  };
 
   return (
     <Container maxW={"7xl"} border="2px solid red">
@@ -239,13 +269,15 @@ const SingleProduct = () => {
                           key={id}
                           h="50px"
                           // p="10px 15px"
+                          border="3px solid #e3dfdf"
+                          onClick={() => handleSize(size)}
                           w="50px"
                           display="flex"
                           alignItems="center"
                           justifyContent="center"
                           borderRadius="50%"
                           textAlign="center"
-                          background="rgba(0,0,0,0.3)"
+                          background="rgba(0,0,0,0.05)"
                           fontWeight={600}
                           transition="all 0.4s"
                           cursor={"pointer"}
@@ -254,6 +286,7 @@ const SingleProduct = () => {
                             background: "#000",
                             color: "#fff",
                           }}
+                          ref={sizeRef}
                         >
                           {size}
                         </Text>
@@ -354,6 +387,58 @@ const SingleProduct = () => {
                 </Box>
               </Stack>
 
+              <HStack w="100px" m="auto">
+                <Button
+                  size="sm"
+                  variant={"ghost"}
+                  border="1px solid"
+                  bg={"#000"}
+                  color={"white"}
+                  _hover={{
+                    bg: "#fff",
+                    color: "#000",
+                    borderColor: "gray",
+                  }}
+                  fontSize={{
+                    base: "14px",
+                    sm: "16px",
+                    md: "17px",
+                    lg: "17px",
+                  }}
+                  isDisabled={quantity <= 1}
+                  // isDisabled={cartItem.qty <= 1}
+                >
+                  <AiOutlineMinus
+                    fontWeight={800}
+                    onClick={handleQtyDecrement}
+                  />
+                </Button>
+                <Text fontWeight={600}>{quantity}</Text>
+                <Button
+                  size="sm"
+                  variant={"ghost"}
+                  border="1px solid"
+                  bg={"#000"}
+                  color={"white"}
+                  _hover={{
+                    bg: "#fff",
+                    color: "#000",
+                    borderColor: "gray",
+                  }}
+                  fontSize={{
+                    base: "14px",
+                    sm: "16px",
+                    md: "17px",
+                    lg: "17px",
+                  }}
+                  isDisabled={quantity >= product.stock}
+                  onClick={handleQtyIncrement}
+                >
+                  <AiOutlinePlus fontWeight={800} />
+                </Button>
+              </HStack>
+              {/* BUTTONS */}
+
               <Flex align={"center"} gap={"20px"}>
                 <Button
                   size="lg"
@@ -375,6 +460,7 @@ const SingleProduct = () => {
                 </Button>
                 <Button
                   size="lg"
+                  ref={cartBtnRef}
                   bg={"#000"}
                   color={"white"}
                   _hover={{
@@ -387,7 +473,7 @@ const SingleProduct = () => {
                     md: "17px",
                     lg: "17px",
                   }}
-                  onClick={() => handleAddToCart(product)}
+                  onClick={handleAddToCart}
                 >
                   Add to cart
                 </Button>

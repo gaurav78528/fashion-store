@@ -39,14 +39,15 @@ const ProductCard = ({ productData }) => {
     quantity,
   } = productData;
   // console.log(productData);
+  console.log(id);
 
   // console.log(productData);
   const toast = useToast();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleAddToCart = (item) => {
-    dispatch(addItemToCart(item));
+  const handleAddToCart = () => {
+    dispatch(addItemToCart(id, 1, colors?.[0]?.images?.[0]));
     toast({
       ...toastProps,
       title: "Success",

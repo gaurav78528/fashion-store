@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const OrderSummary = ({ cartItems }) => {
+  const navigate = useNavigate();
   return (
     <>
       <Heading as={"h4"} size={"md"}>
@@ -15,7 +17,13 @@ const OrderSummary = ({ cartItems }) => {
         </Flex>
         <Flex align={"center"} justify={"space-between"} mt="5px">
           <Text fontWeight={500}>Total Amt.:</Text>
-          <Text fontWeight={500}>$200</Text>
+          <Text fontWeight={500}>
+            $
+            {cartItems.reduce(
+              (acc, item) => acc + item?.quantity * item?.price,
+              0
+            )}
+          </Text>
         </Flex>
       </Box>
       <Button
@@ -28,6 +36,7 @@ const OrderSummary = ({ cartItems }) => {
         }}
         my="20px"
         w={"full"}
+        onClick={() => navigate("/checkout")}
       >
         Checkout
       </Button>

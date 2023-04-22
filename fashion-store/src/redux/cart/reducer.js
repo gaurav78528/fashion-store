@@ -1,66 +1,40 @@
-import {
-  ADD_CART_ITEMS,
-  DECREMENT_CART_ITEM,
-  DELETE_CART_ITEMS,
-  GET_CART_ITEMS,
-  INCREMENT_CART_ITEM,
-} from "./actionTypes";
+import * as types from "./actionTypes";
 
-const initialState = {
-  cartItems: [],
+let initialState = {
+  cartItems: localStorage.getItem("cartItems")
+    ? JSON.parse(localStorage.getItem("cartItems"))
+    : [],
 };
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_CART_ITEMS:
+    case types.ADD_TO_CART:
       let itemIsInCart = state.cartItems.find(
-        (item) => item._id === action.payload._id
+        (item) => item.product === action.payload.product
       );
-      // console.log(itemIsInCart);
+
       if (itemIsInCart) {
-        itemIsInCart.qty += 1;
+        return {
+          ...state,
+          cartItems: state.cartItems.map((item) =>
+            item.product === itemIsInCart.product ? action.payload : item
+          ),
+        };
       } else {
         return {
           ...state,
           cartItems: [...state.cartItems, action.payload],
         };
       }
-    case DECREMENT_CART_ITEM:
-      const decrementItem = state.cartItems.find(
-        (item) => item._id === action.payload
-      );
 
-      decrementItem.qty--;
-      return {
-        ...state,
-        cartItems: state.cartItems,
-      };
-    case INCREMENT_CART_ITEM:
-      const incrementItem = state.cartItems.find(
-        (item) => item._id === action.payload
-      );
-
-      incrementItem.qty++;
-
-      return {
-        ...state,
-        cartItems: state.cartItems,
-      };
-
-    case GET_CART_ITEMS:
-      return {
-        ...state,
-        cartItems: state.cartItems,
-      };
-    case DELETE_CART_ITEMS:
+    case types.DELETE_CART_ITEM:
       const updatedCartItems = state.cartItems.filter(
-        (item) => item._id !== action.payload
+        (item) => item.product !== action.payload
       );
       return {
         ...state,
         cartItems: updatedCartItems,
       };
-
     default:
       return state;
   }
