@@ -4,6 +4,9 @@ let initialState = {
   cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
     : [],
+  shippingInfo: localStorage.getItem("shippingInfo")
+    ? JSON.parse(localStorage.getItem("shippingInfo"))
+    : {},
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -34,6 +37,12 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: updatedCartItems,
+      };
+
+    case types.SAVE_SHIPPING_INFO:
+      return {
+        ...state,
+        shippingInfo: action.payload,
       };
     default:
       return state;

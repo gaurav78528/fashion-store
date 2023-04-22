@@ -6,12 +6,15 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 const ReviewOrder = () => {
+  const { shippingInfo, cartItems } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        User Details
+        Review Order
       </Heading>
       <FormControl as={GridItem} colSpan={[6, 3]}>
         <FormLabel

@@ -72,7 +72,14 @@ function App() {
             />
             <Route path="/my-orders" element={<MyOrders />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route
+              path="/checkout"
+              element={
+                <ProctectedRoute>
+                  <Checkout />
+                </ProctectedRoute>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

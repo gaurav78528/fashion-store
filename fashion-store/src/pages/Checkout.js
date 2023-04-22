@@ -23,11 +23,60 @@ import { useToast } from "@chakra-ui/react";
 import ShippingAddress from "../components/Checkout/ShippingAddress";
 import ReviewOrder from "../components/Checkout/ReviewOrder";
 import PaymentMethod from "../components/Checkout/PaymentMethod";
+import { useDispatch, useSelector } from "react-redux";
+import { saveShippingInfo } from "../redux/cart/action";
+import { toastProps } from "../constants/constants";
 
 const Checkout = () => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
+  const { shippingInfo } = useSelector((state) => state.cart);
+  const [userInput, setUserInput] = useState({
+    address: shippingInfo.address,
+    city: shippingInfo.city,
+    state: shippingInfo.state,
+    country: shippingInfo.country,
+    pincode: shippingInfo.pincode,
+    phone: shippingInfo.phone,
+  });
+
+  const dispatch = useDispatch();
+  const handleNextStep = () => {
+    if (step === 1) {
+      console.log("step 1 triggered");
+      if (userInput.phone.length < 10 || userInput.phone.length > 10) {
+        // alert("Phone Number must be of 10 numbers.");
+
+        return toast({
+          ...toastProps,
+          title: "Validation Failed",
+          description: "Phone Number must be of 10 numbers.",
+          status: "error",
+        });
+      } else if (userInput.pincode.length < 6 || userInput.pincode.length > 6) {
+        // alert("Pincode must be of 6 Digits.");
+        return toast({
+          ...toastProps,
+          title: "Validation Failed",
+          description: "Pincode must be of 6 Digits.",
+          status: "error",
+        });
+      } else {
+        dispatch(saveShippingInfo(userInput));
+        setStep(step + 1);
+        setProgress(progress + 33.33);
+      }
+    } else if (step === 2) {
+      console.log("step 2 triggered");
+      setStep(step + 1);
+      setProgress(progress + 33.33);
+    } else if (step === 3) {
+      console.log("step 3 triggered");
+
+      setProgress(100);
+    }
+  };
   return (
     <>
       <Box
@@ -41,6 +90,7 @@ const Checkout = () => {
       >
         <Progress
           hasStripe
+          h={1}
           bgColor="blackAlpha"
           colorScheme={"yellow"}
           value={progress}
@@ -49,7 +99,7 @@ const Checkout = () => {
           isAnimated
         ></Progress>
         {step === 1 ? (
-          <ShippingAddress />
+          <ShippingAddress userInput={userInput} setUserInput={setUserInput} />
         ) : step === 2 ? (
           <ReviewOrder />
         ) : (
@@ -80,18 +130,20 @@ const Checkout = () => {
               </Button>
               <Button
                 w="7rem"
-                isDisabled={step === 3}
-                onClick={() => {
-                  setStep(step + 1);
-                  if (step === 3) {
-                    setProgress(100);
-                  } else {
-                    setProgress(progress + 33.33);
-                  }
-                }}
+                // isDisabled={step === 3}
+                onClick={handleNextStep}
                 variant="outline"
                 size="lg"
                 bg={"#000"}
+                isDisabled={
+                  step === 1 &&
+                  userInput.city &&
+                  userInput.address &&
+                  userInput.phone &&
+                  userInput.pincode
+                    ? false
+                    : true
+                }
                 color={"white"}
                 _hover={{
                   bg: "#e3ae52",
