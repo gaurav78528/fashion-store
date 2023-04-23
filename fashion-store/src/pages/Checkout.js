@@ -26,6 +26,7 @@ import PaymentMethod from "../components/Checkout/PaymentMethod";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingInfo } from "../redux/cart/action";
 import { toastProps } from "../constants/constants";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const toast = useToast();
@@ -42,9 +43,10 @@ const Checkout = () => {
   });
 
   const dispatch = useDispatch();
-  const handleNextStep = () => {
+
+  const handleReviewOrder = () => {
     if (step === 1) {
-      console.log("step 1 triggered");
+      // console.log("step 1 triggered");
       if (userInput.phone.length < 10 || userInput.phone.length > 10) {
         // alert("Phone Number must be of 10 numbers.");
 
@@ -67,23 +69,28 @@ const Checkout = () => {
         setStep(step + 1);
         setProgress(progress + 33.33);
       }
-    } else if (step === 2) {
-      console.log("step 2 triggered");
-      setStep(step + 1);
-      setProgress(progress + 33.33);
-    } else if (step === 3) {
-      console.log("step 3 triggered");
-
-      setProgress(100);
     }
   };
+  //   }
+  //   else if (step === 2) {
+  //     console.log("step 2 triggered");
+  //     setStep(step + 1);
+  //     setProgress(progress + 33.33);
+  //   } else if (step === 3) {
+  //     console.log("step 3 triggered");
+
+  //     setProgress(100);
+  //   }
+  // };
+
+  
   return (
     <>
       <Box
         borderWidth="1px"
         rounded="lg"
         shadow="1px 1px 3px rgba(0,0,0,0.3)"
-        maxWidth={800}
+        maxWidth={1400}
         p={6}
         m="10px auto"
         as="form"
@@ -101,7 +108,12 @@ const Checkout = () => {
         {step === 1 ? (
           <ShippingAddress userInput={userInput} setUserInput={setUserInput} />
         ) : step === 2 ? (
-          <ReviewOrder />
+          <ReviewOrder
+            step={step}
+            setStep={setStep}
+            progress={progress}
+            setProgress={setProgress}
+          />
         ) : (
           <PaymentMethod />
         )}
@@ -129,9 +141,9 @@ const Checkout = () => {
                 Back
               </Button>
               <Button
-                w="7rem"
+                // w="7rem"
                 // isDisabled={step === 3}
-                onClick={handleNextStep}
+                onClick={handleReviewOrder}
                 variant="outline"
                 size="lg"
                 bg={"#000"}
@@ -144,6 +156,7 @@ const Checkout = () => {
                     ? false
                     : true
                 }
+                display={step === 2 ? "none" : "block"}
                 color={"white"}
                 _hover={{
                   bg: "#e3ae52",
@@ -151,7 +164,7 @@ const Checkout = () => {
                 }}
                 my="20px"
               >
-                Next
+                Review Order
               </Button>
             </Flex>
             {step === 3 ? (
