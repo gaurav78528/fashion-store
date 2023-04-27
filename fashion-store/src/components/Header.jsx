@@ -145,20 +145,6 @@ const Header = () => {
             spacing={{ base: "10px", sm: "10px", md: "20px", lg: "20px" }}
             fontSize="12px"
           >
-            <Link to="/compare-products">
-              <Flex
-                justify="center"
-                align="center"
-                gap="5px"
-                display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
-                color="#fff"
-              >
-                <BiGitCompare fontSize="25px" />
-                <Box>
-                  <Text>Compare</Text>
-                </Box>
-              </Flex>
-            </Link>
             <Link to="/wishlist">
               <Flex justify="center" align="center" gap="5px" color="#fff">
                 <BiHeart fontSize="25px" />
@@ -341,7 +327,6 @@ const Header = () => {
           >
             <Link to="/">HOME</Link>
             <Link to="/store">OUR STORE</Link>
-            <Link to="/blogs">BLOGS</Link>
             <Link to="/contact">CONTACT</Link>
           </Flex>
           <Drawer
@@ -381,7 +366,6 @@ const Header = () => {
                 >
                   <Link to="/">HOME</Link>
                   <Link to="/store">OUR STORE</Link>
-                  <Link to="/blogs">BLOGS</Link>
                   <Link to="/contact">CONTACT</Link>
 
                   <Link to="/login">

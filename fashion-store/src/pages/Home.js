@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
+import { useSelector, useDispatch } from "react-redux";
 import Marquee from "react-fast-marquee";
 import apple from "../../src/images/apple.png";
 import ShopByBrand from "../components/ShopByBrand";
@@ -9,9 +10,20 @@ import HeroSection from "../components/HeroSection";
 import ProductCategory from "../components/ProductCategory";
 import PopularProducts from "../components/PopularProducts";
 import FeaturedCollection from "../components/FeaturedCollection";
+import { getProducts } from "../redux/products/action";
 import Meta from "../components/Meta";
 import "../styles/home.css";
 const Home = () => {
+  const { error, isLoading, products } = useSelector((store) => store.products);
+  const dispatch = useDispatch();
+  console.log(products);
+
+  const specialProducts = products.filter((item) => item.offer >= 70);
+  console.log(specialProducts);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
   return (
     <>
       <Meta title={"Home"} />
@@ -53,57 +65,19 @@ const Home = () => {
             }}
             gap="20px"
           >
-            <GridItem>
-              <SpecialProductCard />
-            </GridItem>
-            <GridItem>
-              <SpecialProductCard />
-            </GridItem>
-            <GridItem>
-              <SpecialProductCard />
-            </GridItem>
-            <GridItem>
-              <SpecialProductCard />
-            </GridItem>
-            <GridItem>
-              <SpecialProductCard />
-            </GridItem>
-            <GridItem>
-              <SpecialProductCard />
-            </GridItem>
+            {specialProducts &&
+              specialProducts.map((item) => {
+                return (
+                  <GridItem key={item._id}>
+                    <SpecialProductCard item={item} />
+                  </GridItem>
+                );
+              })}
           </Grid>
         </Box>
 
         {/* OUR POPULAR PRODUCTS STARTS HERE */}
         <PopularProducts />
-
-        <Box>
-          <Heading as="h2" size="lg" fontWeight={500} my="30px" border>
-            Shop By Brand
-          </Heading>
-          <Grid
-            templateColumns={{
-              base: "repeat(1, 1fr)",
-              sm: "repeat(2, 1fr)",
-              md: "repeat(3, 1fr)",
-              lg: "repeat(4, 1fr)",
-            }}
-            gap="20px"
-          >
-            <GridItem>
-              <ShopByBrand />
-            </GridItem>
-            <GridItem>
-              <ShopByBrand />
-            </GridItem>
-            <GridItem>
-              <ShopByBrand />
-            </GridItem>
-            <GridItem>
-              <ShopByBrand />
-            </GridItem>
-          </Grid>
-        </Box>
       </Box>
     </>
   );

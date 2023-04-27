@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
@@ -6,7 +6,6 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OurStore from "./pages/OurStore";
-import Blogs from "./pages/Blogs";
 import NotFound from "./pages/NotFound";
 import CompareProducts from "./pages/CompareProducts";
 import Wishlist from "./pages/Wishlist";
@@ -15,7 +14,6 @@ import Cart from "./pages/Cart";
 import Register from "./pages/Register";
 import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
-import SingleBlog from "./pages/SingleBlog";
 import SingleProduct from "./pages/SingleProduct";
 import Checkout from "./pages/Checkout";
 import Account from "./pages/Account";
@@ -25,14 +23,25 @@ import { store } from "./redux/store";
 import { loadUser } from "./redux/auth/action";
 import ProctectedRoute from "./components/ProctectedRoute";
 import UpdatePassword from "./pages/UpdatePassword";
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import PaymentSuccess from "./components/PaymentSuccess";
 
 function App() {
+  const [stripeapikey, setStripeapikey] = useState("");
+  console.log(stripeapikey);
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get(
+      "http://localhost:4500/payment/stripeapikey"
+    );
+    setStripeapikey(data.stripeApiKey);
+  }
   useEffect(() => {
-    // console.log("loaded");
     store.dispatch(loadUser());
+    getStripeApiKey();
   }, []);
-  // const x = store.dispatch(loadUser());
-  // console.log({ loadUser });
 
   return (
     <>
@@ -43,6 +52,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/update-password" element={<UpdatePassword />} />
           <Route path="password/forget-password" element={<ForgetPassword />} />
+          <Route path="/payment/success" element={<PaymentSuccess />} />
           <Route
             path="password/reset-password/:token"
             element={
@@ -57,9 +67,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/store" element={<OurStore />} />
             <Route path="/store/:id" element={<SingleProduct />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/blog/:id" element={<SingleBlog />} />
-            <Route path="/compare-products" element={<CompareProducts />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
             <Route
@@ -72,14 +79,34 @@ function App() {
             />
             <Route path="/my-orders" element={<MyOrders />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route
+            {/* <Route
               path="/checkout"
               element={
-                <ProctectedRoute>
-                  <Checkout />
-                </ProctectedRoute>
+                // <ProctectedRoute>
+                <Checkout />
+                // </ProctectedRoute>
               }
-            />
+            /> */}
+            {stripeapikey && (
+              <Route
+                path="/checkout"
+                element={
+                  <ProctectedRoute>
+                    <Elements stripe={loadStripe(stripeapikey)}>
+                      <Checkout />
+                    </Elements>
+                  </ProctectedRoute>
+                }
+              />
+            )}
+            {/* <Route
+                  path="/checkout"
+                  element={
+                    <ProctectedRoute>
+                      <Checkout />
+                    </ProctectedRoute>
+                  }
+                /> */}
           </Route>
         </Routes>
       </BrowserRouter>

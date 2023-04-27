@@ -18,7 +18,7 @@ const PopularProducts = () => {
     // }
   }, []);
   return (
-    <Box>
+    <Box pb="30px">
       <Heading as="h2" size="lg" fontWeight={500} my="30px" border>
         Popular Products
       </Heading>

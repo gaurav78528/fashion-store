@@ -15,6 +15,8 @@ import { wishlistReducer } from "./wishlist/reducer";
 import { updatePasswordReducer } from "./profile/reducer";
 import { forgetPasswordReducer } from "./forgetPassword/reducer";
 import { cartReducer } from "./cart/reducer";
+import { paymentReducer } from "./payment/reducer";
+import { newOrderReducer } from "./orders/reducer";
 // import { updatePassword } from './profile/action';
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
@@ -27,6 +29,8 @@ const rootReducer = combineReducers({
   popularProductsReducer,
   featuredProductsReducer,
   wishlist: wishlistReducer,
+  payment: paymentReducer,
+  newOrder: newOrderReducer,
 });
 
 export const store = legacy_createStore(

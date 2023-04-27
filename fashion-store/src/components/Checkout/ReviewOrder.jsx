@@ -22,10 +22,12 @@ const ReviewOrder = ({ step, setStep, progress, setProgress }) => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
 
+  console.log(cartItems);
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
     0
   );
+
   const shippingCharges = subtotal > 1500 ? 0 : 100;
   const tax = Number((subtotal * 0.18).toFixed(2));
 
@@ -42,6 +44,7 @@ const ReviewOrder = ({ step, setStep, progress, setProgress }) => {
       shippingCharges,
       tax,
       totalPrice,
+      
     };
     sessionStorage.setItem("orderInfo", JSON.stringify(paymentDetails));
   };

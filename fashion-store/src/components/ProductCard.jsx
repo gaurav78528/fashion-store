@@ -39,7 +39,7 @@ const ProductCard = ({ productData }) => {
     quantity,
   } = productData;
   // console.log(productData);
-  console.log(id);
+  // console.log(id);
 
   // console.log(productData);
   const toast = useToast();
@@ -182,10 +182,7 @@ const ProductCard = ({ productData }) => {
           <AiOutlineEye fontSize="20px" />
         </Button>
         <Button variant="link">
-          <HiOutlineShoppingBag
-            fontSize="20px"
-            onClick={() => handleAddToCart(productData)}
-          />
+          <HiOutlineShoppingBag fontSize="20px" onClick={handleAddToCart} />
         </Button>
       </Flex>
     </Box>

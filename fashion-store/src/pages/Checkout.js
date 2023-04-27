@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveShippingInfo } from "../redux/cart/action";
 import { toastProps } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
+import Payment from "../components/Checkout/Payment";
 
 const Checkout = () => {
   const toast = useToast();
@@ -83,7 +84,6 @@ const Checkout = () => {
   //   }
   // };
 
-  
   return (
     <>
       <Box
