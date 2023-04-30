@@ -27,6 +27,8 @@ import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import PaymentSuccess from "./components/PaymentSuccess";
+import AllProducts from "./pages/AllProducts";
+import AddProduct from "./pages/AddProduct";
 
 function App() {
   const [stripeapikey, setStripeapikey] = useState("");
@@ -78,7 +80,7 @@ function App() {
               }
             />
             <Route path="/my-orders" element={<MyOrders />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
             {/* <Route
               path="/checkout"
               element={
@@ -99,6 +101,30 @@ function App() {
                 }
               />
             )}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProctectedRoute>
+                  <Dashboard />
+                </ProctectedRoute>
+              }
+            />
+            <Route
+              path="/admin/products"
+              element={
+                <ProctectedRoute>
+                  <AllProducts />
+                </ProctectedRoute>
+              }
+            />
+            <Route
+              path="/admin/product/add"
+              element={
+                <ProctectedRoute>
+                  <AddProduct />
+                </ProctectedRoute>
+              }
+            />
             {/* <Route
                   path="/checkout"
                   element={

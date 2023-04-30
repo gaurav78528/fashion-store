@@ -3,7 +3,7 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 
 const ReviewCard = ({ review }) => {
-  console.log(review);
+  // console.log(review);
   const ratingOptions = {
     count: 5,
     // onChange:{ratingChanged},

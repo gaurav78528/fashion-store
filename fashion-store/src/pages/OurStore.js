@@ -25,7 +25,7 @@ const OurStore = () => {
     resultPerPage,
     filteredProductsCount,
   } = useSelector((store) => store.products);
-
+  console.log(products);
   const dispatch = useDispatch();
 
   const queryParams = new URLSearchParams(window.location.search);

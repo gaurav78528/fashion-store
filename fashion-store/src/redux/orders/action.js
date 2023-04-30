@@ -34,3 +34,27 @@ export const createOrder = (order) => async (dispatch) => {
     });
   }
 };
+
+// GET MY ORDERS
+export const myOrders = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.MY_ORDERS_REQUEST,
+    });
+
+    const { data } = await axios.get(`http://localhost:4500/orders/myorders`);
+
+    console.log(data);
+
+    dispatch({
+      type: types.MY_ORDERS_SUCCESS,
+      payload: data.myOrders,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: types.MY_ORDERS_ERROR,
+      payload: error?.response?.message || "Something Went Wrong.",
+    });
+  }
+};

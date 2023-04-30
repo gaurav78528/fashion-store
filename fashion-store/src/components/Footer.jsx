@@ -51,6 +51,8 @@ const Footer = () => {
       bg={useColorModeValue("#232f3e", "#232f3e")}
       color={useColorModeValue("#fff", "#fff")}
       w="100%"
+
+      // top="0"
     >
       <Container as={Stack} maxW={"6xl"} py={10}>
         <SimpleGrid

@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { AiFillCreditCard } from "react-icons/ai";
 import React, { useEffect, useRef, useState } from "react";
-import Cards from "react-credit-cards";
 // import "react-credit-cards/es/styles-compiled.css";
 import {
   CardNumberElement,

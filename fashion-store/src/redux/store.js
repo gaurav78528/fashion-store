@@ -7,7 +7,11 @@ import {
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import thunk from "redux-thunk";
-import { productsReducer, singleProductReducer } from "./products/reducer";
+import {
+  newReviewReducer,
+  productsReducer,
+  singleProductReducer,
+} from "./products/reducer";
 import { popularProductsReducer } from "./popularProducts/reducer";
 import { featuredProductsReducer } from "./featuredCollections/reducer";
 import { authReducer } from "./auth/reducer";
@@ -16,7 +20,8 @@ import { updatePasswordReducer } from "./profile/reducer";
 import { forgetPasswordReducer } from "./forgetPassword/reducer";
 import { cartReducer } from "./cart/reducer";
 import { paymentReducer } from "./payment/reducer";
-import { newOrderReducer } from "./orders/reducer";
+import { myOrdersReducer, newOrderReducer } from "./orders/reducer";
+import { newReview } from "./products/action";
 // import { updatePassword } from './profile/action';
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
@@ -31,6 +36,8 @@ const rootReducer = combineReducers({
   wishlist: wishlistReducer,
   payment: paymentReducer,
   newOrder: newOrderReducer,
+  myOrders: myOrdersReducer,
+  newReview: newReviewReducer,
 });
 
 export const store = legacy_createStore(

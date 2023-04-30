@@ -188,7 +188,7 @@ const Header = () => {
                 <MenuList>
                   <MenuGroup title="My Account">
                     {user?.role === "admin" && (
-                      <Link to="/dashboard">
+                      <Link to="/admin/dashboard">
                         <MenuItem>Dashboard</MenuItem>
                       </Link>
                     )}

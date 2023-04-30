@@ -16,10 +16,10 @@ import "../styles/home.css";
 const Home = () => {
   const { error, isLoading, products } = useSelector((store) => store.products);
   const dispatch = useDispatch();
-  console.log(products);
+  // console.log(products);
 
   const specialProducts = products.filter((item) => item.offer >= 70);
-  console.log(specialProducts);
+  // console.log(specialProducts);
 
   useEffect(() => {
     dispatch(getProducts());

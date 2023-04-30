@@ -13,7 +13,8 @@ import {
   useToast,
   VStack,
   HStack,
-  background,
+  // background,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { MdLocalShipping } from "react-icons/md";
@@ -28,6 +29,8 @@ import { getSingleProduct } from "../redux/products/action";
 import ReviewCard from "../components/ReviewCard";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { addItemToCart } from "../redux/cart/action";
+import SubmitNewReview from "../components/SubmitNewReview";
+import { NEW_REVIEW_RESET } from "../redux/products/actionTypes";
 
 const SingleProduct = () => {
   const [currentFocus, setCurrentFocus] = useState(0);
@@ -35,9 +38,6 @@ const SingleProduct = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(1);
-
-  console.log(selectedSize);
-
   const imageRef = useRef();
   const btnRef = useRef();
   const cartBtnRef = useRef();
@@ -50,8 +50,8 @@ const SingleProduct = () => {
   const { error, isLoading, product } = useSelector(
     (store) => store.singleProduct
   );
-
-  console.log({ product });
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  // console.log({ product });
 
   const {
     colors,
@@ -65,11 +65,19 @@ const SingleProduct = () => {
     reviews,
   } = product;
 
-  console.log({ stock });
-
+  // console.log({ stock });
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { success } = useSelector((state) => state.newReview);
   useEffect(() => {
     dispatch(getSingleProduct(id));
-  }, [id, dispatch]);
+
+    if (success) {
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
+    // }, [id, dispatch]);
+  }, [id, dispatch, success]);
+
+  // console.log(success);
 
   // const
 
@@ -93,7 +101,7 @@ const SingleProduct = () => {
       mrp,
       offer,
     };
-    console.log(payload);
+    // console.log(payload);
 
     dispatch(addToWishlist(payload, toast));
   };
@@ -115,7 +123,7 @@ const SingleProduct = () => {
   };
 
   const sizeRef = useRef();
-  console.log(sizeRef);
+  // console.log(sizeRef);
   const handleSize = (size) => {
     setSelectedSize(size);
     sizeRef.current.style.backgroundColor = "red";
@@ -406,12 +414,10 @@ const SingleProduct = () => {
                     lg: "17px",
                   }}
                   isDisabled={quantity <= 1}
+                  onClick={handleQtyDecrement}
                   // isDisabled={cartItem.qty <= 1}
                 >
-                  <AiOutlineMinus
-                    fontWeight={800}
-                    onClick={handleQtyDecrement}
-                  />
+                  <AiOutlineMinus fontWeight={800} />
                 </Button>
                 <Text fontWeight={600}>{quantity}</Text>
                 <Button
@@ -501,29 +507,23 @@ const SingleProduct = () => {
               <ReviewCard key={review._id} review={review} />
             ))}
             <Divider />
-            <Box>
-              <Button
-                size="sm"
-                // textDecoration={"none"}
-                my="20px"
-                variant={"none"}
-                color={"blue"}
-                fontSize={"15px"}
-                _hover={{
-                  color: "red",
-                }}
-                onClick={handleSubmitReview}
-              >
-                Submit Review
-              </Button>
-            </Box>
+            {isAuthenticated && (
+              <Box>
+                <SubmitNewReview
+                  isOpen={isOpen}
+                  onOpen={onOpen}
+                  onClose={onClose}
+                  id={id}
+                />
+              </Box>
+            )}
           </VStack>
         ) : (
           <VStack my="40px" justifyContent="center" alignItems="center">
             <Text fontSize="25px" color="gray" textAlign={"center"}>
               No Reviews Yet
             </Text>
-            <Button
+            {/* <Button
               size="sm"
               variant={"none"}
               color={"blue"}
@@ -534,7 +534,15 @@ const SingleProduct = () => {
               onClick={handleSubmitReview}
             >
               Submit Review
-            </Button>
+            </Button> */}
+            {isAuthenticated && (
+              <SubmitNewReview
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+                id={id}
+              />
+            )}
           </VStack>
         )}
       </Box>

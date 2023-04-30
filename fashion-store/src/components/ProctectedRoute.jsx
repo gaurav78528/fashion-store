@@ -9,7 +9,13 @@ const ProctectedRoute = ({ children }) => {
   // console.log({ isAuthenticated, isLoading });
 
   return (
-    <>{!isLoading && !isAuthenticated ? <Navigate to="/login" /> : children}</>
+    <>
+      {isLoading === false && !isAuthenticated ? (
+        <Navigate to="/login" />
+      ) : (
+        children
+      )}
+    </>
   );
   // MdOutlineAssignmentReturn;
 };

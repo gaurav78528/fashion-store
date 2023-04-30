@@ -1,7 +1,9 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 const PaymentSuccess = () => {
+  const navigate = useNavigate();
   return (
     <Flex justify="center" alignItems="center" h="100vh">
       <Box textAlign="center" py={10} px={6}>
@@ -15,7 +17,7 @@ const PaymentSuccess = () => {
           _hover={{ bgColor: "#e3ae52", color: "#000" }}
           color="white"
           variant="solid"
-          // onClick={() => navigate("/")}
+          onClick={() => navigate("/my-orders")}
         >
           View Orders
         </Button>
