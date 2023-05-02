@@ -43,9 +43,11 @@ const SideBarComp = () => {
         backgroundColor="#000"
         style={{
           color: "gray",
-          height: "100vh",
-          //   position: "fixed",
-          //   left: "0px",
+          minHeight: "auto",
+          height: "100%",
+          position: "absolute",
+          left: "0px",
+          top: "0px",
         }}
       >
         <Menu>

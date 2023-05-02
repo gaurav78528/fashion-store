@@ -5,7 +5,7 @@ export const getProducts =
   (currentPage = 1, price = [0, 15000], category, rating = 0) =>
   async (dispatch) => {
     dispatch({
-      type: types.GET_PRODUCTS_LOADING,
+      type: types.GET_PRODUCTS_REQUEST,
     });
 
     try {
@@ -75,6 +75,27 @@ export const newReview = (reviewData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.NEW_REVIEW_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Products For Admin
+export const getAdminProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.GET_ADMIN_PRODUCTS_REQUEST });
+
+    const { data } = await axios.get(
+      "http://localhost:4500/products/admin/products"
+    );
+
+    dispatch({
+      type: types.GET_ADMIN_PRODUCTS_SUCCESS,
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: types.GET_ADMIN_PRODUCTS_ERROR,
       payload: error.response.data.message,
     });
   }

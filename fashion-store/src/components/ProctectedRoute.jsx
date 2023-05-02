@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 import { MdOutlineAssignmentReturn } from "react-icons/md";
 
 const ProctectedRoute = ({ children }) => {
-  const { isLoading, isAuthenticated } = useSelector((state) => state.auth);
+  const { isLoading, isAuthenticated, user } = useSelector(
+    (state) => state.auth
+  );
 
   // console.log({ isAuthenticated, isLoading });
 

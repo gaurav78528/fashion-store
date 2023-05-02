@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBarComp from "../components/Admin/SideBarComp";
 import {
   Box,
@@ -9,29 +9,52 @@ import {
   GridItem,
   Grid,
 } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 // import SideBarComp from "../components/Admin/SideBarComp";
+import "../styles/dashboard.css";
+import { Link } from "react-router-dom";
+import { getAdminProducts } from "../redux/products/action";
+import DashboardCard from "../components/Admin/DashboardCard";
 
 const Dashboard = () => {
+  const items = [1, 2, 3, 4];
+  const dispatch = useDispatch();
+  const { isLoading, products } = useSelector((state) => state.products);
+  console.log(products);
+
+  useEffect(() => {
+    dispatch(getAdminProducts());
+  }, [dispatch]);
+
+  let outOfStock = 0;
+  products &&
+    products.forEach((item) => {
+      if (item.stock === 0) {
+        outOfStock += 1;
+      }
+    });
   return (
-    <Flex>
+    <Flex bgColor="#f5f5f7" position="relative">
       <SideBarComp />
       {/* <div>dashboard</div> */}
-      <Stack w="100%" bgColor="#f5f5f7">
-        <Heading as="h1" size="lg" mx="auto" my="20px">
+      <Stack w="100%" p="20px" pl="100px">
+        <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">
           Dashboard
         </Heading>
         <Box
           w="100%"
           // h="200px"
-          opacity="0.8"
+          opacity="0.6"
           bg="#232f3e"
           color="#fff"
           py="80px"
           borderRadius="5px"
           textAlign="center"
         >
-          <Text>Total Amount:</Text>
-          <Text>2000</Text>
+          <Text fontSize="25px" fontWeight={600}>
+            Total Amount:
+          </Text>
+          <Text fontSize="25px">2000</Text>
         </Box>
         <Grid
           templateColumns={{
@@ -42,25 +65,17 @@ const Dashboard = () => {
           }}
           gap={6}
         >
-          <GridItem
+          <DashboardCard title="Products" count={products && products.length} />
+          <DashboardCard title="Products" count={10} />
+          <DashboardCard title="Products" count={12} />
+          <DashboardCard title="Out Of Stock" count={outOfStock} />
+
+          {/* <GridItem
             w="100%"
             // h="200px"
             opacity="0.8"
-            bg="#232f3e"
-            color="#fff"
-            py="80px"
-            borderRadius="5px"
-            textAlign="center"
-          >
-            <Text>Products</Text>
-            <Text>43</Text>
-          </GridItem>
-          <GridItem
-            w="100%"
-            // h="200px"
-            opacity="0.8"
-            bg="#232f3e"
-            color="#fff"
+            // bg="#232f3e"
+            // color="#fff"
             py="80px"
             borderRadius="5px"
             textAlign="center"
@@ -93,7 +108,7 @@ const Dashboard = () => {
           >
             <Text>Out Of Stock</Text>
             <Text>3</Text>
-          </GridItem>
+          </GridItem> */}
         </Grid>
         {/* <Stack
           direction="row"

@@ -10,7 +10,8 @@ const productsInitalState = {
 export const productsReducer = (state = productsInitalState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case types.GET_PRODUCTS_LOADING:
+    case types.GET_PRODUCTS_REQUEST:
+    case types.GET_ADMIN_PRODUCTS_REQUEST:
       return { ...state, isLoading: true };
     case types.GET_PRODUCTS_SUCCESS:
       return {
@@ -20,7 +21,13 @@ export const productsReducer = (state = productsInitalState, action) => {
         productsCount: payload.productsCount,
         resultPerPage: payload.resultPerPage,
       };
+    case types.GET_ADMIN_PRODUCTS_SUCCESS:
+      return {
+        isLoading: false,
+        products: payload,
+      };
     case types.GET_PRODUCTS_ERROR:
+    case types.GET_ADMIN_PRODUCTS_ERROR:
       return { ...state, isLoading: false, error: payload };
     default:
       return state;

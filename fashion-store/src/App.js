@@ -29,6 +29,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import PaymentSuccess from "./components/PaymentSuccess";
 import AllProducts from "./pages/AllProducts";
 import AddProduct from "./pages/AddProduct";
+import AdminProctectedRoute from "./components/Admin/AdminProtectedRoute";
+import UpdateProduct from "./components/Admin/UpdateProduct";
 
 function App() {
   const [stripeapikey, setStripeapikey] = useState("");
@@ -104,9 +106,9 @@ function App() {
             <Route
               path="/admin/dashboard"
               element={
-                <ProctectedRoute>
+                <AdminProctectedRoute isAdmin={true}>
                   <Dashboard />
-                </ProctectedRoute>
+                </AdminProctectedRoute>
               }
             />
             <Route
@@ -114,6 +116,14 @@ function App() {
               element={
                 <ProctectedRoute>
                   <AllProducts />
+                </ProctectedRoute>
+              }
+            />
+            <Route
+              path="/admin/products/update/:id"
+              element={
+                <ProctectedRoute>
+                  <UpdateProduct />
                 </ProctectedRoute>
               }
             />
