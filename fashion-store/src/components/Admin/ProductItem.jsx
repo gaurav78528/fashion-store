@@ -1,9 +1,12 @@
-import { Flex } from "@chakra-ui/react";
-import React from "react";
+import { Button, Flex } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import { BiEdit, BiLinkExternal, BiTrash } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteProduct } from "../../redux/products/action";
+import { DELETE_PRODUCT_RESET } from "../../redux/products/actionTypes";
 
-const ProductItem = ({ item }) => {
+const ProductItem = ({ item, loading: isLoading, handleDeleteProduct }) => {
   return (
     <tr>
       <td data-label="ProductID">{item?._id}</td>
@@ -17,9 +20,11 @@ const ProductItem = ({ item }) => {
           </Flex>
         </Link>
       </td>
-      <td data-label="Delete">
+      <td data-label="Delete" onClick={() => handleDeleteProduct(item._id)}>
         <Flex justify="center" align="center" cursor="pointer">
-          <BiTrash fontSize={"20px"} color="red" />
+          <Button variant="link" pointerEvents={isLoading && "none"}>
+            <BiTrash fontSize={"20px"} color="red" />
+          </Button>
         </Flex>
       </td>
     </tr>

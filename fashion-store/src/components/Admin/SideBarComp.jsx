@@ -20,10 +20,11 @@ import {
   useProSidebar,
 } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import { Box } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 
 const SideBarComp = () => {
   const { collapseSidebar, isCollapsed } = useProSidebar();
+
   //   const [isExpanded, setIsExpanded] = useState(true);
   //   function handleToggle() {
   //     if (isCollapsed) {
@@ -52,12 +53,12 @@ const SideBarComp = () => {
       >
         <Menu>
           {/* <MenuItem
-            icon={<M />}
-            onClick={() => collapseSidebar()}
-            // component={<Link to="/admin/dashboard" />}
-          >
-            open
-          </MenuItem> */}
+          icon={<M />}
+          onClick={() => collapseSidebar()}
+          // component={<Link to="/admin/dashboard" />}
+        >
+          open
+        </MenuItem> */}
           {/* <button onClick={() => collapseSidebar()}>open</button> */}
           <Box display={{ base: "none", sm: "none", md: "block", lg: "block" }}>
             <MenuItem

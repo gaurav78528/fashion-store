@@ -8,7 +8,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import thunk from "redux-thunk";
 import {
+  newProductReducer,
   newReviewReducer,
+  productReducer,
   productsReducer,
   singleProductReducer,
 } from "./products/reducer";
@@ -38,6 +40,8 @@ const rootReducer = combineReducers({
   newOrder: newOrderReducer,
   myOrders: myOrdersReducer,
   newReview: newReviewReducer,
+  newProduct: newProductReducer,
+  product: productReducer,
 });
 
 export const store = legacy_createStore(

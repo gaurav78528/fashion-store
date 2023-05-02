@@ -84,3 +84,81 @@ export const newReviewReducer = (state = {}, action) => {
       return state;
   }
 };
+
+// new product admin
+
+export const newProductReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case types.NEW_PRODUCT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case types.NEW_PRODUCT_SUCCESS:
+      return {
+        isLoading: false,
+        success: action.payload.success,
+        product: action.payload.product,
+        message: action.payload.message,
+      };
+    case types.NEW_PRODUCT_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case types.NEW_PRODUCT_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const productReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.DELETE_PRODUCT_REQUEST:
+    case types.UPDATE_PRODUCT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case types.DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isDeleted: action.payload.success,
+        message: action.payload.message,
+      };
+
+    case types.UPDATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isUpdated: action.payload,
+      };
+    case types.DELETE_PRODUCT_ERROR:
+    case types.UPDATE_PRODUCT_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case types.DELETE_PRODUCT_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case types.UPDATE_PRODUCT_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      };
+
+    default:
+      return state;
+  }
+};
