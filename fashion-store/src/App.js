@@ -30,7 +30,7 @@ import PaymentSuccess from "./components/PaymentSuccess";
 import AllProducts from "./pages/AllProducts";
 import AddProduct from "./pages/AddProduct";
 import AdminProctectedRoute from "./components/Admin/AdminProtectedRoute";
-import UpdateProduct from "./components/Admin/UpdateProduct";
+import UpdateProduct from "./pages/UpdateProduct";
 
 function App() {
   const [stripeapikey, setStripeapikey] = useState("");

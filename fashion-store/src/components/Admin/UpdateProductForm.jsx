@@ -10,40 +10,74 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { NEW_PRODUCT_RESET } from "../../redux/products/actionTypes";
-import { createProduct } from "../../redux/products/action";
+import { UPDATE_PRODUCT_RESET } from "../../redux/products/actionTypes";
+import { getSingleProduct, updateProduct } from "../../redux/products/action";
 
-const AddProductForm = () => {
-  const [colors, setColors] = useState([{ color: "", images: [], sizes: [] }]);
-  const [brand, setBrand] = useState("");
-  const [title, setTitle] = useState("");
-  const [mrp, setMrp] = useState(0);
-  const [offer, setOffer] = useState(0);
-  const [category, setCategory] = useState("");
-  const [subCategory, setSubCategory] = useState("");
-  const [stock, setStock] = useState(1);
+const UpdateProductForm = () => {
+  //   setBrand(product.brand);
+  //   setTitle(product.title);
+  //   setMrp(product.mrp);
+  //   setOffer(product.offer);
+  //   setCategory(product.category);
+  //   setSubCategory(product.subCategory);
+  //   setStock(product.stock);
+  //   setColors(product.colors);
+  const { product, error } = useSelector((state) => state.singleProduct);
+  //   const [colors, setColors] = useState([{ color: "", images: [], sizes: [] }]);
+  const [colors, setColors] = useState(product.colors);
+  const [brand, setBrand] = useState(product.brand);
+  const [title, setTitle] = useState(product.title);
+  const [mrp, setMrp] = useState(product.mrp);
+  const [offer, setOffer] = useState(product.offer);
+  const [category, setCategory] = useState(product.category);
+  const [subCategory, setSubCategory] = useState(product.subCategory);
+  const [stock, setStock] = useState(product.stock);
+
+  const { id } = useParams();
+  //   console.log(id);
 
   const navigate = useNavigate();
   const toast = useToast();
   const dispatch = useDispatch();
-  const { isLoading, error, success, message } = useSelector(
-    (state) => state.newProduct
-  );
+  const {
+    isLoading,
+    error: updateError,
+    isUpdated,
+    success,
+    message,
+  } = useSelector((state) => state.product);
   //   console.log(success, message);
 
   useEffect(() => {
+    if (product && product._id !== id) {
+      dispatch(getSingleProduct(id));
+    }
+
+    // else {
+    //   setBrand(product.brand);
+    //   setTitle(product.title);
+    //   setMrp(product.mrp);
+    //   setOffer(product.offer);
+    //   setCategory(product.category);
+    //   setSubCategory(product.subCategory);
+    //   setStock(product.stock);
+    //   setColors(product.colors);
+    // }
     if (error) {
       alert(error);
     }
-    if (success) {
-      console.log(success);
+    if (updateError) {
+      alert(updateError);
+    }
+    if (isUpdated) {
+      //   console.log(success);
       alert(message);
 
-      dispatch({ type: NEW_PRODUCT_RESET });
+      dispatch({ type: UPDATE_PRODUCT_RESET });
     }
-  }, [dispatch, error, success]);
+  }, [dispatch, error, message, isUpdated, id, product, updateError]);
   const handleColorChange = (index, key, value) => {
     const newColors = [...colors];
     newColors[index][key] = value;
@@ -74,9 +108,8 @@ const AddProductForm = () => {
       subCategory,
       stock,
     };
-    dispatch(createProduct(productData));
-    console.log(productData);
-    // TODO: Send data to backend or perform other actions
+    dispatch(updateProduct(id, productData));
+    navigate("/admin/products");
   };
 
   const addColor = () => {
@@ -283,7 +316,7 @@ const AddProductForm = () => {
           }}
           isLoading={isLoading}
         >
-          Add Product
+          Update Product
         </Button>
         <Button
           type="submit"
@@ -303,4 +336,4 @@ const AddProductForm = () => {
   );
 };
 
-export default AddProductForm;
+export default UpdateProductForm;

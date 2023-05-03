@@ -39,33 +39,33 @@ const AllProducts = () => {
       <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">
         All Products
       </Heading>
-      <Flex justify={"center"} gap="20px" position="relative">
-        <SideBarComp />
+      {/* <Flex justify={"center"} gap="20px" position="relative"> */}
+      {/* <SideBarComp /> */}
 
-        <table className="table">
-          <thead>
-            <tr>
-              <th>PorductID</th>
-              <th>Title</th>
-              <th>Stock</th>
-              <th>Mrp</th>
-              <th>Update</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products &&
-              products?.map((item) => (
-                <ProductItem
-                  key={item._id}
-                  item={item}
-                  loading={loading}
-                  handleDeleteProduct={handleDeleteProduct}
-                />
-              ))}
-          </tbody>
-        </table>
-      </Flex>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>PorductID</th>
+            <th>Title</th>
+            <th>Stock</th>
+            <th>Mrp</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products &&
+            products?.map((item) => (
+              <ProductItem
+                key={item._id}
+                item={item}
+                loading={loading}
+                handleDeleteProduct={handleDeleteProduct}
+              />
+            ))}
+        </tbody>
+      </table>
+      {/* </Flex> */}
     </Box>
   );
 };

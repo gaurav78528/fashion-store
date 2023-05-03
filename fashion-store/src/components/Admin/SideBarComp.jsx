@@ -38,7 +38,8 @@ const SideBarComp = () => {
   return (
     <>
       <Sidebar
-        // breakPoint="xs sm md lg" #232f3e
+        // breakPoint="sm"
+        // #232f3e
         defaultCollapsed={true}
         // collapsed={!isExpanded}
         backgroundColor="#000"
