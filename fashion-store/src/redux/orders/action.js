@@ -58,3 +58,66 @@ export const myOrders = () => async (dispatch) => {
     });
   }
 };
+
+// Get All Orders (admin)
+
+
+export const getAllOrders = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.ALL_ORDERS_REQUEST });
+
+    const { data } = await axios.get(
+      "http://localhost:4500/orders/admin/allorders"
+    );
+
+    dispatch({ type: types.ALL_ORDERS_SUCCESS, payload: data.allOrders });
+    console.log(data);
+  } catch (error) {
+    dispatch({
+      type: types.ALL_ORDERS_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Update Order
+export const updateOrder = (id, order) => async (dispatch) => {
+  try {
+    dispatch({ type: types.UPDATE_ORDER_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.put(
+      `http://localhost:4500/orders/admin/order/update/${id}`,
+      order,
+      config
+    );
+
+    dispatch({ type: types.UPDATE_ORDER_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: types.UPDATE_ORDER_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Order
+export const deleteOrder = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: types.DELETE_ORDER_REQUEST });
+    const { data } = await axios.delete(
+      `http://localhost:4500/orders/admin/order/delete/${id}`
+    );
+
+    dispatch({ type: types.DELETE_ORDER_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: types.DELETE_ORDER_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+};

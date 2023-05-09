@@ -4,11 +4,10 @@ import axios from "axios";
 export const getProducts =
   (currentPage = 1, price = [0, 15000], category, rating = 0) =>
   async (dispatch) => {
-    dispatch({
-      type: types.GET_PRODUCTS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: types.GET_PRODUCTS_REQUEST,
+      });
       let URL = `http://localhost:4500/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&rating=${rating}`;
 
       if (category) {
@@ -31,11 +30,10 @@ export const getProducts =
     }
   };
 export const getSingleProduct = (id) => async (dispatch) => {
-  dispatch({
-    type: types.GET_SINGLE_PRODUCT_LOADING,
-  });
-
   try {
+    dispatch({
+      type: types.GET_SINGLE_PRODUCT_LOADING,
+    });
     let { data } = await axios.get(`http://localhost:4500/products/${id}`);
 
     dispatch({

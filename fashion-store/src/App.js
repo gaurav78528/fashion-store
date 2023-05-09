@@ -31,6 +31,8 @@ import AllProducts from "./pages/AllProducts";
 import AddProduct from "./pages/AddProduct";
 import AdminProctectedRoute from "./components/Admin/AdminProtectedRoute";
 import UpdateProduct from "./pages/UpdateProduct";
+import AllOrders from "./pages/AllOrders";
+import UpdateOrder from "./components/Admin/UpdateOrder";
 
 function App() {
   const [stripeapikey, setStripeapikey] = useState("");
@@ -132,6 +134,22 @@ function App() {
               element={
                 <ProctectedRoute>
                   <AddProduct />
+                </ProctectedRoute>
+              }
+            />
+            <Route
+              path="/admin/orders"
+              element={
+                <ProctectedRoute>
+                  <AllOrders />
+                </ProctectedRoute>
+              }
+            />
+            <Route
+              path="/admin/orders/update/:id"
+              element={
+                <ProctectedRoute>
+                  <UpdateOrder />
                 </ProctectedRoute>
               }
             />

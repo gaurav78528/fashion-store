@@ -22,7 +22,7 @@ import { updatePasswordReducer } from "./profile/reducer";
 import { forgetPasswordReducer } from "./forgetPassword/reducer";
 import { cartReducer } from "./cart/reducer";
 import { paymentReducer } from "./payment/reducer";
-import { myOrdersReducer, newOrderReducer } from "./orders/reducer";
+import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderReducer } from "./orders/reducer";
 import { newReview } from "./products/action";
 // import { updatePassword } from './profile/action';
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -42,6 +42,8 @@ const rootReducer = combineReducers({
   newReview: newReviewReducer,
   newProduct: newProductReducer,
   product: productReducer,
+  allOrders:allOrdersReducer,
+  order:orderReducer
 });
 
 export const store = legacy_createStore(
