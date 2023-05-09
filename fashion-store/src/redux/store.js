@@ -22,8 +22,19 @@ import { updatePasswordReducer } from "./profile/reducer";
 import { forgetPasswordReducer } from "./forgetPassword/reducer";
 import { cartReducer } from "./cart/reducer";
 import { paymentReducer } from "./payment/reducer";
-import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderReducer } from "./orders/reducer";
+import {
+  allOrdersReducer,
+  myOrdersReducer,
+  newOrderReducer,
+  orderDetailsReducer,
+  orderReducer,
+} from "./orders/reducer";
 import { newReview } from "./products/action";
+import {
+  allUsersReducer,
+  userDetailsReducer,
+  userReducer,
+} from "./users/reducer";
 // import { updatePassword } from './profile/action';
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
@@ -42,8 +53,12 @@ const rootReducer = combineReducers({
   newReview: newReviewReducer,
   newProduct: newProductReducer,
   product: productReducer,
-  allOrders:allOrdersReducer,
-  order:orderReducer
+  allOrders: allOrdersReducer,
+  order: orderReducer,
+  orderDetails: orderDetailsReducer,
+  user: userReducer,
+  allUsers: allUsersReducer,
+  userDetails: userDetailsReducer,
 });
 
 export const store = legacy_createStore(

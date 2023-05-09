@@ -61,7 +61,6 @@ export const myOrders = () => async (dispatch) => {
 
 // Get All Orders (admin)
 
-
 export const getAllOrders = () => async (dispatch) => {
   try {
     dispatch({ type: types.ALL_ORDERS_REQUEST });
@@ -117,6 +116,25 @@ export const deleteOrder = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.DELETE_ORDER_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// order details
+export const getOrderDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: types.ORDER_DETAILS_REQUEST });
+
+    const { data } = await axios.get(
+      `http://localhost:4500/orders/order/${id}`
+    );
+    console.log({ data });
+
+    dispatch({ type: types.ORDER_DETAILS_SUCCESS, payload: data.order });
+  } catch (error) {
+    dispatch({
+      type: types.ORDER_DETAILS_ERROR,
       payload: error.response.data.message,
     });
   }

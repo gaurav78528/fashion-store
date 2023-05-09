@@ -15,15 +15,18 @@ import "../styles/dashboard.css";
 import { Link } from "react-router-dom";
 import { getAdminProducts } from "../redux/products/action";
 import DashboardCard from "../components/Admin/DashboardCard";
+import { getAllOrders } from "../redux/orders/action";
 
 const Dashboard = () => {
   const items = [1, 2, 3, 4];
   const dispatch = useDispatch();
   const { isLoading, products } = useSelector((state) => state.products);
-  console.log(products);
+  // console.log(products);
+  const { orders } = useSelector((state) => state.allOrders);
 
   useEffect(() => {
     dispatch(getAdminProducts());
+    dispatch(getAllOrders());
   }, [dispatch]);
 
   let outOfStock = 0;
@@ -66,8 +69,8 @@ const Dashboard = () => {
           gap={6}
         >
           <DashboardCard title="Products" count={products && products.length} />
-          <DashboardCard title="Products" count={10} />
-          <DashboardCard title="Products" count={12} />
+          <DashboardCard title="Orders" count={orders && orders.length} />
+          <DashboardCard title="Users" count={12} />
           <DashboardCard title="Out Of Stock" count={outOfStock} />
 
           {/* <GridItem
