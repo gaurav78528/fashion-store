@@ -8,7 +8,7 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-// console.log(store.getState());
+
 root.render(
   <ProSidebarProvider>
     <ChakraProvider>

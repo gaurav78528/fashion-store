@@ -15,13 +15,13 @@ import { AiFillHeart, AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
 import ReactStars from "react-rating-stars-component";
 import { BiGitCompare } from "react-icons/bi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import "../styles/productCard.css";
+import "../../styles/productCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, deleteCartItem } from "../redux/cart/action";
+import { addItemToCart, deleteCartItem } from "../../redux/cart/action";
 // import { toastProps } from "../constants/constants";
-import { toastProps } from "./../constants/constants";
-import { addToWishlist } from "../redux/wishlist/action";
+import { toastProps } from "../../constants/constants";
+import { addToWishlist } from "../../redux/wishlist/action";
 
 const ProductCard = ({ productData }) => {
   const {

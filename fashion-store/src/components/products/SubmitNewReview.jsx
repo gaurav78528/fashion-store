@@ -15,7 +15,7 @@ import {
 import ReactStars from "react-rating-stars-component";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { newReview } from "../redux/products/action";
+import { newReview } from "../../redux/products/action";
 
 const SubmitNewReview = ({ isOpen, onOpen, onClose, id: productID }) => {
   const [rating, setRating] = useState(0);

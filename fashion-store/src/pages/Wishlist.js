@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { Box, Flex } from "@chakra-ui/react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
-import WishlistCard from "../components/WishlistCard";
+import WishlistCard from "../components/products/WishlistCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getWishlistItems } from "../redux/wishlist/action";
 const Wishlist = () => {

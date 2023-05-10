@@ -1,14 +1,14 @@
 import { Box, HStack, Flex, VStack, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
-import FilterPanel from "../components/FilterPanel";
+import FilterPanel from "../components/products/FilterPanel";
 import Meta from "../components/Meta";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/products/ProductCard";
 import { getProducts } from "../redux/products/action";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/ourStore.css";
 import Loader from "../components/Loader";
-import SortingPanel from "../components/SortingPanel";
+import SortingPanel from "../components/products/SortingPanel";
 import Pagination from "react-js-pagination";
 
 const OurStore = () => {

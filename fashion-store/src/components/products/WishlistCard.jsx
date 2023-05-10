@@ -10,9 +10,9 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
-import { toastProps } from "../constants/constants";
+import { toastProps } from "../../constants/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromWishlist } from "../redux/wishlist/action";
+import { removeFromWishlist } from "../../redux/wishlist/action";
 
 const WishlistCard = ({ item }) => {
   const toast = useToast();

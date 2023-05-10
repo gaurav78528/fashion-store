@@ -174,3 +174,45 @@ export const deleteProduct = (id) => async (dispatch) => {
     });
   }
 };
+
+// Get All Reviews of a Product
+export const getAllReviews = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: types.ALL_REVIEW_REQUEST });
+
+    const { data } = await axios.get(
+      `http://localhost:4500/products/admin/reviews?id=${id}`
+    );
+
+    dispatch({
+      type: types.ALL_REVIEW_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: types.ALL_REVIEW_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Review of a Product
+export const deleteReviews = (reviewId, productId) => async (dispatch) => {
+  try {
+    dispatch({ type: types.DELETE_REVIEW_REQUEST });
+
+    const { data } = await axios.delete(
+      `http://localhost:4500/products/admin/reviews/delete?id=${reviewId}&productId=${productId}`
+    );
+
+    dispatch({
+      type: types.DELETE_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: types.DELETE_REVIEW_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+};

@@ -9,10 +9,10 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import CartItem from "../components/CartItem";
-import OrderSummary from "../components/OrderSummary";
+import CartItem from "../components/cart/CartItem";
+import OrderSummary from "../components/order/OrderSummary";
 import { useSelector } from "react-redux";
-import EmptyCart from "../components/EmptyCart";
+import EmptyCart from "../components/cart/EmptyCart";
 
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);

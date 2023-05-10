@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
+import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OurStore from "./pages/OurStore";
 import NotFound from "./pages/NotFound";
-import CompareProducts from "./pages/CompareProducts";
 import Wishlist from "./pages/Wishlist";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
@@ -26,7 +25,7 @@ import UpdatePassword from "./pages/UpdatePassword";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import PaymentSuccess from "./components/PaymentSuccess";
+import PaymentSuccess from "./components/Checkout/PaymentSuccess";
 import AllProducts from "./pages/AllProducts";
 import AddProduct from "./pages/AddProduct";
 import AdminProctectedRoute from "./components/Admin/AdminProtectedRoute";
@@ -35,6 +34,7 @@ import AllOrders from "./pages/AllOrders";
 import UpdateOrder from "./components/Admin/UpdateOrder";
 import AllUsers from "./pages/AllUsers";
 import UpdateUser from "./components/Admin/UpdateUser";
+import ProductReviews from "./pages/ProductReviews";
 
 function App() {
   const [stripeapikey, setStripeapikey] = useState("");
@@ -168,6 +168,14 @@ function App() {
               element={
                 <ProctectedRoute>
                   <UpdateUser />
+                </ProctectedRoute>
+              }
+            />
+            <Route
+              path="/admin/reviews"
+              element={
+                <ProctectedRoute>
+                  <ProductReviews />
                 </ProctectedRoute>
               }
             />

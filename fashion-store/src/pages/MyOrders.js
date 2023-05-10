@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { myOrders } from "../redux/orders/action";
 import "../styles/order.css";
-import OrderItem from "../components/OrderItem";
+import OrderItem from "../components/order/OrderItem";
 
 const MyOrders = () => {
   const { isLoading, orders } = useSelector((state) => state.myOrders);

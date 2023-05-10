@@ -26,10 +26,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toastProps } from "../constants/constants";
 import { addToWishlist } from "../redux/wishlist/action";
 import { getSingleProduct } from "../redux/products/action";
-import ReviewCard from "../components/ReviewCard";
+import ReviewCard from "../components/products/ReviewCard";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { addItemToCart } from "../redux/cart/action";
-import SubmitNewReview from "../components/SubmitNewReview";
+import SubmitNewReview from "../components/products/SubmitNewReview";
 import { NEW_REVIEW_RESET } from "../redux/products/actionTypes";
 
 const SingleProduct = () => {

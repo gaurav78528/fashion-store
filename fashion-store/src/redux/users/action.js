@@ -10,7 +10,7 @@ export const getAllUsers = () => async (dispatch) => {
     const { data } = await axios.get(
       `http://localhost:4500/users/admin/allusers`
     );
-
+    console.log("users", data);
     dispatch({ type: types.ALL_USERS_SUCCESS, payload: data.users });
   } catch (error) {
     dispatch({
@@ -45,7 +45,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.put(
-      `http://localhost:4500/users/admin/user/${id}`,
+      `http://localhost:4500/users/admin/user/update/${id}`,
       userData,
       config
     );
@@ -64,7 +64,9 @@ export const deleteUser = (id) => async (dispatch) => {
   try {
     dispatch({ type: types.DELETE_USER_REQUEST });
 
-    const { data } = await axios.delete(`http://localhost:4500/users/admin/user/delete/${id}`);
+    const { data } = await axios.delete(
+      `http://localhost:4500/users/admin/user/delete/${id}`
+    );
 
     dispatch({ type: types.DELETE_USER_SUCCESS, payload: data });
   } catch (error) {

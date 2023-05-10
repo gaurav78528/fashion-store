@@ -1,9 +1,9 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFeaturedProducts } from "../redux/featuredCollections/action";
+import { getFeaturedProducts } from "../../redux/featuredCollections/action";
 import ProductCard from "./ProductCard";
-import Loader from "./Loader";
+import Loader from "../Loader";
 
 const FeaturedCollection = () => {
   const { featuredProducts, isLoading } = useSelector(

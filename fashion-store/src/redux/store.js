@@ -11,7 +11,9 @@ import {
   newProductReducer,
   newReviewReducer,
   productReducer,
+  productReviewsReducer,
   productsReducer,
+  reviewReducer,
   singleProductReducer,
 } from "./products/reducer";
 import { popularProductsReducer } from "./popularProducts/reducer";
@@ -59,6 +61,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   allUsers: allUsersReducer,
   userDetails: userDetailsReducer,
+  productReviews: productReviewsReducer,
+  review: reviewReducer,
 });
 
 export const store = legacy_createStore(

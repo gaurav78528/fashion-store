@@ -16,7 +16,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import CartItem from "../CartItem";
+import CartItem from "../cart/CartItem";
 
 const ReviewOrder = ({ step, setStep, progress, setProgress }) => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
@@ -44,7 +44,6 @@ const ReviewOrder = ({ step, setStep, progress, setProgress }) => {
       shippingCharges,
       tax,
       totalPrice,
-      
     };
     sessionStorage.setItem("orderInfo", JSON.stringify(paymentDetails));
   };

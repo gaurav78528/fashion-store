@@ -9,8 +9,6 @@ const ShopByBrand = () => {
     <Box boxShadow="rgba(99, 99, 99, 0.2) 0px 2px 8px 0px">
       <Box>
         <Image
-          // w="50%"
-          // h="50
           src="https://m.media-amazon.com/images/G/31/img22/Beauty/XCM/Beauty/Haircare/SBC-Hair_01._CB633798670_.jpg"
           alt="img"
           borderTopRadius="10px"

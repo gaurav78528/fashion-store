@@ -5,23 +5,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getAdminProducts } from "../redux/products/action";
 import ProductItem from "../components/Admin/ProductItem";
 import { DELETE_PRODUCT_RESET } from "../redux/products/actionTypes";
+import User from "../components/Admin/User";
+import { deleteUser, getAllUsers } from "../redux/users/action";
+import { DELETE_USER_RESET } from "../redux/users/actionTypes";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
   const { isLoading, users, error } = useSelector((state) => state.allUsers);
-  //   console.log(products);
+  console.log(users);
 
   // useEffect(() => {}, [dispatch]);
 
   const {
-    error: err,
+    error: deleteError,
     isLoading: loading,
     isDeleted,
     message,
-  } = useSelector((state) => state.product);
+  } = useSelector((state) => state.user);
 
-  const handleDeleteProduct = (id) => {
-    // dispatch(deleteProduct(id));
+  const handleDeleteUser = (id) => {
+    dispatch(deleteUser(id));
   };
 
   useEffect(() => {
@@ -31,8 +34,12 @@ const AllUsers = () => {
     if (isDeleted) {
       alert(message);
     }
-    dispatch({ type: DELETE_PRODUCT_RESET });
-    dispatch(getAdminProducts());
+    if (deleteError) {
+      alert("Something Went Wrong.");
+      dispatch({ type: DELETE_USER_RESET });
+    }
+
+    dispatch(getAllUsers());
   }, [error, dispatch, isDeleted]);
   return (
     <Box>
@@ -56,11 +63,11 @@ const AllUsers = () => {
         <tbody>
           {users &&
             users?.map((item) => (
-              <ProductItem
+              <User
                 key={item._id}
                 item={item}
                 loading={loading}
-                handleDeleteProduct={handleDeleteProduct}
+                handleDeleteUser={handleDeleteUser}
               />
             ))}
         </tbody>

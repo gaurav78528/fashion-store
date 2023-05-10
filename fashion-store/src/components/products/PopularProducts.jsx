@@ -1,9 +1,9 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPopularProducts } from "../redux/popularProducts/action";
+import { getPopularProducts } from "../../redux/popularProducts/action";
 import ProductCard from "./ProductCard";
-import Loader from "./Loader";
+import Loader from "../Loader";
 
 const PopularProducts = () => {
   const { popularProducts, isLoading } = useSelector(

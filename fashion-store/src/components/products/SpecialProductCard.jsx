@@ -12,9 +12,9 @@ import React, { useRef } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../redux/cart/action";
-import { toastProps } from "./../constants/constants";
-import "../styles/specialProductCard.css";
+import { addItemToCart } from "../../redux/cart/action";
+import { toastProps } from "../../constants/constants";
+import "../../styles/specialProductCard.css";
 
 const SpecialProductCard = ({ item }) => {
   const { _id: id, brand, title, offer, mrp, stock, rating, colors } = item;

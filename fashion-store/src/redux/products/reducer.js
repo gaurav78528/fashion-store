@@ -159,6 +159,58 @@ export const productReducer = (state = {}, action) => {
         ...state,
         isUpdated: false,
       };
+    default:
+      return state;
+  }
+};
+
+export const productReviewsReducer = (state = { reviews: [] }, action) => {
+  switch (action.type) {
+    case types.ALL_REVIEW_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case types.ALL_REVIEW_SUCCESS:
+      return {
+        isLoading: false,
+        reviews: action.payload,
+      };
+    case types.ALL_REVIEW_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const reviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.DELETE_REVIEW_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case types.DELETE_REVIEW_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isDeleted: action.payload,
+      };
+    case types.DELETE_REVIEW_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case types.DELETE_REVIEW_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
 
     default:
       return state;
