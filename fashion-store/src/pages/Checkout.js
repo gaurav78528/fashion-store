@@ -1,23 +1,5 @@
 import React, { useState } from "react";
-import {
-  Progress,
-  Box,
-  ButtonGroup,
-  Button,
-  Heading,
-  Flex,
-  FormControl,
-  GridItem,
-  FormLabel,
-  Input,
-  Select,
-  SimpleGrid,
-  InputLeftAddon,
-  InputGroup,
-  Textarea,
-  FormHelperText,
-  InputRightElement,
-} from "@chakra-ui/react";
+import { Progress, Box, ButtonGroup, Button, Flex } from "@chakra-ui/react";
 
 import { useToast } from "@chakra-ui/react";
 import ShippingAddress from "../components/Checkout/ShippingAddress";
@@ -26,8 +8,6 @@ import PaymentMethod from "../components/Checkout/PaymentMethod";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingInfo } from "../redux/cart/action";
 import { toastProps } from "../constants/constants";
-import { useNavigate } from "react-router-dom";
-import Payment from "../components/Checkout/Payment";
 
 const Checkout = () => {
   const toast = useToast();
@@ -47,10 +27,7 @@ const Checkout = () => {
 
   const handleReviewOrder = () => {
     if (step === 1) {
-      // console.log("step 1 triggered");
       if (userInput.phone.length < 10 || userInput.phone.length > 10) {
-        // alert("Phone Number must be of 10 numbers.");
-
         return toast({
           ...toastProps,
           title: "Validation Failed",
@@ -58,7 +35,6 @@ const Checkout = () => {
           status: "error",
         });
       } else if (userInput.pincode.length < 6 || userInput.pincode.length > 6) {
-        // alert("Pincode must be of 6 Digits.");
         return toast({
           ...toastProps,
           title: "Validation Failed",
@@ -72,17 +48,6 @@ const Checkout = () => {
       }
     }
   };
-  //   }
-  //   else if (step === 2) {
-  //     console.log("step 2 triggered");
-  //     setStep(step + 1);
-  //     setProgress(progress + 33.33);
-  //   } else if (step === 3) {
-  //     console.log("step 3 triggered");
-
-  //     setProgress(100);
-  //   }
-  // };
 
   return (
     <>
@@ -141,8 +106,6 @@ const Checkout = () => {
                 Back
               </Button>
               <Button
-                // w="7rem"
-                // isDisabled={step === 3}
                 onClick={handleReviewOrder}
                 variant="outline"
                 size="lg"

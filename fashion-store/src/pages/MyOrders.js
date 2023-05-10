@@ -3,32 +3,39 @@ import { useDispatch, useSelector } from "react-redux";
 import { myOrders } from "../redux/orders/action";
 import "../styles/order.css";
 import OrderItem from "../components/order/OrderItem";
+import EmptyOrder from "../components/order/EmptyOrder";
 
 const MyOrders = () => {
   const { isLoading, orders } = useSelector((state) => state.myOrders);
-  console.log(orders);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(myOrders());
   }, []);
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Status</th>
-          <th>Buyer</th>
-          <th>Date</th>
-          <th>Payment</th>
-          <th>Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-        {orders &&
-          orders?.map((item) => <OrderItem key={item._id} item={item} />)}
-      </tbody>
-    </table>
+    <>
+      {orders && orders.length >= 1 ? (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Status</th>
+              <th>Buyer</th>
+              <th>Date</th>
+              <th>Payment</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders?.map((item) => (
+              <OrderItem key={item._id} item={item} />
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <EmptyOrder />
+      )}
+    </>
   );
 };
 

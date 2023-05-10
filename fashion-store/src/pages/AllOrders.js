@@ -8,9 +8,6 @@ import { DELETE_ORDER_RESET } from "../redux/orders/actionTypes";
 const AllOrders = () => {
   const dispatch = useDispatch();
   const { isLoading, orders } = useSelector((state) => state.allOrders);
-  // console.log(orders);
-
-  // useEffect(() => {}, [dispatch]);
 
   const {
     error,
@@ -29,7 +26,6 @@ const AllOrders = () => {
     // }
     if (isDeleted) {
       alert("Order Deleted Successfully.");
-      // console.log(message);
     }
     dispatch({ type: DELETE_ORDER_RESET });
     dispatch(getAllOrders());
@@ -39,8 +35,6 @@ const AllOrders = () => {
       <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">
         All Orders
       </Heading>
-      {/* <Flex justify={"center"} gap="20px" position="relative"> */}
-      {/* <SideBarComp /> */}
 
       <table className="table">
         <thead>
@@ -66,7 +60,6 @@ const AllOrders = () => {
             : "loading....."}
         </tbody>
       </table>
-      {/* </Flex> */}
     </Box>
   );
 };

@@ -18,7 +18,7 @@ const OrderSummary = ({ cartItems }) => {
         <Flex align={"center"} justify={"space-between"} mt="5px">
           <Text fontWeight={500}>Total Amt.:</Text>
           <Text fontWeight={500}>
-            $
+            ₹{" "}
             {cartItems.reduce(
               (acc, item) => acc + item?.quantity * item?.price,
               0

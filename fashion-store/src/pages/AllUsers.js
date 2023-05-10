@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
-import SideBarComp from "../components/Admin/SideBarComp";
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getAdminProducts } from "../redux/products/action";
-import ProductItem from "../components/Admin/ProductItem";
-import { DELETE_PRODUCT_RESET } from "../redux/products/actionTypes";
 import User from "../components/Admin/User";
 import { deleteUser, getAllUsers } from "../redux/users/action";
 import { DELETE_USER_RESET } from "../redux/users/actionTypes";
@@ -13,8 +9,6 @@ const AllUsers = () => {
   const dispatch = useDispatch();
   const { isLoading, users, error } = useSelector((state) => state.allUsers);
   console.log(users);
-
-  // useEffect(() => {}, [dispatch]);
 
   const {
     error: deleteError,
@@ -46,8 +40,6 @@ const AllUsers = () => {
       <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">
         All Users
       </Heading>
-      {/* <Flex justify={"center"} gap="20px" position="relative"> */}
-      {/* <SideBarComp /> */}
 
       <table className="table">
         <thead>
@@ -72,7 +64,6 @@ const AllUsers = () => {
             ))}
         </tbody>
       </table>
-      {/* </Flex> */}
     </Box>
   );
 };

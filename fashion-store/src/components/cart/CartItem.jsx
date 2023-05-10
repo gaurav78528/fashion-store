@@ -9,6 +9,8 @@ const CartItem = ({ cartItem }) => {
 
   const dispatch = useDispatch();
 
+  // console.log({ quantity, stock });
+
   const handleQtyIncrement = (id, quantity, img, stock) => {
     let newQty = quantity + 1;
     console.log(quantity);
@@ -35,7 +37,6 @@ const CartItem = ({ cartItem }) => {
       }}
       borderRadius={"5px"}
       boxShadow="rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px"
-      // border={"1px solid blue"}
       gap="10px"
       p={"10px"}
       direction={{ base: "column", sm: "row", md: "row", lg: "row" }}
@@ -47,18 +48,11 @@ const CartItem = ({ cartItem }) => {
         justify={"center"}
         flexDirection={{ base: "column", sm: "row", md: "row", lg: "column" }}
         gap={{ base: "15px", sm: "15px", md: "15px", lg: "30px" }}
-        // w="auto"
         p="10px"
         w="100%"
-        border={"1px solid green"}
       >
         <Text fontWeight={600}>{title}</Text>
-        <Flex
-          border="1px solid red"
-          justify={"space-around"}
-          align={"center"}
-          w={"100%"}
-        >
+        <Flex justify={"space-around"} align={"center"} w={"100%"}>
           <HStack border={"1px solid gray"} borderRadius="5px">
             <Button
               size="sm"
@@ -72,13 +66,13 @@ const CartItem = ({ cartItem }) => {
             <Button
               size="sm"
               variant={"ghost"}
-              isDisabled={quantity >= product.stock}
+              isDisabled={quantity >= stock}
               onClick={() => handleQtyIncrement(product, quantity, img, stock)}
             >
               <AiOutlinePlus fontWeight={800} />
             </Button>
           </HStack>
-          <Text>{price * quantity}</Text>
+          <Text>₹ {price * quantity}</Text>
           <Button
             size="sm"
             variant={"link"}

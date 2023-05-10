@@ -13,7 +13,6 @@ import {
   useToast,
   VStack,
   HStack,
-  // background,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
@@ -36,7 +35,7 @@ const SingleProduct = () => {
   const [currentFocus, setCurrentFocus] = useState(0);
   const [currentProduct, setCurrentProduct] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedColor, setSelectedColor] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const imageRef = useRef();
   const btnRef = useRef();
@@ -51,7 +50,6 @@ const SingleProduct = () => {
     (store) => store.singleProduct
   );
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  // console.log({ product });
 
   const {
     colors,
@@ -65,7 +63,6 @@ const SingleProduct = () => {
     reviews,
   } = product;
 
-  // console.log({ stock });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { success } = useSelector((state) => state.newReview);
   useEffect(() => {
@@ -77,13 +74,10 @@ const SingleProduct = () => {
     // }, [id, dispatch]);
   }, [id, dispatch, success]);
 
-  // console.log(success);
-
-  // const
-
   const handleAddToCart = () => {
-    // dispatch(addItemToCart(item));
-    dispatch(addItemToCart(id, quantity, "img"));
+    dispatch(
+      addItemToCart(id, quantity, colors?.[currentProduct]?.images?.[0])
+    );
     toast({
       ...toastProps,
       title: "Success",
@@ -101,7 +95,6 @@ const SingleProduct = () => {
       mrp,
       offer,
     };
-    // console.log(payload);
 
     dispatch(addToWishlist(payload, toast));
   };
@@ -123,12 +116,12 @@ const SingleProduct = () => {
   };
 
   const sizeRef = useRef();
-  // console.log(sizeRef);
+
   const handleSize = (size) => {
     setSelectedSize(size);
     sizeRef.current.style.backgroundColor = "red";
   };
-  const handleSubmitReview = () => {};
+  // const handleSubmitReview = () => {};
 
   const handleQtyDecrement = () => {
     setQuantity(quantity - 1);
@@ -138,11 +131,11 @@ const SingleProduct = () => {
   };
 
   return (
-    <Container maxW={"7xl"} border="2px solid red">
+    <Container maxW={"7xl"}>
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 18, md: 24 }}
+        py={{ base: 18, md: 20 }}
       >
         {isLoading ? (
           <>
@@ -157,7 +150,6 @@ const SingleProduct = () => {
                 ref={imageRef}
                 alt={title}
                 src={colors?.[currentProduct]?.images?.[0]}
-                // fit="contain"
                 objectFit="fill"
                 align={"center"}
                 w={"100%"}

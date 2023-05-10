@@ -174,10 +174,6 @@ const ProductCard = ({ productData }) => {
         align="center"
         justify="center"
       >
-        <Button variant="link">
-          <BiGitCompare fontSize="20px" />
-        </Button>
-
         <Button variant="link" onClick={() => navigate(`/store/${id}`)}>
           <AiOutlineEye fontSize="20px" />
         </Button>
