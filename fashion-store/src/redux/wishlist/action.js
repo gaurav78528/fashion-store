@@ -1,38 +1,23 @@
 import axios from "axios";
-import {
-  ADD_TO_WISHLIST_LOADING,
-  GET_WISHLIST_ERROR,
-  GET_WISHLIST_LOADING,
-  GET_WISHLIST_SUCCESS,
-  REMOVE_FROM_WISHLIST_ERROR,
-  REMOVE_FROM_WISHLIST_LOADING,
-  REMOVE_FROM_WISHLIST_SUCCESS,
-} from "./actionTypes";
+import * as types from "./actionTypes";
 import { toastProps } from "../../constants/constants";
 
 export const getWishlistItems = () => async (dispatch) => {
-  dispatch({
-    type: GET_WISHLIST_LOADING,
-  });
-
   try {
-    let res = await axios.get("http://localhost:4500/wishlist/");
+    dispatch({ type: types.GET_WISHLIST_REQUEST });
+    let { data } = await axios.get("http://localhost:4500/wishlist");
     // let data = await res.json();
-    dispatch({
-      type: GET_WISHLIST_SUCCESS,
-      payload: res.data,
-    });
+    dispatch({ type: types.GET_WISHLIST_REQUEST, payload: data });
   } catch (error) {
     console.log(error);
     dispatch({
-      type: GET_WISHLIST_ERROR,
+      type: types.GET_WISHLIST_REQUEST,
+      payload: "Something Wetn Wrong.",
     });
   }
 };
 export const addToWishlist = (payload, toast) => async (dispatch) => {
-  dispatch({
-    type: ADD_TO_WISHLIST_LOADING,
-  });
+  dispatch({ type: types.ADD_TO_WISHLIST_REQUEST });
   try {
     const res = await axios.post(`http://localhost:4500/wishlist/add`, payload);
 
@@ -54,16 +39,14 @@ export const addToWishlist = (payload, toast) => async (dispatch) => {
 };
 
 export const removeFromWishlist = (id, toast) => async (dispatch) => {
-  dispatch({
-    type: REMOVE_FROM_WISHLIST_LOADING,
-  });
+  dispatch({ type: types.REMOVE_FROM_WISHLIST_REQUEST });
   try {
     // console.log(id);
     const res = await axios.delete(
       `http://localhost:4500/wishlist/delete/${id}`
     );
     dispatch({
-      type: REMOVE_FROM_WISHLIST_SUCCESS,
+      type: types.REMOVE_FROM_WISHLIST_SUCCESS,
     });
 
     console.log(res);
@@ -76,7 +59,7 @@ export const removeFromWishlist = (id, toast) => async (dispatch) => {
   } catch (error) {
     console.log(error);
     dispatch({
-      type: REMOVE_FROM_WISHLIST_ERROR,
+      type: types.REMOVE_FROM_WISHLIST_ERROR,
     });
     toast({
       ...toastProps,

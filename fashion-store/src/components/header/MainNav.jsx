@@ -42,18 +42,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/auth/action";
 // import TopNav from "./header/TopNav";
 // import MainNav from "./header/MainNav";
-
+import { toast } from "react-toastify";
 const MainNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const { cartItems } = useSelector((state) => state.cart);
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user, message, error, success } = useSelector(
+    (state) => state.auth
+  );
   const [query, setQuery] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-
   // const location = queryParams.get("location");
-  const toast = useToast();
 
   const navigate = useNavigate();
 
@@ -61,7 +61,7 @@ const MainNav = () => {
 
   // console.log("header", user);
   const handleLogout = () => {
-    dispatch(logoutUser(toast));
+    dispatch(logoutUser());
   };
 
   const handleSearch = () => {
@@ -73,6 +73,15 @@ const MainNav = () => {
       // navigate("/store");
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+    if (success) {
+      toast.success(message);
+    }
+  }, [error, success, message]);
   return (
     <Flex
       px={{ base: "10px", sm: "10px", md: "50px", lg: "100px" }}

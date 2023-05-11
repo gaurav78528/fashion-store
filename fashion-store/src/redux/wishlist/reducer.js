@@ -8,9 +8,9 @@ const initalState = {
 export const wishlistReducer = (state = initalState, action) => {
   // const { type, payload } = action;
   switch (action.type) {
-    case types.GET_WISHLIST_LOADING:
-    case types.ADD_TO_WISHLIST_LOADING:
-    case types.REMOVE_FROM_WISHLIST_LOADING:
+    case types.GET_WISHLIST_REQUEST:
+    case types.ADD_TO_WISHLIST_REQUEST:
+    case types.REMOVE_FROM_WISHLIST_REQUEST:
       return {
         ...state,
         isLoading: true,

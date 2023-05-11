@@ -15,47 +15,47 @@ import {
   Text,
   Link,
   useColorModeValue,
-  useToast,
-  Spinner,
 } from "@chakra-ui/react";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [userInput, setUserInput] = useState({
-    // firstName: "",
     email: "",
     password: "",
   });
-  const toast = useToast();
-  const navigate = useNavigate();
-  const { isLoading, isAuthenticated } = useSelector((store) => store.auth);
+  const { email, password } = userInput;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // console.log({ isAuthenticated });
+  const { isLoading, isAuthenticated, message, error } = useSelector(
+    (store) => store.auth
+  );
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserInput({ ...userInput, [name]: value });
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const { firstName, email, password } = userInput;
-
-    if (!email || !password) {
-      alert("Please fill all deatils");
-    } else if (!email.includes("@")) {
-      alert("please enter valid email");
+  const handleLogin = () => {
+    // e.preventDefault();
+    if (!email.includes("@")) {
+      toast.error("Please enter valid email");
     } else if (password.length < 8) {
-      alert("Password must be of length 8.");
+      toast.error("Password must be of length 8.");
     } else {
-      dispatch(loginUser(userInput, toast));
+      dispatch(loginUser(userInput));
     }
   };
 
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/");
+      toast.success(message);
     }
-  }, [isAuthenticated, navigate]);
+    if (error) {
+      toast.error(error);
+    }
+  }, [isAuthenticated, error, message]);
   return (
     <Flex
       minH={"100vh"}
@@ -73,6 +73,7 @@ const LoginForm = () => {
           boxShadow={"lg"}
           p={8}
         >
+          {/* <button onClick={() => toast("Wow so easy!")}>click</button>/ */}
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
@@ -111,6 +112,7 @@ const LoginForm = () => {
                   bg: "#e3ae52",
                   color: "#000",
                 }}
+                isDisabled={!email || !password}
                 onClick={handleLogin}
                 isLoading={isLoading}
               >

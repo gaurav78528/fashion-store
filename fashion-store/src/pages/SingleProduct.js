@@ -30,7 +30,7 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { addItemToCart } from "../redux/cart/action";
 import SubmitNewReview from "../components/products/SubmitNewReview";
 import { NEW_REVIEW_RESET } from "../redux/products/actionTypes";
-
+import { toast } from "react-toastify";
 const SingleProduct = () => {
   const [currentFocus, setCurrentFocus] = useState(0);
   const [currentProduct, setCurrentProduct] = useState(0);
@@ -40,7 +40,7 @@ const SingleProduct = () => {
   const imageRef = useRef();
   const btnRef = useRef();
   const cartBtnRef = useRef();
-  const toast = useToast();
+  // const toast = useToast();
 
   const { id } = useParams();
 
@@ -78,12 +78,13 @@ const SingleProduct = () => {
     dispatch(
       addItemToCart(id, quantity, colors?.[currentProduct]?.images?.[0])
     );
-    toast({
-      ...toastProps,
-      title: "Success",
-      description: "Item Added To Cart",
-      status: "success",
-    });
+    toast.success("Item Added To Cart");
+    // toast({
+    //   ...toastProps,
+    //   title: "Success",
+    //   description: "Item Added To Cart",
+    //   status: "success",
+    // });
     cartBtnRef.current.disabled = true;
   };
 

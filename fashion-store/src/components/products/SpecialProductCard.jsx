@@ -15,24 +15,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../redux/cart/action";
 import { toastProps } from "../../constants/constants";
 import "../../styles/specialProductCard.css";
+import { toast } from "react-toastify";
 
 const SpecialProductCard = ({ item }) => {
   const { _id: id, brand, title, offer, mrp, stock, rating, colors } = item;
 
   // console.log(productData);
-  const toast = useToast();
+  // const toast = useToast();
   const btnRef = useRef();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleAddToCart = () => {
     dispatch(addItemToCart(id, 1, colors?.[0]?.images?.[0]));
-    toast({
-      ...toastProps,
-      title: "Success",
-      description: "Item Added To Cart",
-      status: "success",
-    });
+    toast.success("Item Added To Cart");
+    // toast({
+    //   ...toastProps,
+    //   title: "Success",
+    //   description: "Item Added To Cart",
+    //   status: "success",
+    // });
     btnRef.current.disabled = true;
   };
   return (

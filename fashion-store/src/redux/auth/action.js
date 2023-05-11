@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true;
 
 // REGISTER ACTION
 
-export const registerUser = (userData, toast) => async (dispatch) => {
+export const registerUser = (userData) => async (dispatch) => {
   try {
     dispatch({ type: types.REGISTER_REQUEST });
     const config = {
@@ -20,37 +20,38 @@ export const registerUser = (userData, toast) => async (dispatch) => {
       userData,
       config
     );
+    console.log(data);
 
     dispatch({
       type: types.REGISTER_SUCCESS,
-      payload: data.user,
+      payload: data,
     });
-    toast({
-      ...toastProps,
-      title: "Success",
-      description: data.message,
-      status: "success",
-    });
+    // toast({
+    //   ...toastProps,
+    //   title: "Success",
+    //   description: data.message,
+    //   status: "success",
+    // });
 
     // navigate("/login");
   } catch (error) {
     console.log(error);
     dispatch({
       type: types.REGISTER_ERROR,
-      payload: error.response.data.message,
+      payload: error.response.data.message || "Something went wrong!",
     });
-    toast({
-      ...toastProps,
-      title: "Error",
-      description: error.response.data.message || "Something went wrong!",
-      status: "error",
-    });
+    // toast({
+    //   ...toastProps,
+    //   title: "Error",
+    //   description: error.response.data.message || "Something went wrong!",
+    //   status: "error",
+    // });
   }
 };
 
 // LOGIN ACTION
 
-export const loginUser = (userData, toast) => async (dispatch) => {
+export const loginUser = (userData) => async (dispatch) => {
   try {
     dispatch({ type: types.LOGIN_REQUEST });
 
@@ -64,31 +65,23 @@ export const loginUser = (userData, toast) => async (dispatch) => {
       userData,
       config
     );
-
+    // console.log(data);
     dispatch({
       type: types.LOGIN_SUCCESS,
-      payload: data.user,
+      payload: data,
     });
-
-    toast({
-      ...toastProps,
-      title: "Success",
-      description: data.message,
-      status: "success",
-    });
-    // navigate("/");
   } catch (error) {
     console.log(error);
     dispatch({
       type: types.LOGIN_ERROR,
       payload: error.response.data.message,
     });
-    toast({
-      ...toastProps,
-      title: "Error",
-      description: error.response.data.message || "Something went wrong!",
-      status: "error",
-    });
+    // toast({
+    //   ...toastProps,
+    //   title: "Error",
+    //   description: error.response.data.message || "Something went wrong!",
+    //   status: "error",
+    // });
   }
 };
 
@@ -103,30 +96,31 @@ export const logoutUser = (toast) => async (dispatch) => {
       //   credentials: "include",
       // }
     );
-    console.log(data);
+    // console.log(data);
     dispatch({
       type: types.LOGOUT_SUCCESS,
+      payload: data,
     });
 
-    toast({
-      ...toastProps,
-      title: "Success",
-      description: data.message,
-      status: "success",
-    });
+    // toast({
+    //   ...toastProps,
+    //   title: "Success",
+    //   description: data.message,
+    //   status: "success",
+    // });
     // navigate("/");
   } catch (error) {
     console.log(error);
     dispatch({
       type: types.LOGOUT_ERROR,
-      payload: error.response.data.message,
+      payload: error.response.data.message || "Something went wrong!",
     });
-    toast({
-      ...toastProps,
-      title: "Error",
-      description: error.response.data.message || "Something went wrong!",
-      status: "error",
-    });
+    // toast({
+    //   ...toastProps,
+    //   title: "Error",
+    //   description: error.response.data.message || "Something went wrong!",
+    //   status: "error",
+    // });
   }
 };
 

@@ -11,20 +11,28 @@ export const updatePasswordReducer = (state = { state: {} }, action) => {
       return {
         ...state,
         isLoading: false,
-        isUpdated: action.payload,
+        isUpdated: action.payload.success,
+        message: action.payload.message,
       };
 
     case types.UPDATE_PASSWORD_ERROR:
       return {
         ...state,
         isLoading: false,
-        isError: true,
+        isUpdated: false,
+        message: null,
         error: action.payload,
       };
     case types.UPDATE_PASSWORD_RESET:
       return {
         ...state,
         isUpdated: false,
+        message: null,
+      };
+    case types.CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

@@ -17,7 +17,8 @@ export const authReducer = (state = { user: {} }, action) => {
         ...state,
         isLoading: false,
         isAuthenticated: true,
-        user: action.payload,
+        user: action.payload.user,
+        message: action.payload.message,
       };
 
     case types.LOGOUT_SUCCESS:
@@ -25,7 +26,8 @@ export const authReducer = (state = { user: {} }, action) => {
         isLoading: false,
         isAuthenticated: false,
         user: null,
-        isError: false,
+        success: true,
+        message: action.payload.message,
       };
     case types.REGISTER_ERROR:
     case types.LOGIN_ERROR:
@@ -35,7 +37,7 @@ export const authReducer = (state = { user: {} }, action) => {
         isLoading: false,
         isAuthenticated: false,
         user: null,
-        isError: true,
+        error: action.payload,
       };
 
     case types.LOAD_USER_ERROR:
@@ -43,7 +45,6 @@ export const authReducer = (state = { user: {} }, action) => {
         isLoading: false,
         isAuthenticated: false,
         user: null,
-        isError: true,
         error: action.payload,
       };
     default:

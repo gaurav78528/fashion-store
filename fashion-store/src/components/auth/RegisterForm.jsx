@@ -16,9 +16,9 @@ import {
   Text,
   useColorModeValue,
   Link,
-  useToast,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,10 +28,9 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   });
-
-  const toast = useToast();
+  const { firstName, email, password, confirmPassword } = userInput;
   const navigate = useNavigate();
-  const { isLoading, isAuthenticated, isError } = useSelector(
+  const { isLoading, isAuthenticated, message, error } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
@@ -43,18 +42,15 @@ const RegisterForm = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    const { firstName, email, password, confirmPassword } = userInput;
 
-    if (!firstName || !email || !password || !confirmPassword) {
-      alert("please fill all deatils");
-    } else if (!email.includes("@")) {
+    if (!email.includes("@")) {
       alert("please enter valid email");
     } else if (password.length < 6) {
       alert("Password must be of length 6.");
     } else if (password !== confirmPassword) {
       alert("Password does not matches");
     } else {
-      dispatch(registerUser(userInput, toast));
+      dispatch(registerUser(userInput));
     }
   };
 
@@ -63,8 +59,12 @@ const RegisterForm = () => {
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/");
+      toast.success(message);
     }
-  }, [isAuthenticated]);
+    if (error) {
+      toast.error(error);
+    }
+  }, [isAuthenticated, error, message, navigate]);
   return (
     <Flex
       minH={"100vh"}
@@ -149,6 +149,9 @@ const RegisterForm = () => {
                 }}
                 onClick={handleRegister}
                 isLoading={isLoading}
+                isDisabled={
+                  !firstName || !email || !password || !confirmPassword
+                }
               >
                 Register
               </Button>

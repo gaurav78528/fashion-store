@@ -22,7 +22,7 @@ import { addItemToCart, deleteCartItem } from "../../redux/cart/action";
 // import { toastProps } from "../constants/constants";
 import { toastProps } from "../../constants/constants";
 import { addToWishlist } from "../../redux/wishlist/action";
-
+import { toast } from "react-toastify";
 const ProductCard = ({ productData }) => {
   const {
     _id: id,
@@ -42,18 +42,18 @@ const ProductCard = ({ productData }) => {
   // console.log(id);
 
   // console.log(productData);
-  const toast = useToast();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleAddToCart = () => {
     dispatch(addItemToCart(id, 1, colors?.[0]?.images?.[0]));
-    toast({
-      ...toastProps,
-      title: "Success",
-      description: "Item Added To Cart",
-      status: "success",
-    });
+    toast.success("Item Added To Cart");
+    // toast({
+    //   ...toastProps,
+    //   title: "Success",
+    //   description: "Item Added To Cart",
+    //   status: "success",
+    // });
   };
 
   const handleAddToWishlist = () => {
