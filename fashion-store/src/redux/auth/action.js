@@ -65,7 +65,7 @@ export const loginUser = (userData) => async (dispatch) => {
       userData,
       config
     );
-    // console.log(data);
+    console.log(data);
     dispatch({
       type: types.LOGIN_SUCCESS,
       payload: data,
@@ -129,10 +129,10 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOAD_USER_REQUEST });
     const { data } = await axios.get("http://localhost:4500/users/user");
-    // console.log(data);
+    // console.log({ data });
     dispatch({
       type: types.LOAD_USER_SUCCESS,
-      payload: data.user,
+      payload: data,
     });
 
     // navigate("/");

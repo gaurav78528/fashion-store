@@ -50,6 +50,7 @@ const MainNav = () => {
   const { isAuthenticated, user, message, error, success } = useSelector(
     (state) => state.auth
   );
+  console.log({ isAuthenticated, user });
   const [query, setQuery] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();

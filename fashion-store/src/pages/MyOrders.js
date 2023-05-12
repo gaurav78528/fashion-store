@@ -4,6 +4,7 @@ import { myOrders } from "../redux/orders/action";
 import "../styles/order.css";
 import OrderItem from "../components/order/OrderItem";
 import EmptyOrder from "../components/order/EmptyOrder";
+import Loader from "../components/Loader";
 
 const MyOrders = () => {
   const { isLoading, orders } = useSelector((state) => state.myOrders);
@@ -12,6 +13,23 @@ const MyOrders = () => {
   useEffect(() => {
     dispatch(myOrders());
   }, []);
+
+  if (isLoading) {
+    return (
+      <>
+        <Loader heightProps="40px" widthProps={"100vw"} />;
+        <Loader heightProps="40px" widthProps={"100vw"} />;
+        <Loader heightProps="40px" widthProps={"100vw"} />;
+        <Loader heightProps="40px" widthProps={"100vw"} />;
+        <Loader heightProps="40px" widthProps={"100vw"} />;
+        <Loader heightProps="40px" widthProps={"100vw"} />;
+        <Loader heightProps="40px" widthProps={"100vw"} />;
+        <Loader heightProps="40px" widthProps={"100vw"} />;
+        <Loader heightProps="40px" widthProps={"100vw"} />;
+      </>
+    );
+  }
+
   return (
     <>
       {orders && orders.length >= 1 ? (

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import User from "../components/Admin/User";
 import { deleteUser, getAllUsers } from "../redux/users/action";
 import { DELETE_USER_RESET } from "../redux/users/actionTypes";
+import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
@@ -23,18 +25,19 @@ const AllUsers = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(error);
     }
     if (isDeleted) {
-      alert(message);
+      toast.success(message);
+      dispatch({ type: DELETE_USER_RESET });
     }
     if (deleteError) {
-      alert("Something Went Wrong.");
+      toast.error("Something Went Wrong.");
       dispatch({ type: DELETE_USER_RESET });
     }
 
     dispatch(getAllUsers());
-  }, [error, dispatch, isDeleted]);
+  }, [error, dispatch, isDeleted, message]);
   return (
     <Box>
       <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">
@@ -53,15 +56,23 @@ const AllUsers = () => {
           </tr>
         </thead>
         <tbody>
-          {users &&
-            users?.map((item) => (
-              <User
-                key={item._id}
-                item={item}
-                loading={loading}
-                handleDeleteUser={handleDeleteUser}
-              />
-            ))}
+          {isLoading
+            ? users.map((item) => {
+                return (
+                  <Box key={item._id} my="10px">
+                    <Loader heightProps="40px" widthProps={"100vw"} />
+                  </Box>
+                );
+              })
+            : users &&
+              users?.map((item) => (
+                <User
+                  key={item._id}
+                  item={item}
+                  loading={loading}
+                  handleDeleteUser={handleDeleteUser}
+                />
+              ))}
         </tbody>
       </table>
     </Box>

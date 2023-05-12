@@ -141,10 +141,11 @@ export const updateProduct = (id, productData) => async (dispatch) => {
       productData,
       config
     );
+    console.log({ data });
 
     dispatch({
       type: types.UPDATE_PRODUCT_SUCCESS,
-      payload: data.success,
+      payload: data,
     });
   } catch (error) {
     dispatch({
@@ -162,7 +163,7 @@ export const deleteProduct = (id) => async (dispatch) => {
     const { data } = await axios.delete(
       `http://localhost:4500/products/admin/delete/${id}`
     );
-
+    console.log(data);
     dispatch({
       type: types.DELETE_PRODUCT_SUCCESS,
       payload: data,

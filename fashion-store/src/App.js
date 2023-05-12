@@ -41,21 +41,23 @@ import { useSelector } from "react-redux";
 
 function App() {
   const [stripeapikey, setStripeapikey] = useState("");
+  // console.log(stripeapikey);
+
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   console.log(stripeapikey);
-
-  const { isAuthenticated } = useSelector((state) => state.auth);
-
   async function getStripeApiKey() {
     const { data } = await axios.get(
       "http://localhost:4500/payment/stripeapikey"
     );
+    // console.log(data);
+    // console.log(user);
     setStripeapikey(data.stripeApiKey);
   }
   useEffect(() => {
-    if (isAuthenticated) {
-      store.dispatch(loadUser());
-      getStripeApiKey();
-    }
+    // if (user) {
+    store.dispatch(loadUser());
+    getStripeApiKey();
+    // }
   }, []);
 
   return (
@@ -102,18 +104,18 @@ function App() {
                 // </ProctectedRoute>
               }
             /> */}
-            {stripeapikey && (
-              <Route
-                path="/checkout"
-                element={
-                  <ProctectedRoute>
-                    <Elements stripe={loadStripe(stripeapikey)}>
-                      <Checkout />
-                    </Elements>
-                  </ProctectedRoute>
-                }
-              />
-            )}
+            {/* {stripeapikey && ( */}
+            <Route
+              path="/checkout"
+              element={
+                <ProctectedRoute>
+                  <Elements stripe={loadStripe(stripeapikey)}>
+                    <Checkout />
+                  </Elements>
+                </ProctectedRoute>
+              }
+            />
+            {/* )} */}
             <Route
               path="/admin/dashboard"
               element={

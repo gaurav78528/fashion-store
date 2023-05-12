@@ -6,10 +6,9 @@ import {
   Box,
   Button,
   Select,
-  Text,
   useColorModeValue,
-  useToast,
 } from "@chakra-ui/react";
+import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_PRODUCT_RESET } from "../../redux/products/actionTypes";
@@ -25,7 +24,9 @@ const UpdateProductForm = () => {
   //   setStock(product.stock);
   //   setColors(product.colors);
   const { product, error } = useSelector((state) => state.singleProduct);
+  console.log({ product });
   //   const [colors, setColors] = useState([{ color: "", images: [], sizes: [] }]);
+  // const [productItem,setProductItem]=useState({})
   const [colors, setColors] = useState(product.colors);
   const [brand, setBrand] = useState(product.brand);
   const [title, setTitle] = useState(product.title);
@@ -39,7 +40,7 @@ const UpdateProductForm = () => {
   //   console.log(id);
 
   const navigate = useNavigate();
-  const toast = useToast();
+
   const dispatch = useDispatch();
   const {
     isLoading,
@@ -48,36 +49,16 @@ const UpdateProductForm = () => {
     success,
     message,
   } = useSelector((state) => state.product);
-  //   console.log(success, message);
+  console.log({
+    product,
+    error,
+    isLoading,
+    updateError,
+    isUpdated,
+    success,
+    message,
+  });
 
-  useEffect(() => {
-    if (product && product._id !== id) {
-      dispatch(getSingleProduct(id));
-    }
-
-    // else {
-    //   setBrand(product.brand);
-    //   setTitle(product.title);
-    //   setMrp(product.mrp);
-    //   setOffer(product.offer);
-    //   setCategory(product.category);
-    //   setSubCategory(product.subCategory);
-    //   setStock(product.stock);
-    //   setColors(product.colors);
-    // }
-    if (error) {
-      alert(error);
-    }
-    if (updateError) {
-      alert(updateError);
-    }
-    if (isUpdated) {
-      //   console.log(success);
-      alert(message);
-
-      dispatch({ type: UPDATE_PRODUCT_RESET });
-    }
-  }, [dispatch, error, message, isUpdated, id, product, updateError]);
   const handleColorChange = (index, key, value) => {
     const newColors = [...colors];
     newColors[index][key] = value;
@@ -109,7 +90,6 @@ const UpdateProductForm = () => {
       stock,
     };
     dispatch(updateProduct(id, productData));
-    navigate("/admin/products");
   };
 
   const addColor = () => {
@@ -121,6 +101,26 @@ const UpdateProductForm = () => {
     newColors.splice(index, 1);
     setColors(newColors);
   };
+
+  useEffect(() => {
+    console.log("effect run");
+    if (product && product._id !== id) {
+      dispatch(getSingleProduct(id));
+    }
+
+    if (error) {
+      toast.error(error);
+    }
+    if (updateError) {
+      toast.error(updateError);
+    }
+    if (isUpdated) {
+      //   console.log(success);
+      toast.success(message);
+      navigate("/admin/products");
+    }
+    dispatch({ type: UPDATE_PRODUCT_RESET });
+  }, [dispatch, error, message, isUpdated, id, product, updateError]);
 
   return (
     <Box
@@ -136,7 +136,7 @@ const UpdateProductForm = () => {
         onSubmit={handleSubmit}
         // style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
       >
-        {colors.map((color, index) => (
+        {colors?.map((color, index) => (
           <Box key={index}>
             <FormControl mb={4}>
               <FormLabel>Color {index + 1}</FormLabel>

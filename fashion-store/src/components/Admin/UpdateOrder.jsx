@@ -4,43 +4,37 @@ import { useSelector, useDispatch } from "react-redux";
 import { getOrderDetails, updateOrder } from "../../redux/orders/action";
 import { UPDATE_ORDER_RESET } from "../../redux/orders/actionTypes";
 import { Text } from "@chakra-ui/react";
-// import Loader from "../layout/Loader/Loader";
-// import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 
 const UpdateOrder = () => {
   const { order, error, isLoading } = useSelector(
     (state) => state.orderDetails
   );
 
-  console.log(order);
+  // console.log(order);
   const [status, setStatus] = useState("");
   const { id } = useParams();
   const { error: updateError, isUpdated } = useSelector((state) => state.order);
 
-  // const myForm = new FormData();
-
-  // myForm.set("status", "heloo");
-  // console.log(myForm);
   const updateOrderSubmitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(updateOrder(id, {status}));
+    dispatch(updateOrder(id, { status }));
   };
 
   const dispatch = useDispatch();
-  // const alert = useAlert();
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(error);
     }
     if (updateError) {
-      alert(updateError);
+      toast.error(updateError);
     }
     if (isUpdated) {
-      alert("Order Updated Successfully");
-      dispatch({ type: UPDATE_ORDER_RESET });
+      toast.success(`Order ${status}`);
     }
+    dispatch({ type: UPDATE_ORDER_RESET });
 
     dispatch(getOrderDetails(id));
   }, [dispatch, error, id, isUpdated, updateError]);

@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getUserDetails, updateUser } from "../../redux/users/action";
 import { UPDATE_USER_RESET } from "../../redux/users/actionTypes";
 
@@ -30,19 +31,26 @@ const UpdateUser = () => {
       setRole(user.role);
     }
     if (error) {
-      alert(error);
+      toast.error(error);
     }
 
     if (updateError) {
-      alert(updateError);
+      toast.error(updateError);
     }
 
     if (isUpdated) {
-      alert("User Updated Successfully");
+      toast.success(
+        `${firstName.charAt(0).toUpperCase() + firstName.slice(1)} is Now an ${
+          role.charAt(0).toUpperCase() + role.slice(1)
+        }`
+      );
+      setFirstName("");
+      setEmail("");
+      setRole("");
 
       dispatch({ type: UPDATE_USER_RESET });
     }
-  }, [dispatch, alert, error, isUpdated, updateError, user, userId]);
+  }, [dispatch, error, isUpdated, updateError, user, userId]);
 
   const updateUserSubmitHandler = (e) => {
     e.preventDefault();

@@ -5,12 +5,14 @@ import { deleteOrder, getAllOrders } from "../redux/orders/action";
 import ProductItem from "../components/Admin/ProductItem";
 import OrderItem from "../components/Admin/OrderItem";
 import { DELETE_ORDER_RESET } from "../redux/orders/actionTypes";
+import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 const AllOrders = () => {
   const dispatch = useDispatch();
-  const { isLoading, orders } = useSelector((state) => state.allOrders);
+  const { isLoading, orders, error } = useSelector((state) => state.allOrders);
 
   const {
-    error,
+    error: deleteError,
     isLoading: loading,
     isDeleted,
   } = useSelector((state) => state.order);
@@ -20,16 +22,18 @@ const AllOrders = () => {
   };
 
   useEffect(() => {
-    // if (error) {
-    //   alert(error);
-    //   // console.log(error);
-    // }
+    if (error) {
+      toast.error(error);
+    }
+    if (deleteError) {
+      toast.error(deleteError);
+    }
     if (isDeleted) {
-      alert("Order Deleted Successfully.");
+      toast.success("Order Deleted Successfully.");
     }
     dispatch({ type: DELETE_ORDER_RESET });
     dispatch(getAllOrders());
-  }, [error, dispatch, isDeleted]);
+  }, [error, dispatch, isDeleted, deleteError]);
   return (
     <Box>
       <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">
@@ -48,16 +52,22 @@ const AllOrders = () => {
           </tr>
         </thead>
         <tbody>
-          {!isLoading
-            ? orders?.map((item) => (
+          {isLoading
+            ? orders.map((item) => {
+                return (
+                  <Box key={item._id} my="10px">
+                    <Loader heightProps="40px" widthProps={"100vw"} />
+                  </Box>
+                );
+              })
+            : orders?.map((item) => (
                 <OrderItem
                   key={item._id}
                   item={item}
                   loading={loading}
                   handleDeleteOrder={handleDeleteOrder}
                 />
-              ))
-            : "loading....."}
+              ))}
         </tbody>
       </table>
     </Box>

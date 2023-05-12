@@ -4,14 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getAdminProducts } from "../redux/products/action";
 import ProductItem from "../components/Admin/ProductItem";
 import { DELETE_PRODUCT_RESET } from "../redux/products/actionTypes";
+import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const AllProducts = () => {
   const dispatch = useDispatch();
-  const { isLoading, products } = useSelector((state) => state.products);
+  const { isLoading, products, error } = useSelector((state) => state.products);
   console.log(products);
 
   const {
-    error,
+    error: deleteError,
     isLoading: loading,
     isDeleted,
     message,
@@ -23,14 +25,17 @@ const AllProducts = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(error);
+    }
+    if (deleteError) {
+      toast.error(deleteError);
     }
     if (isDeleted) {
-      alert(message);
+      toast.success(message);
     }
     dispatch({ type: DELETE_PRODUCT_RESET });
     dispatch(getAdminProducts());
-  }, [error, dispatch, isDeleted]);
+  }, [error, dispatch, isDeleted, message, deleteError]);
   return (
     <Box>
       <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">
@@ -49,15 +54,23 @@ const AllProducts = () => {
           </tr>
         </thead>
         <tbody>
-          {products &&
-            products?.map((item) => (
-              <ProductItem
-                key={item._id}
-                item={item}
-                loading={loading}
-                handleDeleteProduct={handleDeleteProduct}
-              />
-            ))}
+          {isLoading
+            ? products.map((item) => {
+                return (
+                  <Box key={item._id} my="10px">
+                    <Loader heightProps="40px" widthProps={"100vw"} />
+                  </Box>
+                );
+              })
+            : products &&
+              products?.map((item) => (
+                <ProductItem
+                  key={item._id}
+                  item={item}
+                  loading={loading}
+                  handleDeleteProduct={handleDeleteProduct}
+                />
+              ))}
         </tbody>
       </table>
     </Box>

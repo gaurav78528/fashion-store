@@ -45,12 +45,15 @@ table select {
   background-color: transparent;
   outline: none;
 }
-.orderProcessing {
+.orderProcessing,
+.red {
   color: red;
 }
-.orderDelivered {
+.orderDelivered,
+.green {
   color: green;
 }
+
 @media (max-width: 1350px) {
   .products-table thead {
     display: none;

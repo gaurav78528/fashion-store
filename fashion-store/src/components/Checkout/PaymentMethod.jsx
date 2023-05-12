@@ -43,7 +43,7 @@ const PaymentMethod = () => {
   const elements = useElements();
 
   const { isLoading, paymentInfo } = useSelector((state) => state.payment);
-  console.log(isLoading);
+  // console.log(isLoading);
 
   // card no 4000 0027 6000 3184
 

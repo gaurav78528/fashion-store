@@ -138,8 +138,7 @@ export const productReducer = (state = {}, action) => {
       return {
         ...state,
         isLoading: false,
-        // isUpdated: action.payload,
-        isDeleted: action.payload.success,
+        isUpdated: action.payload.success,
         message: action.payload.message,
       };
     case types.DELETE_PRODUCT_ERROR:

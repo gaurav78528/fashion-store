@@ -12,7 +12,9 @@ const User = ({ item, loading: isLoading, handleDeleteUser }) => {
       <td data-label="UserID">{item?._id}</td>
       <td data-label="Email">{item?.email}</td>
       <td data-label="Name">{item?.firstName}</td>
-      <td data-label="Role">{item?.role}</td>
+      <td data-label="Role" className={item.role === "admin" ? "green" : "red"}>
+        {item?.role}
+      </td>
       <td data-label="Update">
         <Link to={`/admin/users/update/${item._id} `}>
           <Flex justify="center" align="center">
@@ -20,10 +22,7 @@ const User = ({ item, loading: isLoading, handleDeleteUser }) => {
           </Flex>
         </Link>
       </td>
-      <td
-        data-label="Delete"
-          onClick={() => handleDeleteUser(item._id)}
-      >
+      <td data-label="Delete" onClick={() => handleDeleteUser(item._id)}>
         <Flex justify="center" align="center" cursor="pointer">
           <Button variant="link" pointerEvents={isLoading && "none"}>
             <BiTrash fontSize={"20px"} color="red" />
