@@ -3,6 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteReviews, getAllReviews } from "../redux/products/action";
 import { DELETE_REVIEW_RESET } from "../redux/products/actionTypes";
 import Review from "../components/Admin/Review";
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  Heading,
+  Input,
+  Stack,
+} from "@chakra-ui/react";
 
 const ProductReviews = () => {
   const dispatch = useDispatch();
@@ -25,6 +34,7 @@ const ProductReviews = () => {
     e.preventDefault();
     dispatch(getAllReviews(productId));
   };
+  console.log(error,deleteError);
 
   useEffect(() => {
     if (productId.length === 24) {
@@ -45,129 +55,79 @@ const ProductReviews = () => {
     }
   }, [dispatch, error, deleteError, isDeleted, productId]);
 
-  //   const columns = [
-  //     { field: "id", headerName: "Review ID", minWidth: 200, flex: 0.5 },
-
-  //     {
-  //       field: "user",
-  //       headerName: "User",
-  //       minWidth: 200,
-  //       flex: 0.6,
-  //     },
-
-  //     {
-  //       field: "comment",
-  //       headerName: "Comment",
-  //       minWidth: 350,
-  //       flex: 1,
-  //     },
-
-  //     {
-  //       field: "rating",
-  //       headerName: "Rating",
-  //       type: "number",
-  //       minWidth: 180,
-  //       flex: 0.4,
-
-  //       cellClassName: (params) => {
-  //         return params.getValue(params.id, "rating") >= 3
-  //           ? "greenColor"
-  //           : "redColor";
-  //       },
-  //     },
-
-  //     {
-  //       field: "actions",
-  //       flex: 0.3,
-  //       headerName: "Actions",
-  //       minWidth: 150,
-  //       type: "number",
-  //       sortable: false,
-  //       renderCell: (params) => {
-  //         return (
-  //           <Fragment>
-  //             <Button
-  //               onClick={() =>
-  //                 deleteReviewHandler(params.getValue(params.id, "id"))
-  //               }
-  //             >
-  //               <DeleteIcon />
-  //             </Button>
-  //           </Fragment>
-  //         );
-  //       },
-  //     },
-  //   ];
-
-  //   const rows = [];
-
   return (
-    <Fragment>
-      {/* <MetaData title={`ALL REVIEWS - Admin`} /> */}
+    <>
+      <Box>
+        <Stack
+          w="100vw"
+          border="1px solid red"
+          align="center"
+          justifyContent="center"
+        >
+          <form onSubmit={productReviewsSubmitHandler}>
+            <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">
+              All REVIEWS
+            </Heading>
+            <Flex justify="center" align={"center"} gap="10px" my="20px">
+              <FormControl>
+                <Input
+                  type="type"
+                  placeholder="Product Id"
+                  value={productId}
+                  onChange={(e) => setProductId(e.target.value)}
+                />
+              </FormControl>
 
-      <div className="dashboard">
-        {/* <SideBar /> */}
-        <div className="productReviewsContainer">
-          <form
-            className="productReviewsForm"
-            onSubmit={productReviewsSubmitHandler}
-          >
-            <h1 className="productReviewsFormHeading">ALL REVIEWS</h1>
-
-            <div>
-              {/* <Star /> */}
-              <input
-                type="text"
-                placeholder="Product Id"
-                required
-                value={productId}
-                onChange={(e) => setProductId(e.target.value)}
-              />
-            </div>
-
-            <button
-              id="createProductBtn"
-              type="submit"
-              disabled={
-                isLoading ? true : false || productId === "" ? true : false
-              }
-            >
-              Search
-            </button>
+              <Button
+                colorScheme="#000"
+                bgColor="#000"
+                _hover={{ bgColor: "#e3ae52", color: "#000" }}
+                color="white"
+                variant="solid"
+                type="submit"
+                isDisabled={
+                  isLoading ? true : false || productId === "" ? true : false
+                }
+              >
+                Search
+              </Button>
+            </Flex>
           </form>
+        </Stack>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ReviewID</th>
+              <th>User</th>
+              <th>Comment</th>
+              <th>rating</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {isLoading
+              ? "loading....."
+              : reviews.length === 0
+              ? "no reviews found"
+              : reviews?.map((item) => (
+                  <Review
+                    key={item._id}
+                    item={item}
+                    loading={isLoading}
+                    deleteReviewHandler={deleteReviewHandler}
+                  />
+                ))}
+            {/* reviews.length===0 */}
+          </tbody>
+        </table>
 
-          <table className="table">
-            <thead>
-              <tr>
-                <th>ReviewID</th>
-                <th>User</th>
-                <th>Comment</th>
-                <th>rating</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {!isLoading
-                ? reviews?.map((item) => (
-                    <Review
-                      key={item._id}
-                      item={item}
-                      loading={isLoading}
-                      deleteReviewHandler={deleteReviewHandler}
-                    />
-                  ))
-                : "loading....."}
-            </tbody>
-          </table>
-
-          {/* {reviews && reviews.length > 0 ? (
+        {/* {reviews && reviews.length > 0 ? (
             
           ) : (
             <h1 className="productReviewsFormHeading">No Reviews Found</h1>
           )} */}
-        </div>
-      </div>
-    </Fragment>
+      </Box>
+    </>
   );
 };
 

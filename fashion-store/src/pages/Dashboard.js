@@ -9,7 +9,7 @@ import { getAllOrders } from "../redux/orders/action";
 import { getAllUsers } from "../redux/users/action";
 
 const Dashboard = () => {
-  const items = [1, 2, 3, 4];
+  // const items = [1, 2, 3, 4];
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
   const { orders } = useSelector((state) => state.allOrders);
@@ -59,10 +59,26 @@ const Dashboard = () => {
           }}
           gap={6}
         >
-          <DashboardCard title="Products" count={products && products.length} />
-          <DashboardCard title="Orders" count={orders && orders.length} />
-          <DashboardCard title="Users" count={users && users.length} />
-          <DashboardCard title="Out Of Stock" count={outOfStock} />
+          <DashboardCard
+            title="Products"
+            url="/admin/products"
+            count={products && products.length}
+          />
+          <DashboardCard
+            title="Orders"
+            url="/admin/orders"
+            count={orders && orders.length}
+          />
+          <DashboardCard
+            title="Users"
+            url="/admin/users"
+            count={users && users.length}
+          />
+          <DashboardCard
+            title="Out Of Stock"
+            url="/admin/products"
+            count={outOfStock}
+          />
         </Grid>
       </Stack>
     </Flex>

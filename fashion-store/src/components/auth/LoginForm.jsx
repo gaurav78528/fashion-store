@@ -27,9 +27,11 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, isAuthenticated, message, error } = useSelector(
+  const { isLoading, isAuthenticated, user, message, error } = useSelector(
     (store) => store.auth
   );
+
+  console.log({ user });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,14 +50,18 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && user.role === "admin") {
+      navigate("/admin/dashboard");
+      toast.success(message);
+    }
+    if (isAuthenticated && user.role === "user") {
       navigate("/");
       toast.success(message);
     }
     if (error) {
       toast.error(error);
     }
-  }, [isAuthenticated, error, message]);
+  }, [isAuthenticated, navigate, user, error, message]);
   return (
     <Flex
       minH={"100vh"}
