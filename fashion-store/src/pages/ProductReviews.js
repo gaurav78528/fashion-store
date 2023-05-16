@@ -1,8 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteReviews, getAllReviews } from "../redux/products/action";
-import { DELETE_REVIEW_RESET } from "../redux/products/actionTypes";
-import Review from "../components/Admin/Review";
+import {
+  CLEAR_ERRORS,
+  DELETE_REVIEW_RESET,
+} from "../redux/products/actionTypes";
+import Review from "../components/Admin/Products/Review";
 import {
   Box,
   Button,
@@ -12,6 +15,9 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
+import { toast } from "react-toastify";
+import ReviewTable from "../components/Admin/Products/ReviewTable";
+import NoReviews from "../components/Admin/Products/NoReviews";
 
 const ProductReviews = () => {
   const dispatch = useDispatch();
@@ -34,22 +40,23 @@ const ProductReviews = () => {
     e.preventDefault();
     dispatch(getAllReviews(productId));
   };
-  console.log(error,deleteError);
+  console.log(error, deleteError);
 
   useEffect(() => {
-    if (productId.length === 24) {
-      dispatch(getAllReviews(productId));
-    }
+    // if (productId.length === 24) {
+    //   dispatch(getAllReviews(productId));
+    // }
     if (error) {
-      alert(error);
+      toast.error(error);
+      dispatch({ type: CLEAR_ERRORS });
     }
 
     if (deleteError) {
-      alert(deleteError);
+      toast.error(deleteError);
     }
 
     if (isDeleted) {
-      alert("Review Deleted Successfully");
+      toast.success("Review Deleted Successfully");
       //   history.push("/admin/reviews");
       dispatch({ type: DELETE_REVIEW_RESET });
     }
@@ -57,13 +64,8 @@ const ProductReviews = () => {
 
   return (
     <>
-      <Box>
-        <Stack
-          w="100vw"
-          border="1px solid red"
-          align="center"
-          justifyContent="center"
-        >
+      <Box minH="100vh">
+        <Stack w="100%" align="center" justifyContent="center">
           <form onSubmit={productReviewsSubmitHandler}>
             <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">
               All REVIEWS
@@ -94,38 +96,47 @@ const ProductReviews = () => {
             </Flex>
           </form>
         </Stack>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ReviewID</th>
-              <th>User</th>
-              <th>Comment</th>
-              <th>rating</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading
-              ? "loading....."
-              : reviews.length === 0
-              ? "no reviews found"
-              : reviews?.map((item) => (
-                  <Review
-                    key={item._id}
-                    item={item}
-                    loading={isLoading}
-                    deleteReviewHandler={deleteReviewHandler}
-                  />
-                ))}
-            {/* reviews.length===0 */}
-          </tbody>
-        </table>
 
-        {/* {reviews && reviews.length > 0 ? (
-            
-          ) : (
-            <h1 className="productReviewsFormHeading">No Reviews Found</h1>
-          )} */}
+        {isLoading ? (
+          <Heading
+            w="100%"
+            textAlign={"center"}
+            size="lg"
+            fontWeight={600}
+            my="60px"
+          >
+            Loading...
+          </Heading>
+        ) : reviews?.length === 0 ? (
+          <NoReviews />
+        ) : (
+          <ReviewTable
+            isLoading={isLoading}
+            reviews={reviews}
+            deleteReviewHandler={deleteReviewHandler}
+          />
+          // <table className="table">
+          //   <thead>
+          //     <tr>
+          //       <th>ReviewID</th>
+          //       <th>User</th>
+          //       <th>Comment</th>
+          //       <th>rating</th>
+          //       <th>Delete</th>
+          //     </tr>
+          //   </thead>
+          //   <tbody>
+          //     {reviews?.map((item) => (
+          //       <Review
+          //         key={item._id}
+          //         item={item}
+          //         loading={isLoading}
+          //         deleteReviewHandler={deleteReviewHandler}
+          //       />
+          //     ))}
+          //   </tbody>
+          // </table>
+        )}
       </Box>
     </>
   );

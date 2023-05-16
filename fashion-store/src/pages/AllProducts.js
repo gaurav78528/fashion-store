@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getAdminProducts } from "../redux/products/action";
-import ProductItem from "../components/Admin/ProductItem";
+import ProductItem from "../components/Admin/Products/ProductItem";
 import { DELETE_PRODUCT_RESET } from "../redux/products/actionTypes";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";

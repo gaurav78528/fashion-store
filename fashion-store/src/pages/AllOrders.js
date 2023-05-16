@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOrder, getAllOrders } from "../redux/orders/action";
-import ProductItem from "../components/Admin/ProductItem";
-import OrderItem from "../components/Admin/OrderItem";
 import { DELETE_ORDER_RESET } from "../redux/orders/actionTypes";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import OrderTable from "../components/Admin/Orders/OrderTable";
 const AllOrders = () => {
   const dispatch = useDispatch();
   const { isLoading, orders, error } = useSelector((state) => state.allOrders);
@@ -40,36 +39,21 @@ const AllOrders = () => {
         All Orders
       </Heading>
 
-      <table className="table">
-        <thead>
-          <tr>
-            <th>OrderID</th>
-            <th>Status</th>
-            <th>Qty</th>
-            <th>Amount</th>
-            <th>Update</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {isLoading
-            ? orders.map((item) => {
-                return (
-                  <Box key={item._id} my="10px">
-                    <Loader heightProps="40px" widthProps={"100vw"} />
-                  </Box>
-                );
-              })
-            : orders?.map((item) => (
-                <OrderItem
-                  key={item._id}
-                  item={item}
-                  loading={loading}
-                  handleDeleteOrder={handleDeleteOrder}
-                />
-              ))}
-        </tbody>
-      </table>
+      {isLoading ? (
+        orders.map((item) => {
+          return (
+            <Box key={item._id} my="10px">
+              <Loader heightProps="40px" widthProps={"100vw"} />
+            </Box>
+          );
+        })
+      ) : (
+        <OrderTable
+          loading={loading}
+          orders={orders}
+          handleDeleteOrder={handleDeleteOrder}
+        />
+      )}
     </Box>
   );
 };

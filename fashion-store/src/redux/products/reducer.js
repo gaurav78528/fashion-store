@@ -181,6 +181,11 @@ export const productReviewsReducer = (state = { reviews: [] }, action) => {
         isLoading: false,
         error: action.payload,
       };
+    case types.CLEAR_ERRORS:
+      return {
+        error: null,
+      };
+
     default:
       return state;
   }

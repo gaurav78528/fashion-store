@@ -33,9 +33,9 @@ import AddProduct from "./pages/AddProduct";
 import AdminProctectedRoute from "./components/Admin/AdminProtectedRoute";
 import UpdateProduct from "./pages/UpdateProduct";
 import AllOrders from "./pages/AllOrders";
-import UpdateOrder from "./components/Admin/UpdateOrder";
+import UpdateOrder from "./components/Admin/Orders/UpdateOrder";
 import AllUsers from "./pages/AllUsers";
-import UpdateUser from "./components/Admin/UpdateUser";
+import UpdateUser from "./components/Admin/Users/UpdateUser";
 import ProductReviews from "./pages/ProductReviews";
 import { useSelector } from "react-redux";
 

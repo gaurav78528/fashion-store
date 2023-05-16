@@ -11,8 +11,11 @@ import {
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { UPDATE_PRODUCT_RESET } from "../../redux/products/actionTypes";
-import { getSingleProduct, updateProduct } from "../../redux/products/action";
+import { UPDATE_PRODUCT_RESET } from "../../../redux/products/actionTypes";
+import {
+  getSingleProduct,
+  updateProduct,
+} from "../../../redux/products/action";
 
 const UpdateProductForm = () => {
   //   setBrand(product.brand);

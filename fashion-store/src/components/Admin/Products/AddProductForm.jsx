@@ -12,8 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { NEW_PRODUCT_RESET } from "../../redux/products/actionTypes";
-import { createProduct } from "../../redux/products/action";
+import { NEW_PRODUCT_RESET } from "../../../redux/products/actionTypes";
+import { createProduct } from "../../../redux/products/action";
 
 const AddProductForm = () => {
   const [colors, setColors] = useState([{ color: "", images: [], sizes: [] }]);

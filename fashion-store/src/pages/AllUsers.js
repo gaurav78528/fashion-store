@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import User from "../components/Admin/User";
+import User from "../components/Admin/Users/User";
 import { deleteUser, getAllUsers } from "../redux/users/action";
 import { DELETE_USER_RESET } from "../redux/users/actionTypes";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import UserTable from "../components/Admin/Users/UserTable";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
@@ -44,37 +45,21 @@ const AllUsers = () => {
         All Users
       </Heading>
 
-      <table className="table">
-        <thead>
-          <tr>
-            <th>UserID</th>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Update</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {isLoading
-            ? users.map((item) => {
-                return (
-                  <Box key={item._id} my="10px">
-                    <Loader heightProps="40px" widthProps={"100vw"} />
-                  </Box>
-                );
-              })
-            : users &&
-              users?.map((item) => (
-                <User
-                  key={item._id}
-                  item={item}
-                  loading={loading}
-                  handleDeleteUser={handleDeleteUser}
-                />
-              ))}
-        </tbody>
-      </table>
+      {isLoading ? (
+        users.map((item) => {
+          return (
+            <Box key={item._id} my="10px">
+              <Loader heightProps="40px" widthProps={"100vw"} />
+            </Box>
+          );
+        })
+      ) : (
+        <UserTable
+          loading={loading}
+          users={users}
+          handleDeleteUser={handleDeleteUser}
+        />
+      )}
     </Box>
   );
 };

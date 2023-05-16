@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Flex, Heading } from "@chakra-ui/react";
-import UpdateProductForm from "../components/Admin/UpdateProductForm";
+import UpdateProductForm from "../components/Admin/Products/UpdateProductForm";
 const UpdateProduct = () => {
   return (
     <Box bgColor="#f5f5f7">
