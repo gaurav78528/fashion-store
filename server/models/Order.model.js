@@ -22,14 +22,18 @@ const orderSchema = mongoose.Schema({
       type: Number,
       required: true,
     },
-    phoneNo: {
+    phone: {
       type: Number,
       required: true,
     },
   },
   orderItems: [
     {
-      name: {
+      brand: {
+        type: String,
+        required: true,
+      },
+      title: {
         type: String,
         required: true,
       },
@@ -41,10 +45,23 @@ const orderSchema = mongoose.Schema({
         type: Number,
         required: true,
       },
-      image: {
+      img: {
         type: String,
         required: true,
       },
+      mrp: {
+        type: Number,
+        required: true,
+      },
+      stock: {
+        type: Number,
+        required: true,
+      },
+      offer: {
+        type: Number,
+        required: true,
+      },
+
       product: {
         type: mongoose.Schema.ObjectId,
         ref: "product",

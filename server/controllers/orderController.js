@@ -95,6 +95,7 @@ const getmyOrdersController = async (req, res) => {
 const getAllOrdersController = async (req, res) => {
   try {
     const allOrders = await OrderModel.find();
+    console.log(allOrders);
 
     let totalAmount = 0;
     allOrders.forEach((order) => {
@@ -115,19 +116,29 @@ const getAllOrdersController = async (req, res) => {
     });
   }
 };
+
 // UPDATE ORDER STATUS --ADMIN
 const updateOrderController = async (req, res) => {
   try {
-    const order = await OrderModel.find(req.params.id);
+    const order = await OrderModel.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({
+        message: "Order Not Found with this id",
+      });
+    }
 
     if (order.orderStatus === "Delivered") {
       return res.status(400).json({
-        message: "You have already Delivered this product.",
+        message: "You have already delivered this order",
       });
     }
-    order.orderItems.forEach(async (order) => {
-      await updateStock(order.product, order.quantity);
-    });
+
+    if (req.body.status === "Shipped") {
+      order.orderItems.forEach(async (o) => {
+        await updateStock(o.product, o.quantity);
+      });
+    }
     order.orderStatus = req.body.status;
 
     if (req.body.status === "Delivered") {
@@ -135,11 +146,8 @@ const updateOrderController = async (req, res) => {
     }
 
     await order.save({ validateBeforeSave: false });
-
     res.status(200).json({
       success: true,
-      totalAmount,
-      allOrders,
     });
   } catch (error) {
     console.log(error);
@@ -153,6 +161,7 @@ const updateOrderController = async (req, res) => {
 
 async function updateStock(id, quantity) {
   const product = await ProductModel.findById(id);
+  console.log(product);
   product.stock -= quantity;
   await product.save({ validateBeforeSave: false });
 }
@@ -161,9 +170,12 @@ async function updateStock(id, quantity) {
 const deleteOrderController = async (req, res) => {
   try {
     const order = await OrderModel.findByIdAndDelete(req.params.id);
-    await order.save();
 
-    
+    if (!order) {
+      return res.status(404).json({
+        message: "Order Not Found with this id",
+      });
+    }
 
     res.status(200).json({
       success: true,

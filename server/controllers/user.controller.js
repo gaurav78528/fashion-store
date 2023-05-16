@@ -262,6 +262,33 @@ const getSingleUserDetailsContoller = async (req, res) => {
   }
 };
 
+// UPDATE USER ADMIN
+
+const updateUserRoleController = async (req, res) => {
+  try {
+    const newUserData = {
+      firstName: req.body.firstName,
+      email: req.body.email,
+      role: req.body.role,
+    };
+
+    await UserModel.findByIdAndUpdate(req.params.id, newUserData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 // DELETE USER -ADMIN
 
 const deleteUserController = async (req, res) => {
@@ -299,4 +326,5 @@ module.exports = {
   getAllUsersController,
   getSingleUserDetailsContoller,
   deleteUserController,
+  updateUserRoleController,
 };

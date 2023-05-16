@@ -10,6 +10,7 @@ const {
   getAllUsersController,
   getSingleUserDetailsContoller,
   deleteUserController,
+  updateUserRoleController,
 } = require("../controllers/user.controller");
 const { authenticate } = require("../middlewares/authenticate.middleware");
 const { authorizeRoles } = require("../middlewares/authorizeRoles.middleware");
@@ -26,7 +27,7 @@ userRouter.put("/password/reset/:token", resetPasswordController);
 userRouter.get("/user", authenticate, getUserDetailsController);
 userRouter.put("/user/password/update", authenticate, updatePasswordController);
 userRouter.get(
-  "/admin/users",
+  "/admin/allusers",
   authenticate,
   authorizeRoles("admin"),
   getAllUsersController
@@ -37,8 +38,14 @@ userRouter.get(
   authorizeRoles("admin"),
   getSingleUserDetailsContoller
 );
+userRouter.put(
+  "/admin/user/update/:id",
+  authenticate,
+  authorizeRoles("admin"),
+  updateUserRoleController
+);
 userRouter.delete(
-  "/admin/user/:id",
+  "/admin/user/delete/:id",
   authenticate,
   authorizeRoles("admin"),
   deleteUserController

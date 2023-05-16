@@ -5,7 +5,7 @@ const ApiFeatures = require("../utils/apifeature");
 
 const getProductsController = async (req, res) => {
   try {
-    const resultPerPage = 15;
+    const resultPerPage = 100;
     const productsCount = await ProductModel.countDocuments();
     const apiFeature = new ApiFeatures(ProductModel.find(), req.query)
       .search()
@@ -17,6 +17,17 @@ const getProductsController = async (req, res) => {
     return res
       .status(200)
       .json({ success: true, products, productsCount, resultPerPage });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Something Went Wrong!", error: error.message });
+  }
+};
+const getAdminProductsController = async (req, res) => {
+  try {
+    const products = await ProductModel.find();
+    return res.status(200).json({ success: true, products });
   } catch (error) {
     console.log(error);
     return res
@@ -51,6 +62,7 @@ const addNewProductController = async (req, res) => {
 
     await newProduct.save();
     return res.status(201).json({
+      success: true,
       message: "Product Added Successfully.",
       product: newProduct,
     });
@@ -79,14 +91,18 @@ const updateProductController = async (req, res) => {
       useFindAndModify: false,
     });
 
-    return res
-      .status(200)
-      .json({ message: "Product Updated Successfully.", product });
+    return res.status(200).json({
+      success: true,
+      message: "Product Updated Successfully.",
+      product,
+    });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ message: "Something Went Wrong!", error: error.message });
+    return res.status(500).json({
+      success: false,
+      message: "Something Went Wrong!",
+      error: error.message,
+    });
   }
 };
 
@@ -104,7 +120,9 @@ const deleteProductController = async (req, res) => {
 
     await ProductModel.findByIdAndDelete({ _id });
 
-    return res.status(200).json({ message: "Product Deleted Successfully." });
+    return res
+      .status(200)
+      .json({ success: true, message: "Product Deleted Successfully." });
   } catch (error) {
     console.log(error);
     return res
@@ -117,7 +135,7 @@ const deleteProductController = async (req, res) => {
 
 const productReviewController = async (req, res) => {
   const { rating, comment, productID } = req.body;
-  console.log(req.user.firstName);
+  // console.log(req.user.firstName);
   try {
     const review = {
       user: req.user._id,
@@ -181,6 +199,80 @@ const getProductReviewController = async (req, res) => {
   }
 };
 
+// Get All Reviews of a product
+const getProductReviewsController = async (req, res) => {
+  try {
+    const product = await ProductModel.findById(req.query.id);
+    console.log(product);
+    if (!product) {
+      return res.status(404).json({
+        message: "Product Not Found.",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      reviews: product.reviews,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Something Went Wrong!",
+      error: error.message,
+    });
+  }
+};
+
+// Delete Review
+const deleteReviewController = async (req, res) => {
+  try {
+    const product = await ProductModel.findById(req.query.productId);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product Not Found.",
+      });
+    }
+
+    const reviews = product.reviews.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    let avg = 0;
+
+    reviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+
+    let ratings = 0;
+
+    if (reviews.length === 0) {
+      ratings = 0;
+    } else {
+      ratings = avg / reviews.length;
+    }
+
+    const numOfReviews = reviews.length;
+
+    await ProductModel.findByIdAndUpdate(
+      req.query.productId,
+      {
+        reviews,
+        ratings,
+        numOfReviews,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {}
+};
+
 module.exports = {
   getProductsController,
   getSingleProductController,
@@ -189,4 +281,7 @@ module.exports = {
   deleteProductController,
   productReviewController,
   getProductReviewController,
+  getAdminProductsController,
+  getProductReviewsController,
+  deleteReviewController,
 };

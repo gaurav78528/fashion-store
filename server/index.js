@@ -8,6 +8,7 @@ const { authenticate } = require("./middlewares/authenticate.middleware");
 const { productsRouter } = require("./routes/products.route");
 const { wishlistRouter } = require("./routes/wishlist.route");
 const { orderRouter } = require("./routes/orderRoute");
+const { paymentRouter } = require("./routes/payment.Route");
 
 // const cookieParser = require("cookie-parser");
 
@@ -20,9 +21,8 @@ const app = express();
 // Middlewares
 // app.use(morgan("dev"));
 app.use(express.json());
-app.use(cookieParser());
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-
+app.use(cookieParser());
 // Routes
 
 app.use("/users", userRouter);
@@ -30,6 +30,7 @@ app.use("/users", userRouter);
 app.use("/products", productsRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/orders", orderRouter);
+app.use("/payment", paymentRouter);
 
 // Rest API
 app.get("/", (req, res) => {
