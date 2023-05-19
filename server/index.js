@@ -33,8 +33,13 @@ app.use("/orders", orderRouter);
 app.use("/payment", paymentRouter);
 
 // Rest API
-app.get("/", (req, res) => {
-  res.send({ message: "Welcome to Home Page" });
+app.get("/checkhealth", (req, res) => {
+  res.send({ message: "Fashion is live" });
+});
+
+// All remaining requests return the React app, so it can handle routing.
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
 });
 
 app.listen(PORT, async () => {
