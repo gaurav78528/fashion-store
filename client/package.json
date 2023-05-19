@@ -1,4 +1,5 @@
 {
+  "proxy": "http://localhost:4500",
   "name": "fashion-store",
   "version": "0.1.0",
   "private": true,
@@ -36,7 +37,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "server": "json-server --watch db.json --port 8080",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

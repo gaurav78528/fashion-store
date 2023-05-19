@@ -47,7 +47,7 @@ function App() {
   console.log(stripeapikey);
   async function getStripeApiKey() {
     const { data } = await axios.get(
-      "http://localhost:4500/payment/stripeapikey"
+      "/payment/stripeapikey"
     );
     // console.log(data);
     // console.log(user);

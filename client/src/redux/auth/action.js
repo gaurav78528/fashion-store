@@ -15,37 +15,19 @@ export const registerUser = (userData) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      "http://localhost:4500/users/register",
-      userData,
-      config
-    );
+    const { data } = await axios.post("/users/register", userData, config);
     console.log(data);
 
     dispatch({
       type: types.REGISTER_SUCCESS,
       payload: data,
     });
-    // toast({
-    //   ...toastProps,
-    //   title: "Success",
-    //   description: data.message,
-    //   status: "success",
-    // });
-
-    // navigate("/login");
   } catch (error) {
     console.log(error);
     dispatch({
       type: types.REGISTER_ERROR,
       payload: error.response.data.message || "Something went wrong!",
     });
-    // toast({
-    //   ...toastProps,
-    //   title: "Error",
-    //   description: error.response.data.message || "Something went wrong!",
-    //   status: "error",
-    // });
   }
 };
 
@@ -60,11 +42,7 @@ export const loginUser = (userData) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.post(
-      "http://localhost:4500/users/login",
-      userData,
-      config
-    );
+    const { data } = await axios.post("/users/login", userData, config);
     console.log(data);
     dispatch({
       type: types.LOGIN_SUCCESS,
@@ -76,51 +54,25 @@ export const loginUser = (userData) => async (dispatch) => {
       type: types.LOGIN_ERROR,
       payload: error.response.data.message,
     });
-    // toast({
-    //   ...toastProps,
-    //   title: "Error",
-    //   description: error.response.data.message || "Something went wrong!",
-    //   status: "error",
-    // });
   }
 };
 
 // LOGOUT ACTION
-export const logoutUser = (toast) => async (dispatch) => {
+export const logoutUser = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOGOUT_REQUEST });
-    const { data } = await axios.get(
-      "http://localhost:4500/users/logout"
-      // {
-      //   withCredentials: true,
-      //   credentials: "include",
-      // }
-    );
-    // console.log(data);
+    const { data } = await axios.get("/users/logout");
+
     dispatch({
       type: types.LOGOUT_SUCCESS,
       payload: data,
     });
-
-    // toast({
-    //   ...toastProps,
-    //   title: "Success",
-    //   description: data.message,
-    //   status: "success",
-    // });
-    // navigate("/");
   } catch (error) {
     console.log(error);
     dispatch({
       type: types.LOGOUT_ERROR,
       payload: error.response.data.message || "Something went wrong!",
     });
-    // toast({
-    //   ...toastProps,
-    //   title: "Error",
-    //   description: error.response.data.message || "Something went wrong!",
-    //   status: "error",
-    // });
   }
 };
 
@@ -128,8 +80,7 @@ export const logoutUser = (toast) => async (dispatch) => {
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOAD_USER_REQUEST });
-    const { data } = await axios.get("http://localhost:4500/users/user");
-    // console.log({ data });
+    const { data } = await axios.get("/users/user");
     dispatch({
       type: types.LOAD_USER_SUCCESS,
       payload: data,

@@ -4,7 +4,7 @@ import * as types from "./actionTypes";
 axios.defaults.withCredentials = true;
 
 export const createOrder = (order) => async (dispatch) => {
-  console.log(order);
+  // console.log(order);
   try {
     dispatch({
       type: types.CREATE_ORDER_REQUEST,
@@ -15,7 +15,7 @@ export const createOrder = (order) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      `http://localhost:4500/orders/new`,
+      `/orders/new`,
       order,
       config
     );
@@ -42,7 +42,7 @@ export const myOrders = () => async (dispatch) => {
       type: types.MY_ORDERS_REQUEST,
     });
 
-    const { data } = await axios.get(`http://localhost:4500/orders/myorders`);
+    const { data } = await axios.get(`/orders/myorders`);
 
     console.log(data);
 
@@ -66,7 +66,7 @@ export const getAllOrders = () => async (dispatch) => {
     dispatch({ type: types.ALL_ORDERS_REQUEST });
 
     const { data } = await axios.get(
-      "http://localhost:4500/orders/admin/allorders"
+      "/orders/admin/allorders"
     );
 
     dispatch({ type: types.ALL_ORDERS_SUCCESS, payload: data.allOrders });
@@ -90,7 +90,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(
-      `http://localhost:4500/orders/admin/order/update/${id}`,
+      `/admin/order/update/${id}`,
       order,
       config
     );
@@ -109,7 +109,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: types.DELETE_ORDER_REQUEST });
     const { data } = await axios.delete(
-      `http://localhost:4500/orders/admin/order/delete/${id}`
+      `/orders/admin/order/delete/${id}`
     );
 
     dispatch({ type: types.DELETE_ORDER_SUCCESS, payload: data.success });
@@ -127,7 +127,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
     dispatch({ type: types.ORDER_DETAILS_REQUEST });
 
     const { data } = await axios.get(
-      `http://localhost:4500/orders/order/${id}`
+      `/orders/order/${id}`
     );
     console.log({ data });
 
