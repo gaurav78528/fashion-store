@@ -1,5 +1,5 @@
 const express = require("express");
-const morgan = require("morgan");
+const path = require("path");
 const { connection } = require("./config/db");
 const { userRouter } = require("./routes/user.route");
 const cors = require("cors");
