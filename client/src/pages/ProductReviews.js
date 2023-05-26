@@ -5,7 +5,6 @@ import {
   CLEAR_ERRORS,
   DELETE_REVIEW_RESET,
 } from "../redux/products/actionTypes";
-import Review from "../components/Admin/Products/Review";
 import {
   Box,
   Button,

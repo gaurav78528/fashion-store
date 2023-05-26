@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home";
@@ -37,13 +37,13 @@ import UpdateOrder from "./components/Admin/Orders/UpdateOrder";
 import AllUsers from "./pages/AllUsers";
 import UpdateUser from "./components/Admin/Users/UpdateUser";
 import ProductReviews from "./pages/ProductReviews";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 function App() {
   const [stripeapikey, setStripeapikey] = useState("");
   // console.log(stripeapikey);
 
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  // const { isAuthenticated, user } = useSelector((state) => state.auth);
   console.log(stripeapikey);
   async function getStripeApiKey() {
     const { data } = await axios.get(

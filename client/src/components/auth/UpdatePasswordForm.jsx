@@ -40,7 +40,7 @@ const UpdatePasswordForm = () => {
       navigate("/profile");
     }
     dispatch({ type: UPDATE_PASSWORD_RESET });
-  }, [isUpdated, message, error]);
+  }, [isUpdated, dispatch, navigate, message, error]);
   return (
     <>
       <FormControl isRequired>

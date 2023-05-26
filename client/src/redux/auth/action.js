@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toastProps } from "../../constants/constants";
 import * as types from "./actionTypes";
 
 axios.defaults.withCredentials = true;

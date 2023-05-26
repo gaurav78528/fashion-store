@@ -6,9 +6,7 @@ import {
   Box,
   Button,
   Select,
-  Text,
   useColorModeValue,
-  useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +24,7 @@ const AddProductForm = () => {
   const [stock, setStock] = useState(1);
 
   const navigate = useNavigate();
-  const toast = useToast();
+
   const dispatch = useDispatch();
   const { isLoading, error, success, message } = useSelector(
     (state) => state.newProduct
@@ -43,7 +41,7 @@ const AddProductForm = () => {
 
       dispatch({ type: NEW_PRODUCT_RESET });
     }
-  }, [dispatch, error, success]);
+  }, [dispatch, error, success, message]);
   const handleColorChange = (index, key, value) => {
     const newColors = [...colors];
     newColors[index][key] = value;

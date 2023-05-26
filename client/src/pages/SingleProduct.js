@@ -10,7 +10,6 @@ import {
   SimpleGrid,
   StackDivider,
   Divider,
-  useToast,
   VStack,
   HStack,
   useDisclosure,
@@ -22,7 +21,6 @@ import ReactStars from "react-rating-stars-component";
 import { BiPurchaseTag } from "react-icons/bi";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { toastProps } from "../constants/constants";
 import { addToWishlist } from "../redux/wishlist/action";
 import { getSingleProduct } from "../redux/products/action";
 import ReviewCard from "../components/products/ReviewCard";
@@ -35,7 +33,6 @@ const SingleProduct = () => {
   const [currentFocus, setCurrentFocus] = useState(0);
   const [currentProduct, setCurrentProduct] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
-  const [selectedColor, setSelectedColor] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const imageRef = useRef();
   const btnRef = useRef();
@@ -46,10 +43,10 @@ const SingleProduct = () => {
 
   const dispatch = useDispatch();
 
-  const { error, isLoading, product } = useSelector(
+  const { isLoading, product } = useSelector(
     (store) => store.singleProduct
   );
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const {
     colors,
@@ -76,15 +73,15 @@ const SingleProduct = () => {
 
   const handleAddToCart = () => {
     dispatch(
-      addItemToCart(id, quantity, colors?.[currentProduct]?.images?.[0])
+      addItemToCart(
+        id,
+        selectedSize,
+        quantity,
+        colors?.[currentProduct]?.images?.[0]
+      )
     );
     toast.success("Item Added To Cart");
-    // toast({
-    //   ...toastProps,
-    //   title: "Success",
-    //   description: "Item Added To Cart",
-    //   status: "success",
-    // });
+
     cartBtnRef.current.disabled = true;
   };
 

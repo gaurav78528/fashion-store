@@ -6,14 +6,12 @@ import {
   Image,
   Progress,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import React, { useRef } from "react";
 import ReactStars from "react-rating-stars-component";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux/cart/action";
-import { toastProps } from "../../constants/constants";
 import "../../styles/specialProductCard.css";
 import { toast } from "react-toastify";
 
@@ -26,12 +24,7 @@ const SpecialProductCard = ({ item }) => {
   const handleAddToCart = () => {
     dispatch(addItemToCart(id, 1, colors?.[0]?.images?.[0]));
     toast.success("Item Added To Cart");
-    // toast({
-    //   ...toastProps,
-    //   title: "Success",
-    //   description: "Item Added To Cart",
-    //   status: "success",
-    // });
+
     btnRef.current.disabled = true;
   };
   return (

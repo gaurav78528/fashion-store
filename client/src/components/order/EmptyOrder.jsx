@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Heading } from "@chakra-ui/react";
 import { InfoIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 

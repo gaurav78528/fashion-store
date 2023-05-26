@@ -9,8 +9,6 @@ const FeaturedCollection = () => {
   const { featuredProducts, isLoading } = useSelector(
     (store) => store.featuredProductsReducer
   );
-  // console.log(isLoading);
-  // const isLoading = true;
 
   const dispatch = useDispatch();
 
@@ -18,7 +16,7 @@ const FeaturedCollection = () => {
     // if (featuredProducts.length === 0) {
     dispatch(getFeaturedProducts());
     // }
-  }, []);
+  }, [dispatch]);
   return (
     <Box>
       <Heading as="h2" size="lg" fontWeight={500} my="30px">

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import WishlistCard from "../components/products/WishlistCard";
@@ -15,7 +15,7 @@ const Wishlist = () => {
 
   useEffect(() => {
     dispatch(getWishlistItems());
-  }, []);
+  }, [dispatch]);
   return (
     <Box bgColor="#f5f5f7">
       <Meta title={"Wishlist"} />

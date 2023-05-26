@@ -1,10 +1,8 @@
 import { Button, Flex } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { BiEdit, BiLinkExternal, BiTrash } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { BiEdit, BiTrash } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { deleteProduct } from "../../../redux/products/action";
-import { DELETE_PRODUCT_RESET } from "../../../redux/products/actionTypes";
+
 
 const User = ({ item, loading: isLoading, handleDeleteUser }) => {
   return (

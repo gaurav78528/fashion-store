@@ -9,16 +9,15 @@ import {
   useToast,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
 import { forgetPassword } from "../redux/forgetPassword/action";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   console.log(email);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  
   const { isLoading, message } = useSelector((store) => store.forgetPassword);
   console.log(message);
   const toast = useToast();
@@ -26,7 +25,7 @@ const ForgetPassword = () => {
     dispatch(forgetPassword(toast, email));
   };
 
-  const token = useParams();
+
 
   // useEffect(() => {
   //   if (message) {

@@ -1,9 +1,4 @@
-import {
-  applyMiddleware,
-  combineReducers,
-  compose,
-  legacy_createStore,
-} from "redux";
+import { applyMiddleware, combineReducers, legacy_createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import thunk from "redux-thunk";
@@ -31,7 +26,6 @@ import {
   orderDetailsReducer,
   orderReducer,
 } from "./orders/reducer";
-import { newReview } from "./products/action";
 import {
   allUsersReducer,
   userDetailsReducer,

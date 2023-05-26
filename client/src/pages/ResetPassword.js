@@ -45,7 +45,7 @@ const ResetPassword = () => {
     if (success) {
       navigate("/login");
     }
-  }, [success]);
+  }, [success,navigate]);
   return (
     <Flex
       minH={"100vh"}

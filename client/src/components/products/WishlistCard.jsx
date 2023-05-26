@@ -8,7 +8,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { toastProps } from "../../constants/constants";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,20 +16,20 @@ import { removeFromWishlist } from "../../redux/wishlist/action";
 const WishlistCard = ({ item }) => {
   const toast = useToast();
 
-  const { isLoading,isRemoved } = useSelector((store) => store.wishlist);
+  const { isRemoved } = useSelector((store) => store.wishlist);
 
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-  if(isRemoved){
-    toast({
-      ...toastProps,
-      title: "Success",
-      description: "dsf",
-      status: "success",
-    });
-  }
-  },[isRemoved])
+  useEffect(() => {
+    if (isRemoved) {
+      toast({
+        ...toastProps,
+        title: "Success",
+        description: "dsf",
+        status: "success",
+      });
+    }
+  }, [isRemoved,toast]);
 
   return (
     <Box

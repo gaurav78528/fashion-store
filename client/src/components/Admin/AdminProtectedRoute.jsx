@@ -1,7 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { MdOutlineAssignmentReturn } from "react-icons/md";
 
 const AdminProctectedRoute = ({ isAdmin, children }) => {
   const { isLoading, isAuthenticated, user } = useSelector(

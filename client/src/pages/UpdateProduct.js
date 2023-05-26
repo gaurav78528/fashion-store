@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import UpdateProductForm from "../components/Admin/Products/UpdateProductForm";
 const UpdateProduct = () => {

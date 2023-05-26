@@ -7,20 +7,15 @@ import {
   Image,
   Tag,
   Text,
-  useToast,
-  VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { AiFillHeart, AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
+import React from "react";
+import { AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
 import ReactStars from "react-rating-stars-component";
-import { BiGitCompare } from "react-icons/bi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import "../../styles/productCard.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, deleteCartItem } from "../../redux/cart/action";
-// import { toastProps } from "../constants/constants";
-import { toastProps } from "../../constants/constants";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../redux/cart/action";
 import { addToWishlist } from "../../redux/wishlist/action";
 import { toast } from "react-toastify";
 const ProductCard = ({ productData }) => {
@@ -31,12 +26,10 @@ const ProductCard = ({ productData }) => {
     title,
     mrp,
     offer,
-    category,
-    subCategory,
+
     new: newer,
     rating,
     stock,
-    quantity,
   } = productData;
   // console.log(productData);
   // console.log(id);

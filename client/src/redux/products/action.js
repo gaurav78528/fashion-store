@@ -8,11 +8,11 @@ export const getProducts =
       dispatch({
         type: types.GET_PRODUCTS_REQUEST,
       });
-      let URL = `/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&rating=${rating}`;
+      // let URL = `/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&rating=${rating}`;
 
-      if (category) {
-        URL = `/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&category=${category}&rating=${rating}`;
-      }
+      // if (category) {
+      //  let URL = `/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&category=${category}&rating=${rating}`;
+      // }
       // let { data } = await axios.get(URL);
       let { data } = await axios.get("/products");
 

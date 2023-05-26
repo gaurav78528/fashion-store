@@ -1,4 +1,4 @@
-import { Box, HStack, Flex, VStack, useToast } from "@chakra-ui/react";
+import { Box, HStack, Flex, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import FilterPanel from "../components/products/FilterPanel";
@@ -18,18 +18,17 @@ const OurStore = () => {
   const [rating, setRating] = useState(0);
 
   const {
-    error,
     isLoading,
     products,
     productsCount,
     resultPerPage,
-    filteredProductsCount,
+    // filteredProductsCount,
   } = useSelector((store) => store.products);
   console.log(products);
   const dispatch = useDispatch();
 
-  const queryParams = new URLSearchParams(window.location.search);
-  const query = queryParams.get("query");
+  // const queryParams = new URLSearchParams(window.location.search);
+ 
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
@@ -43,7 +42,7 @@ const OurStore = () => {
     dispatch(getProducts(currentPage, price, category, rating));
   }, [dispatch, currentPage, price, category, rating]);
 
-  const toast = useToast();
+  
 
   return (
     <Box bgColor="#f5f5f7">

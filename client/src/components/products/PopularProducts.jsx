@@ -16,7 +16,7 @@ const PopularProducts = () => {
     // if (popularProducts.length === 0) {
     dispatch(getPopularProducts());
     // }
-  }, []);
+  }, [dispatch]);
   return (
     <Box pb="30px">
       <Heading as="h2" size="lg" fontWeight={500} my="30px" border>

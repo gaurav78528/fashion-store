@@ -1,22 +1,7 @@
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Stack,
-  useColorModeValue,
-  useToast,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { updatePassword } from "../redux/profile/action";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Flex, Heading, Stack, useColorModeValue } from "@chakra-ui/react";
 import UpdatePasswordForm from "../components/auth/UpdatePasswordForm";
 
 const UpdatePassword = () => {
-  
   return (
     <Flex
       minH={"100vh"}

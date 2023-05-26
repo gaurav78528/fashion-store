@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   MdAdd,
   MdDashboard,
-  MdExpandMore,
   MdGroups,
   MdOutlineExpandMore,
   MdOutlineFactCheck,
   MdReviews,
-  MdSupervisorAccount,
   MdViewList,
-  MdViewSidebar,
   MdMenu,
 } from "react-icons/md";
 import {
@@ -20,10 +17,10 @@ import {
   useProSidebar,
 } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import { Box, Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 const SideBarComp = () => {
-  const { collapseSidebar, isCollapsed } = useProSidebar();
+  const { collapseSidebar } = useProSidebar();
 
   //   const [isExpanded, setIsExpanded] = useState(true);
   //   function handleToggle() {

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   Button,
   useDisclosure,
@@ -7,7 +7,6 @@ import {
   DrawerContent,
   DrawerCloseButton,
   DrawerBody,
-  Checkbox,
   Flex,
   Tag,
   Heading,
@@ -24,7 +23,7 @@ import {
 import { AiFillFilter } from "react-icons/ai";
 
 const categories = ["mens", "womens", "kids"];
-const productsStock = ["In Stock", "Out Of Stock"];
+// const productsStock = ["In Stock", "Out Of Stock"];
 
 const FilterPanel = ({
   price,
@@ -103,7 +102,7 @@ const FilterPanel = ({
                   colorScheme="red"
                   defaultValue={price}
                   onChange={priceHandler}
-                  aria-label={["min", "max"]}
+                  // aria-label={["min", "max"]}
                   min={0}
                   max={15000}
                   step={100}

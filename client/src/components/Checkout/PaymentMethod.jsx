@@ -1,22 +1,13 @@
 import {
   Heading,
-  FormControl,
-  GridItem,
-  FormLabel,
-  Input,
-  SimpleGrid,
-  InputLeftAddon,
-  InputGroup,
-  Textarea,
-  FormHelperText,
   Stack,
   Box,
   Flex,
   Button,
-  InputLeftElement,
+
 } from "@chakra-ui/react";
 import { AiFillCreditCard } from "react-icons/ai";
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef } from "react";
 // import "react-credit-cards/es/styles-compiled.css";
 import {
   CardNumberElement,
@@ -26,9 +17,8 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-import StripeCheckout from "react-stripe-checkout";
+
 import { useSelector, useDispatch } from "react-redux";
-import { payment } from "../../redux/payment/action";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../redux/orders/action";
 
@@ -42,7 +32,7 @@ const PaymentMethod = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { isLoading, paymentInfo } = useSelector((state) => state.payment);
+  const { isLoading } = useSelector((state) => state.payment);
   // console.log(isLoading);
 
   // card no 4000 0027 6000 3184
@@ -80,7 +70,7 @@ const PaymentMethod = () => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:4500/payment/process",
+        "/payment/process",
         paymentData,
         config
       );

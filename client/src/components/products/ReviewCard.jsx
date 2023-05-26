@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 

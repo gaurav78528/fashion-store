@@ -1,11 +1,6 @@
 import {
   Heading,
-  FormControl,
-  GridItem,
-  FormLabel,
-  Input,
-  Select,
-  HStack,
+
   Box,
   Text,
   VStack,
@@ -16,7 +11,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import CartItem from "../cart/CartItem";
 
 const ReviewOrder = ({ step, setStep, progress, setProgress }) => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);

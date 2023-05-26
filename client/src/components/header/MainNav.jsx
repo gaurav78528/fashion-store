@@ -7,36 +7,18 @@ import {
   Input,
   InputGroup,
   InputRightAddon,
-  Select,
   Spacer,
   Text,
-  useDisclosure,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerOverlay,
-  Drawer,
-  DrawerHeader,
-  VStack,
   Menu,
   MenuItem,
   MenuGroup,
   MenuDivider,
   MenuList,
   MenuButton,
-  useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  BiCart,
-  BiCategory,
-  BiGitCompare,
-  BiHeart,
-  BiSearch,
-  BiUser,
-} from "react-icons/bi";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import { RxHamburgerMenu } from "react-icons/rx";
+import React, { useEffect } from "react";
+import { BiCart, BiHeart, BiSearch, BiUser } from "react-icons/bi";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { getCartItems } from "../redux/cart/action";
 import { logoutUser } from "../../redux/auth/action";
@@ -44,19 +26,15 @@ import { logoutUser } from "../../redux/auth/action";
 // import MainNav from "./header/MainNav";
 import { toast } from "react-toastify";
 const MainNav = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
   const { cartItems } = useSelector((state) => state.cart);
   const { isAuthenticated, user, message, error, success } = useSelector(
     (state) => state.auth
   );
   console.log({ isAuthenticated, user });
-  const [query, setQuery] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
+  // const [query, setQuery] = useState("");
+  // const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   // const location = queryParams.get("location");
-
-  const navigate = useNavigate();
 
   // console.log({ queryParams, term });
 
@@ -65,15 +43,17 @@ const MainNav = () => {
     dispatch(logoutUser());
   };
 
-  const handleSearch = () => {
-    // console.log(query);
-    if (query.trim()) {
-      // history.push(`/store/${query}`);
-      setSearchParams({ query: query });
+  const handleSearch = () => {};
 
-      // navigate("/store");
-    }
-  };
+  // const handleSearch = () => {
+  //   // console.log(query);
+  //   if (query.trim()) {
+  //     // history.push(`/store/${query}`);
+  //     setSearchParams({ query: query });
+
+  //     // navigate("/store");
+  //   }
+  // };
 
   useEffect(() => {
     if (error) {
@@ -106,7 +86,7 @@ const MainNav = () => {
         <Input
           type="text"
           placeholder="search product here"
-          onChange={(e) => setQuery(e.target.value)}
+          // onChange={(e) => setQuery(e.target.value)}
         />
         <InputRightAddon
           _hover={{ bgColor: "#ce9739" }}

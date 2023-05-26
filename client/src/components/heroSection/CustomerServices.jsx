@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack, Text } from "@chakra-ui/react";
 import { FaRegCreditCard, FaShippingFast } from "react-icons/fa";
 import { AiOutlineGift } from "react-icons/ai";
 import { BiSupport } from "react-icons/bi";

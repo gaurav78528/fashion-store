@@ -123,7 +123,7 @@ const UpdateProductForm = () => {
       navigate("/admin/products");
     }
     dispatch({ type: UPDATE_PRODUCT_RESET });
-  }, [dispatch, error, message, isUpdated, id, product, updateError]);
+  }, [dispatch, error, message, navigate, isUpdated, id, product, updateError]);
 
   return (
     <Box

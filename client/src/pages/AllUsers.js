@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import User from "../components/Admin/Users/User";
 import { deleteUser, getAllUsers } from "../redux/users/action";
 import { DELETE_USER_RESET } from "../redux/users/actionTypes";
 import Loader from "../components/Loader";
@@ -38,7 +37,7 @@ const AllUsers = () => {
     }
 
     dispatch(getAllUsers());
-  }, [error, dispatch, isDeleted, message]);
+  }, [error, dispatch, deleteError, isDeleted, message]);
   return (
     <Box>
       <Heading w="100%" textAlign={"center"} fontWeight={600} my="20px">

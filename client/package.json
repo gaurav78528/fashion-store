@@ -1,5 +1,6 @@
 {
-  "proxy": "http://localhost:4500",
+  "proxy": "http://localhost:4500/",
+  "homepage": ".",
   "name": "fashion-store",
   "version": "0.1.0",
   "private": true,

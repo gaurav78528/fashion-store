@@ -7,14 +7,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
-  Flex,
   Textarea,
-  useDisclosure,
 } from "@chakra-ui/react";
 import ReactStars from "react-rating-stars-component";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { newReview } from "../../redux/products/action";
 
 const SubmitNewReview = ({ isOpen, onOpen, onClose, id: productID }) => {

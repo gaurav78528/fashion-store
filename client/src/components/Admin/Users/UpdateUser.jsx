@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -61,7 +61,17 @@ const UpdateUser = () => {
 
       dispatch({ type: UPDATE_USER_RESET });
     }
-  }, [dispatch, error, isUpdated, navigate, updateError, user, userId]);
+  }, [
+    dispatch,
+    error,
+    isUpdated,
+    navigate,
+    firstName,
+    role,
+    updateError,
+    user,
+    userId,
+  ]);
 
   const updateUserSubmitHandler = (e) => {
     e.preventDefault();

@@ -5,7 +5,7 @@ import { BsTrashFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { addItemToCart, deleteCartItem } from "../../redux/cart/action";
 const CartItem = ({ cartItem }) => {
-  const { product, title, colors, price, quantity, stock, img } = cartItem;
+  const { product, title, price, quantity, stock, img } = cartItem;
 
   const dispatch = useDispatch();
 

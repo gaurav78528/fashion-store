@@ -5,7 +5,7 @@ import SpecialProductCard from "./SpecialProductCard";
 import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
 
 const SpecialProducts = () => {
-  const { error, isLoading, products } = useSelector((store) => store.products);
+  const { products } = useSelector((store) => store.products);
   const dispatch = useDispatch();
   // console.log(products);
 
@@ -14,7 +14,7 @@ const SpecialProducts = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
   return (
     <Box>
       <Heading as="h2" size="lg" fontWeight={500} my="30px" border>

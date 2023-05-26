@@ -12,7 +12,7 @@ const MyOrders = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(myOrders());
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return (

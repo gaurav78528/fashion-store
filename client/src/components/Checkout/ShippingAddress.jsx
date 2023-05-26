@@ -1,25 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
-  Button,
+  
   Heading,
   Flex,
   FormControl,
   FormLabel,
   Input,
   InputGroup,
-  FormHelperText,
-  InputRightElement,
+ 
   InputLeftElement,
   Select,
 } from "@chakra-ui/react";
 import { AiOutlineHome, AiOutlinePhone } from "react-icons/ai";
 import { IoLocationOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
 import { City, Country, State } from "country-state-city";
 
 const ShippingAddress = ({ userInput, setUserInput }) => {
-  const [show, setShow] = React.useState(false);
+  // const [show, setShow] = React.useState(false);
 
   console.log(userInput);
 
@@ -27,7 +25,7 @@ const ShippingAddress = ({ userInput, setUserInput }) => {
     const { name, value } = e.target;
     setUserInput({ ...userInput, [name]: value });
   };
-  const handleClick = () => setShow(!show);
+  // const handleClick = () => setShow(!show);
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">

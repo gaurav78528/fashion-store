@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 
