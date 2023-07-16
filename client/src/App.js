@@ -116,7 +116,7 @@ function App() {
               }
             />
             {/* )} */}
-            <Route
+              <Route
               path="/admin/dashboard"
               element={
                 <AdminProctectedRoute isAdmin={true}>
@@ -127,65 +127,65 @@ function App() {
             <Route
               path="/admin/products"
               element={
-                <ProctectedRoute>
+                <AdminProctectedRoute isAdmin={true}>
                   <AllProducts />
-                </ProctectedRoute>
+                </AdminProctectedRoute>
               }
             />
             <Route
               path="/admin/products/update/:id"
               element={
-                <ProctectedRoute>
+                <AdminProctectedRoute isAdmin={true}>
                   <UpdateProduct />
-                </ProctectedRoute>
+                </AdminProctectedRoute>
               }
             />
             <Route
               path="/admin/product/add"
               element={
-                <ProctectedRoute>
+                <AdminProctectedRoute isAdmin={true}>
                   <AddProduct />
-                </ProctectedRoute>
+                </AdminProctectedRoute>
               }
             />
             <Route
               path="/admin/orders"
               element={
-                <ProctectedRoute>
+                <AdminProctectedRoute isAdmin={true}>
                   <AllOrders />
-                </ProctectedRoute>
+                </AdminProctectedRoute>
               }
             />
             <Route
               path="/admin/orders/update/:id"
               element={
-                <ProctectedRoute>
+                <AdminProctectedRoute isAdmin={true}>
                   <UpdateOrder />
-                </ProctectedRoute>
+                </AdminProctectedRoute>
               }
             />
             <Route
               path="/admin/users"
               element={
-                <ProctectedRoute>
+                <AdminProctectedRoute isAdmin={true}>
                   <AllUsers />
-                </ProctectedRoute>
+                </AdminProctectedRoute>
               }
             />
             <Route
               path="/admin/users/update/:id"
               element={
-                <ProctectedRoute>
+                <AdminProctectedRoute isAdmin={true}>
                   <UpdateUser />
-                </ProctectedRoute>
+                </AdminProctectedRoute>
               }
             />
             <Route
               path="/admin/reviews"
               element={
-                <ProctectedRoute>
+                <AdminProctectedRoute isAdmin={true}>
                   <ProductReviews />
-                </ProctectedRoute>
+                </AdminProctectedRoute>
               }
             />
             {/* <Route
