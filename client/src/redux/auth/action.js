@@ -14,7 +14,7 @@ export const registerUser = (userData) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post("https://fashion-store-backend-8t1o.vercel.app/users/register", userData, config);
+    const { data } = await axios.post("https://fashion-store-nmi0.onrender.com/users/register", userData, config);
     console.log(data);
 
     dispatch({
