@@ -40,10 +40,10 @@ const AllOrders = () => {
       </Heading>
 
       {isLoading ? (
-        orders.map((item) => {
+        new Array(10).map((item) => {
           return (
             <Box key={item._id} my="10px">
-              <Loader heightProps="40px" widthProps={"100vw"} />
+              <Loader heightProps="20px" widthProps={"100vw"} />
             </Box>
           );
         })
